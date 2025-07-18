@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/EM-pulse/static/css/main.f391daeb.css",
+    "main.js": "/EM-pulse/static/js/main.7f4f9a48.js",
+    "index.html": "/EM-pulse/index.html",
+    "main.f391daeb.css.map": "/EM-pulse/static/css/main.f391daeb.css.map",
+    "main.7f4f9a48.js.map": "/EM-pulse/static/js/main.7f4f9a48.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f391daeb.css",
+    "static/js/main.7f4f9a48.js"
+  ]
+}
