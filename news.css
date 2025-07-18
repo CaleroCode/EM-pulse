@@ -36,3 +36,28 @@
   color: #777;
   font-size: 14px;
 }
+
+/* Nuevo estilo para los contenedores de error o carga */
+#noticias-container p {
+  color: #555;  /* Mensaje de error o carga */
+  font-size: 18px;
+  font-style: italic;
+}
+
+/* Asegurarse de que las noticias se alineen bien */
+.noticia h3 {
+  font-size: 20px;
+  color: #222;
+}
+
+/* Ajustes adicionales para mejorar la legibilidad */
+.noticia p {
+  margin-top: 10px;
+}
+
+/* Estilos de carga para cuando las noticias están siendo cargadas */
+#noticias-container p.loading {
+  color: #007bff;
+  font-size: 18px;
+  font-style: italic;
+}

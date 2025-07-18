@@ -1,7 +1,51 @@
-<section id="noticias" class="section">
-  <h2>Últimas noticias sobre Esclerosis Múltiple</h2>
-  <div id="noticias-container">
-    <p>Cargando noticias...</p>
-  </div>
-</section>
+<!-- noticias.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noticias sobre Esclerosis Múltiple</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Enlazar el archivo CSS -->
+</head>
+<body>
+  <section id="noticias" class="section">
+    <h2>Últimas noticias sobre Esclerosis Múltiple</h2>
+    <div id="noticias-container">
+      <p>Cargando noticias...</p>
+    </div>
+  </section>
 
+  <script>
+    // Función para obtener y mostrar las noticias
+    async function obtenerNoticias() {
+      try {
+        const response = await fetch('http://localhost:3000/api/noticias');
+        const data = await response.json();
+        
+        const noticiasContainer = document.getElementById('noticias-container');
+        noticiasContainer.innerHTML = ''; // Limpiar el mensaje de "Cargando noticias..."
+
+        // Crear una lista de noticias
+        const ul = document.createElement('ul');
+        
+        data.articles.forEach(noticia => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <h3>${noticia.title}</h3>
+            <p>${noticia.description}</p>
+            <a href="${noticia.url}" target="_blank">Leer más</a>
+          `;
+          ul.appendChild(li);
+        });
+
+        noticiasContainer.appendChild(ul);
+      } catch (error) {
+        document.getElementById('noticias-container').innerHTML = 'Error al cargar las noticias.';
+      }
+    }
+
+    // Llamar a la función para cargar las noticias
+    obtenerNoticias();
+  </script>
+</body>
+</html>
