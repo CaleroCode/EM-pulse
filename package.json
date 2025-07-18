@@ -4,7 +4,9 @@
   "private": true,
   "homepage": "https://calerocode.github.io/EM-pulse",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  },
   "scripts": {
     "deploy": "gh-pages -d ."
   }
