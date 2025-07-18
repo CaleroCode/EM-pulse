@@ -1,0 +1,38 @@
+/* Contenedor principal de noticias */
+#noticias-container {
+  padding: 20px;  /* Espaciado interno para el contenedor */
+  display: block;  /* Asegura que los elementos se apilen */
+}
+
+/* Estilo para cada noticia */
+.noticia {
+  padding: 15px;  /* Espaciado interno */
+  background-color: #f9f9f9;  /* Fondo suave */
+  border: 1px solid #ddd;  /* Borde sutil */
+  border-radius: 5px;  /* Bordes redondeados */
+  margin-bottom: 20px;  /* Espacio entre noticias */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Sombra sutil para darle profundidad */
+}
+
+/* Estilo para los enlaces */
+.noticia h3 a {
+  text-decoration: none;
+  color: #007bff;  /* Color azul para el enlace */
+}
+
+.noticia h3 a:hover {
+  text-decoration: underline;  /* Subrayado cuando pasa el ratón */
+}
+
+/* Estilo para el texto dentro de la noticia */
+.noticia p {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Estilo para la fecha */
+.noticia small {
+  color: #777;
+  font-size: 14px;
+}
