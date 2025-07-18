@@ -2,7 +2,7 @@
   "name": "em-pulse",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://calerocode.github.io/EM-pulse/", 
+  "homepage": "https://calerocode.github.io/EM-pulse",
   "devDependencies": {
     "gh-pages": "^6.3.0"
   },
