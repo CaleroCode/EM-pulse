@@ -169,10 +169,13 @@ button:hover {
 }
 
 footer {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  text-align: relative;
   padding: 2rem;
   background-color: var(--cyan-blue);
   color: var(--white);
+  text-align: center;
 }
 
 .social-links a {
@@ -220,3 +223,184 @@ footer {
     }
   }
 }
+
+/* Estilos seccion sintomas.html */
+.section {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: auto;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #f0f0f0;
+}
+
+.section p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Categorías de síntomas --- */
+.symptom-category {
+  border: 1px solid #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 40px;
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+}
+
+.symptom-category h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  text-align: left;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 8px;
+}
+
+/* --- Agrupación de síntomas dentro de una categoría --- */
+.symptom-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* --- Tarjetas individuales de cada síntoma --- */
+.symptom-card {
+  flex: 1 1 250px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  max-width: 300px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.symptom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.symptom-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.symptom-card h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.symptom-card p {
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  line-height: 1.5;
+}
+
+/* darkmode */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode header {
+  background-color: #333;
+}
+
+body.dark-mode footer {
+  background-color: #333;
+  color: #e0e0e0;
+}
+
+body.dark-mode .navbar {
+  background-color: #333;
+  color: #e0e0e0;
+}
+
+body.dark-mode .navbar a {
+  color: #e0e0e0;
+}
+
+body.dark-mode .navbar a:hover {
+  color: #8ab4f8;
+}
+
+body.dark-mode .hamburger span {
+  background-color: #e0e0e0;
+}
+
+body.dark-mode .content-container {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+body.dark-mode .section {
+  background-color: #222;
+  color: #e0e0e0;
+}
+
+body.dark-mode button {
+  background-color: #444;
+  color: white;
+  border: none;
+}
+
+body.dark-mode button:hover {
+  background-color: #555;
+}
+
+body.dark-mode input, body.dark-mode textarea {
+  background-color: #444;
+  color: #e0e0e0;
+  border: 1px solid #555;
+}
+
+body.dark-mode input:focus, body.dark-mode textarea:focus {
+  border-color: #8ab4f8;
+}
+
+body.dark-mode .social-links a {
+  color: #8ab4f8;
+}
+
+body.dark-mode .social-links a:hover {
+  color: #bb86fc;
+}
+
+body.dark-mode #errores, body.dark-mode #mensajeOk {
+  color: #e0e0e0;
+}
+
+body.dark-mode #form-response {
+  color: #e0e0e0;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button, input, textarea {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  transition: color 0.3s ease;
+}
+

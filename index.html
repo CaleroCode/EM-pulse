@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google" content="notranslate">
   <title>EM-PULSE</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
   <link rel="stylesheet" href="news.js">
 </head>
 <body>
@@ -72,14 +75,27 @@
 
 
 
-  <footer>
-    <p>Iván © 2025</p>
-    <div class="social-links">
-      <a href="https://github.com/CaleroCode" target="_blank">GitHub</a>
-      <a href="https://instagram.com/ivancalero.wildlife" target="_blank">Instagram</a>
-      <a href="https://www.linkedin.com/in/ivancalero" target="_blank">LinkedIn</a>
+ <footer>
+    <div class="footer-left">
+      <button onclick="toggleDarkMode()">🌙 Modo Oscuro</button>
+    </div>
+
+    <div class="footer-center">
+      <p>Iván Calero © 2025</p>
+      <div class="social-links">
+        <a href="https://github.com/CaleroCode" target="_blank">GitHub <i class="fab fa-github"></i></a>
+        <a href="https://instagram.com/ivancalero.wildlife" target="_blank">Instagram <i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/ivancalero" target="_blank">LinkedIn <i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <button onclick="changeLanguage('es')">🇪🇸</button>
+      <button onclick="changeLanguage('en')">🇬🇧</button>
+      <button onclick="changeLanguage('fr')">🇫🇷</button>
     </div>
   </footer>
+
 
   <script src="script.js"></script>
 </body>

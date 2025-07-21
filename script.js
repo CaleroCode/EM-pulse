@@ -133,3 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
   bindNavLinks();
   bindFormValidation(); // si tienes el formulario en index.html
 });
+
+
+// Darkmode
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+}
+
+function changeLanguage(lang) {
+  alert("Idioma cambiado a: " + lang);
+  // Aquí podrías añadir lógica real para cambiar contenido o redirigir
+}
