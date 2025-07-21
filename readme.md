@@ -28,6 +28,13 @@ Bienvenid@s a **EM-PULSE**, una aplicación web diseñada para informar, educar 
 
 ---
 
+## 21/07/2025 Mejoras
+
+- Versión en inglés y en otros idiomas (en proceso)
+- Accesibilidad mejorada (para personas con discapacidad visual y/o auditiva)
+- Modo oscuro para facilitar la lectura.
+- Sección "Síntomas"
+
 ## 💡 Próximas mejoras
 
 - EMpulseAPP
