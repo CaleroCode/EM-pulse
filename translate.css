@@ -1,0 +1,60 @@
+/* 22.07.2025 - no funciona 
+
+const traducciones = {
+  es: {
+    "Bienvenido a este espacio": "Bienvenido a este espacio dedicado a la esclerosis múltiple...",
+    "Este sitio nace con el propósito": "Este sitio nace con el propósito de informar, acompañar y proporcionar herramientas...",
+    "Porque en esta batalla": "Porque en esta batalla, nadie debería sentirse solo...",
+    "¡Bienvenid@ a EM-pulse!": "¡Bienvenid@ a EM-pulse!"
+  },
+  en: {
+    "Bienvenido a este espacio": "Welcome to this space dedicated to multiple sclerosis...",
+    "Este sitio nace con el propósito": "This site was created to inform, support and provide tools...",
+    "Porque en esta batalla": "Because in this battle, no one should feel alone...",
+    "¡Bienvenid@ a EM-pulse!": "Welcome to EM-pulse!"
+  },
+  fr: {
+    "Bienvenido a este espacio": "Bienvenue dans cet espace dédié à la sclérose en plaques...",
+    "Este sitio nace con el propósito": "Ce site a été créé pour informer, accompagner et offrir des outils...",
+    "Porque en esta batalla": "Parce que dans ce combat, personne ne devrait être seul...",
+    "¡Bienvenid@ a EM-pulse!": "Bienvenue sur EM-pulse !"
+  }
+};
+
+function changeLanguage(lang) {
+  localStorage.setItem("lang", lang);
+
+  document.body.querySelectorAll('*').forEach(element => {
+    element.childNodes.forEach(child => {
+      if (child.nodeType === 3) {  // Solo nodos de texto
+        const originalText = child.nodeValue.trim();
+        if (traducciones[lang][originalText]) {
+          child.nodeValue = traducciones[lang][originalText];
+        }
+      }
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const lang = localStorage.getItem("lang") || "es"; // Idioma por defecto
+  changeLanguage(lang);
+
+  const footer = document.querySelector('.footer-right');
+
+  const botonEspañol = document.createElement('button');
+  botonEspañol.textContent = '🇪🇸';
+  botonEspañol.onclick = () => changeLanguage('es');
+
+  const botonIngles = document.createElement('button');
+  botonIngles.textContent = '🇬🇧';
+  botonIngles.onclick = () => changeLanguage('en');
+
+  const botonFrances = document.createElement('button');
+  botonFrances.textContent = '🇫🇷';
+  botonFrances.onclick = () => changeLanguage('fr');
+
+  footer.appendChild(botonEspañol);
+  footer.appendChild(botonIngles);
+  footer.appendChild(botonFrances);
+}); */

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const contentContainer = document.querySelector('.content-container');
 
-  // -------------------- MENÚ HAMBURGUESA --------------------
+// menu hamburguesa
   function bindHamburger() {
     const hamburger = document.getElementById("hamburger");
     const navLinks = document.getElementById("nav-links");
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // -------------------- VALIDACIÓN DE FORMULARIO --------------------
+// validacion de formulario 
   function bindFormValidation() {
     const form = document.getElementById("contact-form");
     if (!form) return;
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // -------------------- FETCH NOTICIAS DESDE API --------------------
+// noticias desde API
   async function fetchNoticias() {
     const API_KEY = '7b90f2bb076c4c58b58a305bcf742730';
     const query = 'esclerosis múltiple';
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // -------------------- CARGAR SECCIONES EXTERNAS --------------------
+// cargar secciones externas 
   function cargarSeccion(seccion) {
     const url = `${seccion}.html`;
 
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(html => {
         contentContainer.innerHTML = html;
 
-        // Reconectar eventos dentro de contenido dinámico
+// eventos dentro de contenido dnamico
         bindHamburger();
         bindFormValidation();
         if (seccion === 'noticias') fetchNoticias();
@@ -115,23 +115,23 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // -------------------- NAVEGACIÓN ENTRE SECCIONES --------------------
+// navegacion entre secciones
   function bindNavLinks() {
     const navLinks = document.querySelectorAll('.nav-links a');
 
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const seccion = link.getAttribute('href').substring(1); // Quita el '#' del href
+        const seccion = link.getAttribute('href').substring(1);
         cargarSeccion(seccion);
       });
     });
   }
 
-  // Inicialización
+// Inicialización
   bindHamburger();
   bindNavLinks();
-  bindFormValidation(); // si tienes el formulario en index.html
+  bindFormValidation();
 });
 
 
@@ -142,5 +142,4 @@ function toggleDarkMode() {
 
 function changeLanguage(lang) {
   alert("Idioma cambiado a: " + lang);
-  // Aquí podrías añadir lógica real para cambiar contenido o redirigir
 }

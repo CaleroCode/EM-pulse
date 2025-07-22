@@ -1,0 +1,88 @@
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode header {
+  background-color: #333;
+}
+
+body.dark-mode footer {
+  background-color: #333;
+  color: #e0e0e0;
+}
+
+body.dark-mode .navbar {
+  background-color: #333;
+  color: #e0e0e0;
+}
+
+body.dark-mode .navbar a {
+  color: #e0e0e0;
+}
+
+body.dark-mode .navbar a:hover {
+  color: #8ab4f8;
+}
+
+body.dark-mode .hamburger span {
+  background-color: #e0e0e0;
+}
+
+body.dark-mode .content-container {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+body.dark-mode .section {
+  background-color: #222;
+  color: #e0e0e0;
+}
+
+body.dark-mode button {
+  background-color: #444;
+  color: white;
+  border: none;
+}
+
+body.dark-mode button:hover {
+  background-color: #555;
+}
+
+body.dark-mode input, body.dark-mode textarea {
+  background-color: #444;
+  color: #e0e0e0;
+  border: 1px solid #555;
+}
+
+body.dark-mode input:focus, body.dark-mode textarea:focus {
+  border-color: #8ab4f8;
+}
+
+body.dark-mode .social-links a {
+  color: #8ab4f8;
+}
+
+body.dark-mode .social-links a:hover {
+  color: #bb86fc;
+}
+
+body.dark-mode #errores, body.dark-mode #mensajeOk {
+  color: #e0e0e0;
+}
+
+body.dark-mode #form-response {
+  color: #e0e0e0;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button, input, textarea {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  transition: color 0.3s ease;
+}
