@@ -40,6 +40,16 @@ main {
   transition: transform 0.3s ease;
   color: white;
 }
+.section a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.section a:hover {
+  color: var(--gray-blue);
+}
 
 .content-container {
   scroll-margin-top: 120px;

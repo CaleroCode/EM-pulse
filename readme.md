@@ -28,6 +28,12 @@ Bienvenid@s a **EM-PULSE**, una aplicación web diseñada para informar, educar 
 
 ---
 
+## 26/07/2025 Mejoras
+
+- Corrección de errores
+- Sección "Asociaciones"
+- Sección "Tratamientos"
+
 ## 23/07/2025 Mejoras
 
 - Versión en inglés y en otros idiomas (en proceso)
