@@ -1,0 +1,16 @@
+# Node
+node_modules/
+npm-debug.log
+dist/
+.env
+.env.local
+.env.development
+.env.production
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

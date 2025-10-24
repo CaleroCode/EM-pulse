@@ -1,0 +1,26 @@
+.post h2 {
+  font-size: 1.8rem !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 1 !important;
+}
+
+.post h3 {
+  font-size: 0.8rem !important;
+  color: #000000 !important;
+  margin-top: -1px !important;
+  margin-bottom: 4px !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+pre code {
+  background-color: #000000;
+  color: white;
+  padding: 12px;
+  display: block;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+}

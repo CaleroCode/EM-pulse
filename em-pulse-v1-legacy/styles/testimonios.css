@@ -1,0 +1,20 @@
+.testimonio {
+    border: 1px solid white;
+    padding: 20px !important; 
+}
+
+.testimonio h2 {
+  font-size: 1.8rem !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 1 !important;
+}
+
+.testimonio h3 {
+  font-size: 0.8rem !important;
+  color: #000000 !important;
+  margin-top: -1px !important;
+  margin-bottom: 4px !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
