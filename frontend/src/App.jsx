@@ -11,7 +11,6 @@ import {
   AllNewsSection,
   AssociationsSection,
   ICDATASection,
-  ChatEmPulse,
   IndexPage,
   WhatIsEM,
 } from "./components";
@@ -103,11 +102,6 @@ function App() {
   // Estado: ICDATA
   // ======================
   const [showICDATA, setShowICDATA] = useState(false);
-
-  // ======================
-  // Estado: Chat EM-PULSE
-  // ======================
-  const [showChat, setShowChat] = useState(false);
 
   // ======================
   // Estado: Página Index
@@ -204,7 +198,7 @@ function App() {
         setExternalNewsError("");
 
         const response = await fetch(
-          `${API_BASE_URL}/api/news/external_recent/?language=${newsLanguageFilter}`
+          `${API_BASE_URL}/api/communications/news/external_recent/?language=${newsLanguageFilter}`
         );
         if (!response.ok) {
           throw new Error("No se pudieron cargar las noticias externas.");
@@ -402,7 +396,7 @@ function App() {
     try {
       setAllNewsLoading(true);
       const response = await fetch(
-        `${API_BASE_URL}/api/news/external_all/?language=${newsLanguageFilter}`
+        `${API_BASE_URL}/api/communications/news/external_all/?language=${newsLanguageFilter}`
       );
       if (!response.ok) {
         throw new Error("No se pudieron cargar todas las noticias.");
@@ -508,7 +502,6 @@ function App() {
             setShowProfilePage={setShowProfilePage}
             setShowAssociations={setShowAssociations}
             setShowICDATA={setShowICDATA}
-            setShowChat={setShowChat}
             setShowWhatIsEM={setShowWhatIsEM}
             setShowTypesAndDiagnosis={setShowTypesAndDiagnosis}
             setShowSymptomsDetail={setShowSymptomsDetail}
@@ -531,8 +524,6 @@ function App() {
           <ICDATASection
             showICDATA={showICDATA}
           />
-        ) : showChat ? (
-          <ChatEmPulse />
         ) : showMovement ? (
           <EMForma
             showMovement={showMovement}

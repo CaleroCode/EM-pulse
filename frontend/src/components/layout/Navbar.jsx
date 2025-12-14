@@ -389,22 +389,6 @@ export default function Navbar({
               )}
             </div>
 
-            {/* HABLA - Azul */}
-            <button
-              onClick={() => {
-                setShowChat(true);
-                setShowAssociations(false);
-                setShowICDATA(false);
-                setShowWhatIsEM(false);
-                setShowTypesAndDiagnosis(false);
-                setMobileMenuOpen(false);
-              }}
-              className="w-full text-left px-4 py-3 font-semibold text-white rounded-lg transition-all duration-200 flex items-center gap-2 hover:shadow-lg hover:shadow-[#15bce6]/40"
-              style={{ background: "linear-gradient(135deg, #15bce6 0%, #0d7fa8 100%)" }}
-            >
-              HABLA
-            </button>
-
             {/* ICDATA */}
             <button
               onClick={() => {
@@ -690,23 +674,8 @@ export default function Navbar({
           </div>
           </div>
 
-          {/* Espaciador derecho para empujar HABLA e ICDATA */}
+          {/* Espaciador derecho para empujar ICDATA */}
           <div className="flex-1"></div>
-
-          {/* HABLA - Azul (color EM) con gradiente */}
-          <button
-            onClick={() => {
-              setShowAssociations(false);
-              setShowICDATA(false);
-              setShowChat(true);
-              setShowWhatIsEM(false);
-              setShowTypesAndDiagnosis(false);
-            }}
-            className="px-3 py-1.5 rounded-lg text-white font-semibold text-[11px] transition-all duration-200 hover:shadow-lg hover:shadow-[#15bce6]/40 hover:scale-105"
-            style={{ background: "linear-gradient(135deg, #15bce6 0%, #0d7fa8 100%)" }}
-          >
-            HABLA
-          </button>
 
           {/* Separador con espacio */}
           <div className="h-6 w-1 bg-empulseAccent/20 mx-1"></div>
