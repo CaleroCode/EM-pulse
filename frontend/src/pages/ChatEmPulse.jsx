@@ -15,37 +15,17 @@ export default function ChatEmPulse() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [ollama_status, setOllamaStatus] = useState(null);
   const messagesEndRef = useRef(null);
 
-  // Verificar estado de la API al cargar
+  // Auto-scroll cuando hay nuevos mensajes
   useEffect(() => {
-    checkChatHealth();
-  }, []);
-
-  const checkChatHealth = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/communications/chat-health/`);
-      const data = await response.json();
-      setOllamaStatus(data);
-    } catch {
-      setOllamaStatus({
-        status: 'error',
-        message: 'No se puede conectar con el backend'
-      });
-    }
-  };
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSend = async (e) => {
     e.preventDefault();
     
     if (!input.trim()) return;
-
-    // Verificar que backend está disponible
-    if (ollama_status?.status === 'error') {
-      setError('Backend no disponible. Verifica que los servidores estén ejecutándose.');
-      return;
-    }
 
     // Añadir mensaje del usuario
     const userMessage = {
