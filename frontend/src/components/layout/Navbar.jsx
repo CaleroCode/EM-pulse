@@ -400,14 +400,20 @@ export default function Navbar({
                   </button>
                   <button 
                     onClick={() => {
+                      setShowAllNews(true);
+                      setShowForum(false);
                       setShowChat(false);
                       setShowAssociations(false);
                       setShowICDATA(false);
                       setShowWhatIsEM(false);
                       setShowTypesAndDiagnosis(false);
-                      handleNavigate("newsletter");
+                      setShowMovement(false);
+                      setShowMentalHealth(false);
+                      setShowRights(false);
+                      setShowGuides(false);
                       setMobileMenuOpen(false);
                       setExpandedMenu(null);
+                      scrollToTop();
                     }}
                     className="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/10 rounded-lg transition-all duration-200">
                     Newsletter
