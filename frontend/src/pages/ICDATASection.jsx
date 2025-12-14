@@ -54,7 +54,7 @@ const ICDATASection = ({ showICDATA }) => {
           <div className="text-center pt-4 border-t border-empulseAccent/20">
             <p className="text-empulseSoft">
               <a
-                href="http://icdata.onreal.com"
+                href="http://icdata.onrender.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-[#2D8659] hover:text-[#1f5d3f] transition-colors"
@@ -64,12 +64,12 @@ const ICDATASection = ({ showICDATA }) => {
               <span className="text-empulseSoft/70">
                 (
                 <a
-                  href="http://icdata.onreal.com"
+                  href="http://icdata.onrender.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#2D8659] hover:text-[#1f5d3f] transition-colors"
                 >
-                  icdata.onreal.com
+                  icdata.onrender.com
                 </a>
                 )
               </span>
