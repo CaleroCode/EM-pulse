@@ -9,9 +9,9 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 import os
 
-# Hugging Face API
+# Hugging Face API - Usar distilgpt2 que es más rápido
 HF_API_TOKEN = os.getenv("HUGGINGFACE_API_KEY", "")
-HF_API_URL = "https://api-inference.huggingface.co/models/meta-llama/Llama-2-7b-chat-hf"
+HF_API_URL = "https://api-inference.huggingface.co/models/distilgpt2"
 
 # Prompt del sistema para el asistente de EM
 SYSTEM_PROMPT = """Eres un asistente empático y compasivo especializado en proporcionar apoyo emocional e información sobre la esclerosis múltiple (EM).
@@ -70,9 +70,8 @@ def chat_em_pulse(request):
         payload = {
             "inputs": full_prompt,
             "parameters": {
-                "max_new_tokens": 256,
+                "max_new_tokens": 128,
                 "temperature": 0.7,
-                "top_p": 0.9,
             }
         }
         
@@ -80,12 +79,12 @@ def chat_em_pulse(request):
             HF_API_URL,
             json=payload,
             headers=headers,
-            timeout=30
+            timeout=60
         )
         
         if response.status_code != 200:
             return Response(
-                {'error': f'Error en Hugging Face: {response.status_code}'},
+                {'error': f'Error en Hugging Face: {response.status_code} - {response.text}'},
                 status=status.HTTP_502_BAD_GATEWAY
             )
         
@@ -94,11 +93,8 @@ def chat_em_pulse(request):
         # Extraer el texto de la respuesta
         if isinstance(response_data, list) and len(response_data) > 0:
             ai_reply = response_data[0].get('generated_text', '').strip()
-            # Limpiar el prompt del output
-            if "Asistente:" in ai_reply:
-                ai_reply = ai_reply.split("Asistente:")[-1].strip()
         else:
-            ai_reply = ''
+            ai_reply = str(response_data).strip()
         
         if not ai_reply:
             return Response(
@@ -108,7 +104,7 @@ def chat_em_pulse(request):
         
         return Response({
             'reply': ai_reply,
-            'model': 'Llama-2 (Hugging Face)',
+            'model': 'DistilGPT-2 (Hugging Face)',
             'success': True
         })
     
