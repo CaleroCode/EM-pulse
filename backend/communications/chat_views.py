@@ -9,9 +9,9 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 import os
 
-# Hugging Face API - Usar distilgpt2 que es más rápido
+# Hugging Face API - Usar Microsoft DialoGPT que es más robusto
 HF_API_TOKEN = os.getenv("HUGGINGFACE_API_KEY", "")
-HF_API_URL = "https://router.huggingface.co/models/distilgpt2"
+HF_API_URL = "https://router.huggingface.co/models/microsoft/DialoGPT-small"
 
 # Prompt del sistema para el asistente de EM
 SYSTEM_PROMPT = """Eres un asistente empático y compasivo especializado en proporcionar apoyo emocional e información sobre la esclerosis múltiple (EM).
