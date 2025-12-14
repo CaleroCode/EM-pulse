@@ -224,14 +224,7 @@ VITE_HF_TOKEN=your-huggingface-token
 
 Ver: [HOW_TO_VIEW_CHANGES.md](HOW_TO_VIEW_CHANGES.md#comandos-útiles)
 
-## 📞 Contacto y Soporte
-
-- **Privacidad**: privacy@empulse.es
-- **Legal**: legal@empulse.es
-- **General**: info@empulse.es
-- **Teléfono**: +34 900 123 456
-
-## 👨‍💼 Créditos
+## ‍💼 Créditos
 
 Desarrollado por: Iván Calero (ICDATA)
 Base de datos: NewsAPI
@@ -239,7 +232,8 @@ IA Chat: Hugging Face
 
 ## 📄 Licencia
 
-Proyecto de código abierto para fines educativos.
+Proyecto final personal del **Full Stack Developer SuperKode de Factoria F5**. 
+Código abierto para fines educativos y de demostración.
 
 ## 🎉 Status
 
