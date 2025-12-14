@@ -108,16 +108,6 @@ export default function Navbar({
     setShowICDATA(false);
     setShowChat(false);
     setShowWhatIsEM(false);
-    scrollToSection(sectionId);
-  };
-
-  // Función para scroll suave hacia el top
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
     setShowTypesAndDiagnosis(false);
     setShowSymptomsDetail(false);
     setShowMovement(false);
@@ -126,16 +116,16 @@ export default function Navbar({
     setShowGuides(false);
     setShowForum(false);
     setShowAllNews(false);
-    
-    // Si necesita navegar a una sección, hacerlo a través de setSectionToNavigate
-    // para que ocurra después de que se cierre el Forum
-    if (setSectionToNavigate) {
-      setSectionToNavigate(sectionId);
-    } else {
-      scrollToSection(sectionId);
-    }
-    
+    scrollToSection(sectionId);
     setMobileMenuOpen(false);
+  };
+
+  // Función para scroll suave hacia el top
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
 
   const toggleSubmenu = (menuName) => {

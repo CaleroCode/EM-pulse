@@ -1,8 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '../components/ui/Button';
 
 export default function MentalHealth({ showMentalHealth, setShowMentalHealth }) {
   const [showMenu, setShowMenu] = useState(false);
+
+  useEffect(() => {
+    if (showMentalHealth) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [showMentalHealth]);
 
   if (!showMentalHealth) return null;
 

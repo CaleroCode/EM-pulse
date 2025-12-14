@@ -545,7 +545,7 @@ function App() {
             setShowGuides={setShowGuides}
           />
         ) : showForum ? (
-          <Forum user={user} profileImage={profileImage} />
+          <Forum user={user} profileImage={profileImage} showForum={showForum} />
         ) : showAllNews ? (
           <AllNewsSection
             showAllNews={showAllNews}

@@ -1,6 +1,16 @@
+import { useEffect } from 'react';
 import Button from '../components/ui/Button';
 
 export default function WhatIsEM({ showWhatIsEM, setShowWhatIsEM }) {
+  useEffect(() => {
+    if (showWhatIsEM) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [showWhatIsEM]);
+
   if (!showWhatIsEM) return null;
 
   return (

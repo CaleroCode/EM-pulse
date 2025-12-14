@@ -1,6 +1,16 @@
+import { useEffect } from 'react';
 import principalImage from "../assets/image/principal.jpg";
 
 const ICDATASection = ({ showICDATA }) => {
+  useEffect(() => {
+    if (showICDATA) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [showICDATA]);
+
   if (!showICDATA) return null;
 
   return (

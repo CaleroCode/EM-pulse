@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MessageCircle, Heart, Reply, Search, Plus, User, Clock, X } from "lucide-react";
 import { forumAPI } from "../services/forumAPI";
 
-export default function Forum({ user, profileImage }) {
+export default function Forum({ user, profileImage, showForum }) {
   const [selectedCategory, setSelectedCategory] = useState("general");
   const [showNewPost, setShowNewPost] = useState(false);
   const [expandedPost, setExpandedPost] = useState(null);
@@ -15,6 +15,16 @@ export default function Forum({ user, profileImage }) {
   const [error, setError] = useState(null);
   const [showReplyForm, setShowReplyForm] = useState(null);
   const [replyText, setReplyText] = useState("");
+
+  // Scroll al top cuando se abre el Forum
+  useEffect(() => {
+    if (showForum) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [showForum]);
 
   // Obtener identificador único del usuario (email o username)
   const userIdentifier = user?.email || user?.username || "anonymous";

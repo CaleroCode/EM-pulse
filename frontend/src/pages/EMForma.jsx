@@ -1,8 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '../components/ui/Button';
 
 export default function EMForma({ showMovement, setShowMovement }) {
   const [showMenu, setShowMenu] = useState(false);
+
+  useEffect(() => {
+    if (showMovement) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [showMovement]);
 
   if (!showMovement) return null;
 

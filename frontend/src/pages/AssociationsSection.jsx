@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { MapPin, Phone, Mail, Globe, ChevronDown } from "lucide-react";
 import Button from '../components/ui/Button';
 
@@ -225,6 +225,15 @@ const AssociationsSection = ({ showAssociations }) => {
   const [selectedCommunity, setSelectedCommunity] = useState("all");
   const [expandedAssociation, setExpandedAssociation] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    if (showAssociations) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [showAssociations]);
 
   // Comunidades autónomas únicas
   const communities = useMemo(() => {

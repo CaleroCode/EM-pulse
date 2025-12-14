@@ -1,8 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '../components/ui/Button';
 
 export default function TusDerechos({ showRights, setShowRights }) {
   const [showMenu, setShowMenu] = useState(false);
+
+  useEffect(() => {
+    if (showRights) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [showRights]);
 
   if (!showRights) return null;
 

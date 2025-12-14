@@ -1,6 +1,16 @@
+import { useEffect } from 'react';
 import Button from '../components/ui/Button';
 
 export default function TypesAndDiagnosis({ showTypesAndDiagnosis, setShowTypesAndDiagnosis }) {
+  useEffect(() => {
+    if (showTypesAndDiagnosis) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [showTypesAndDiagnosis]);
+
   if (!showTypesAndDiagnosis) return null;
 
   return (

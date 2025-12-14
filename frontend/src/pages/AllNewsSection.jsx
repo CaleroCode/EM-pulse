@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Button from '../components/ui/Button';
 
 export default function AllNewsSection({
@@ -7,6 +8,15 @@ export default function AllNewsSection({
   allNewsLoading,
   formatDate,
 }) {
+  useEffect(() => {
+    if (showAllNews) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [showAllNews]);
+
   if (!showAllNews) return null;
 
   return (

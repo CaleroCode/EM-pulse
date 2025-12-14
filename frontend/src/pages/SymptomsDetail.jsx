@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '../components/ui/Button';
 
 // Mapeo de síntomas comunes a explicaciones empáticas para cuidadores
@@ -150,6 +150,15 @@ const symptomExplanations = {
 
 export default function SymptomsDetail({ allSymptoms = [], setShowSymptomsDetail, showSymptomsDetail }) {
   const [selectedSymptom, setSelectedSymptom] = useState(null);
+
+  useEffect(() => {
+    if (showSymptomsDetail) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [showSymptomsDetail]);
 
   if (!showSymptomsDetail) return null;
 
