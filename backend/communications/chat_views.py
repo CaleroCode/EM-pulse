@@ -1,5 +1,5 @@
 """
-Chat con IA usando Ollama (LOCAL - Llama 2)
+Chat con IA usando Hugging Face
 Proporciona apoyo emocional e información sobre EM
 """
 
@@ -7,9 +7,11 @@ import requests
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+import os
 
-# Ollama API
-OLLAMA_API_URL = "http://localhost:11434/api/generate"
+# Hugging Face API
+HF_API_TOKEN = os.getenv("HUGGINGFACE_API_KEY", "")
+HF_API_URL = "https://api-inference.huggingface.co/models/meta-llama/Llama-2-7b-chat-hf"
 
 # Prompt del sistema para el asistente de EM
 SYSTEM_PROMPT = """Eres un asistente empático y compasivo especializado en proporcionar apoyo emocional e información sobre la esclerosis múltiple (EM).
@@ -33,7 +35,7 @@ Recuerda SIEMPRE terminar con: "Si tienes dudas o síntomas preocupantes, consul
 @api_view(['POST'])
 def chat_em_pulse(request):
     """
-    Endpoint para chat con IA (Ollama - Llama 2 local)
+    Endpoint para chat con IA (Hugging Face - Llama 2)
     
     Recibe: { "message": "texto del usuario" }
     Devuelve: { "reply": "respuesta de la IA" }
@@ -47,35 +49,56 @@ def chat_em_pulse(request):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        # Prompt completo
-        full_prompt = f"""{SYSTEM_PROMPT}
-
-Usuario: {user_message}
-
-Asistente:"""
+        if not HF_API_TOKEN:
+            return Response(
+                {
+                    'error': 'API de Hugging Face no configurada',
+                    'hint': 'Establece la variable HUGGINGFACE_API_KEY en Render'
+                },
+                status=status.HTTP_502_BAD_GATEWAY
+            )
         
-        # Llamar a Ollama API
+        # Prompt completo
+        full_prompt = f"{SYSTEM_PROMPT}\n\nUsuario: {user_message}\n\nAsistente:"
+        
+        # Llamar a Hugging Face API
+        headers = {
+            "Authorization": f"Bearer {HF_API_TOKEN}",
+            "Content-Type": "application/json"
+        }
+        
         payload = {
-            "model": "llama2",
-            "prompt": full_prompt,
-            "stream": False,
-            "temperature": 0.7,
+            "inputs": full_prompt,
+            "parameters": {
+                "max_new_tokens": 256,
+                "temperature": 0.7,
+                "top_p": 0.9,
+            }
         }
         
         response = requests.post(
-            OLLAMA_API_URL,
+            HF_API_URL,
             json=payload,
+            headers=headers,
             timeout=30
         )
         
         if response.status_code != 200:
             return Response(
-                {'error': f'Error en Ollama: {response.status_code}'},
+                {'error': f'Error en Hugging Face: {response.status_code}'},
                 status=status.HTTP_502_BAD_GATEWAY
             )
         
         response_data = response.json()
-        ai_reply = response_data.get('response', '').strip()
+        
+        # Extraer el texto de la respuesta
+        if isinstance(response_data, list) and len(response_data) > 0:
+            ai_reply = response_data[0].get('generated_text', '').strip()
+            # Limpiar el prompt del output
+            if "Asistente:" in ai_reply:
+                ai_reply = ai_reply.split("Asistente:")[-1].strip()
+        else:
+            ai_reply = ''
         
         if not ai_reply:
             return Response(
@@ -85,23 +108,22 @@ Asistente:"""
         
         return Response({
             'reply': ai_reply,
-            'model': 'Llama-2 (Ollama Local)',
+            'model': 'Llama-2 (Hugging Face)',
             'success': True
         })
     
     except requests.exceptions.ConnectionError:
         return Response(
             {
-                'error': 'No se puede conectar con Ollama en localhost:11434',
-                'hint': 'Asegúrate de que Ollama está corriendo: ollama serve'
+                'error': 'No se puede conectar con Hugging Face API',
+                'hint': 'Verifica tu conexión a internet'
             },
             status=status.HTTP_502_BAD_GATEWAY
         )
-    
     except requests.exceptions.Timeout:
         return Response(
             {
-                'error': 'Timeout. Ollama está procesando.',
+                'error': 'Timeout. El modelo está procesando.',
                 'hint': 'Intenta de nuevo en unos segundos'
             },
             status=status.HTTP_408_REQUEST_TIMEOUT
@@ -117,33 +139,64 @@ Asistente:"""
 @api_view(['GET'])
 def ollama_health_check(request):
     """
-    Verifica que Ollama esté disponible
+    Verifica que el servicio de chat esté disponible
     """
     try:
+        if not HF_API_TOKEN:
+            return Response({
+                'status': 'error',
+                'message': 'HUGGINGFACE_API_KEY no está configurada',
+            }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        
+        # Verificar conectividad básica con HF API
+        headers = {
+            "Authorization": f"Bearer {HF_API_TOKEN}",
+            "Content-Type": "application/json"
+        }
+        
         payload = {
-            "model": "llama2",
-            "prompt": "Hola",
-            "stream": False,
+            "inputs": "Hola",
+            "parameters": {
+                "max_new_tokens": 10,
+            }
         }
         
         response = requests.post(
-            OLLAMA_API_URL,
+            HF_API_URL,
             json=payload,
+            headers=headers,
             timeout=10
         )
         
         if response.status_code == 200:
             return Response({
                 'status': 'ok',
-                'message': 'Ollama está funcionando correctamente',
+                'message': 'Chat EM-PULSE disponible (Hugging Face)',
                 'model': 'Llama-2',
             })
         else:
             return Response({
                 'status': 'error',
-                'message': f'Error en Ollama: {response.status_code}',
+                'message': f'Error en Hugging Face: {response.status_code}',
             }, status=status.HTTP_502_BAD_GATEWAY)
     
+    except requests.exceptions.ConnectionError:
+        return Response({
+            'status': 'error',
+            'message': 'No se puede conectar con Hugging Face API. Verifica tu conexión.',
+        }, status=status.HTTP_502_BAD_GATEWAY)
+    
+    except requests.exceptions.Timeout:
+        return Response({
+            'status': 'error',
+            'message': 'Timeout al conectar con Hugging Face API',
+        }, status=status.HTTP_408_REQUEST_TIMEOUT)
+    
+    except Exception as e:
+        return Response({
+            'status': 'error',
+            'message': f'Error: {str(e)}',
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     except requests.exceptions.ConnectionError:
         return Response({
             'status': 'error',
