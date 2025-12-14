@@ -11,7 +11,7 @@ import os
 
 # Hugging Face API - Usar distilgpt2 que es más rápido
 HF_API_TOKEN = os.getenv("HUGGINGFACE_API_KEY", "")
-HF_API_URL = "https://api-inference.huggingface.co/models/distilgpt2"
+HF_API_URL = "https://router.huggingface.co/models/distilgpt2"
 
 # Prompt del sistema para el asistente de EM
 SYSTEM_PROMPT = """Eres un asistente empático y compasivo especializado en proporcionar apoyo emocional e información sobre la esclerosis múltiple (EM).
