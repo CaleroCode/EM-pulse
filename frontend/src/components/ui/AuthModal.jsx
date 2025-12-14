@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export default function AuthModal({
   showAuthModal,
   setShowAuthModal,
@@ -36,7 +38,7 @@ export default function AuthModal({
     setRecoverySuccess("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/password-recovery/", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/password-recovery/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +79,7 @@ export default function AuthModal({
     setRecoverySuccess("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/reset-password/", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/reset-password/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

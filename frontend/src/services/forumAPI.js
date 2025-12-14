@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:8000/api/forum';
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_FORUM_URL = `${API_BASE_URL}/api/forum`;
 
 export const forumAPI = {
   /**
@@ -6,7 +7,7 @@ export const forumAPI = {
    */
   getPosts: async (category = null, search = null, userIdentifier = null) => {
     try {
-      let url = `${API_BASE_URL}/posts/`;
+      let url = `${API_FORUM_URL}/posts/`;
       const params = [];
       
       if (category) params.push(`category=${category}`);

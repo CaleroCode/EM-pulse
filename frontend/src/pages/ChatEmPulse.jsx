@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, AlertCircle, Loader, Shield } from 'lucide-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export default function ChatEmPulse() {
   const [messages, setMessages] = useState([
     {
@@ -23,7 +25,7 @@ export default function ChatEmPulse() {
 
   const checkChatHealth = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/communications/chat-health/');
+      const response = await fetch(`${API_BASE_URL}/api/communications/chat-health/`);
       const data = await response.json();
       setOllamaStatus(data);
     } catch {
@@ -58,7 +60,7 @@ export default function ChatEmPulse() {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8000/api/communications/chat-em-pulse/', {
+      const response = await fetch(`${API_BASE_URL}/api/communications/chat-em-pulse/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +86,7 @@ export default function ChatEmPulse() {
 
       setMessages(prev => [...prev, assistantMessage]);
     } catch (err) {
-      setError('Error de conexión. Asegúrate de que el backend está ejecutándose en localhost:8000');
+      setError('Error de conexión. Asegúrate de que el backend está ejecutándose en ' + API_BASE_URL);
       console.error('Error:', err);
     } finally {
       setLoading(false);
