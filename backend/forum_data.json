@@ -1,0 +1,241 @@
+{
+  "posts": {
+    "general": [
+      {
+        "id": 1,
+        "author": "María García",
+        "avatar": "MG",
+        "title": "¿Cuál es vuestro mayor desafío diario con la EM?",
+        "content": "Me gustaría saber cuáles son los desafíos principales que enfrentáis a diario. Para mí, el cansancio es lo más difícil de manejar...",
+        "replies": 2,
+        "likes": 23,
+        "date": "Hace 2 días",
+        "category": "general",
+        "comments": [
+          {
+            "id": 1,
+            "author": "Juan Pérez",
+            "avatar": "JP",
+            "content": "Para mí también es el cansancio. He aprendido a planificar mis días para no agotarme.",
+            "date": "Hace 2 días"
+          },
+          {
+            "id": 2,
+            "author": "Laura Martínez",
+            "avatar": "LM",
+            "content": "El cansancio y los problemas cognitivos son los que más me afectan en el día a día.",
+            "date": "Hace 1 día"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "author": "Carlos López",
+        "avatar": "CL",
+        "title": "Grupo de apoyo online",
+        "content": "He creado un grupo de WhatsApp para pacientes con EM. Si alguien quiere unirse, que me envíe un mensaje privado.",
+        "replies": 0,
+        "likes": 18,
+        "date": "Hace 1 día",
+        "category": "general",
+        "comments": []
+      }
+    ],
+    "sintomas": [
+      {
+        "id": 3,
+        "author": "Ana Rodríguez",
+        "avatar": "AR",
+        "title": "Dolor de cabeza persistente",
+        "content": "Llevo una semana con dolor de cabeza constante. ¿Alguien más experimenta esto? ¿Qué ayuda?",
+        "replies": 0,
+        "likes": 31,
+        "date": "Hace 1 día",
+        "category": "sintomas",
+        "comments": []
+      },
+      {
+        "id": 4,
+        "author": "Miguel Santos",
+        "avatar": "MS",
+        "title": "Fatiga crónica - ¿Qué funciona?",
+        "content": "La fatiga es lo peor. He probado muchos tratamientos pero nada funciona completamente. ¿Alguien tiene alguna recomendación?",
+        "replies": 1,
+        "likes": 45,
+        "date": "Hace 3 horas",
+        "category": "sintomas",
+        "comments": [
+          {
+            "id": 3,
+            "author": "Elena Fernández",
+            "avatar": "EF",
+            "content": "Yo tengo buenos resultados con acupuntura y descanso adecuado. Prueba con descansos cortos pero frecuentes.",
+            "date": "Hace 2 horas"
+          }
+        ]
+      }
+    ],
+    "tratamientos": [
+      {
+        "id": 5,
+        "author": "Dr. Francisco López",
+        "avatar": "DFL",
+        "title": "Nuevas opciones terapéuticas en 2024",
+        "content": "Este año tenemos nuevas opciones de tratamiento aprobadas. Os animo a hablar con vuestros médicos sobre si son adecuadas para vosotros.",
+        "replies": 3,
+        "likes": 67,
+        "date": "Hace 5 días",
+        "category": "tratamientos",
+        "comments": [
+          {
+            "id": 4,
+            "author": "Patricia González",
+            "avatar": "PG",
+            "content": "Yo ya estoy con uno de estos tratamientos y veo mejora!",
+            "date": "Hace 4 días"
+          },
+          {
+            "id": 5,
+            "author": "Roberto Díaz",
+            "avatar": "RD",
+            "content": "¿Cuáles son los efectos secundarios que has notado?",
+            "date": "Hace 3 días"
+          },
+          {
+            "id": 6,
+            "author": "Patricia González",
+            "avatar": "PG",
+            "content": "Hasta ahora muy bien tolerados, solo ligeros mareos los primeros días.",
+            "date": "Hace 2 días"
+          }
+        ]
+      }
+    ],
+    "experiencias": [
+      {
+        "id": 6,
+        "author": "Sofia Ruiz",
+        "avatar": "SR",
+        "title": "Mi viaje diagnostico y aprendizajes",
+        "content": "Tardé 3 años en diagnosticarme. Os cuento mi experiencia y lo que he aprendido en este tiempo...",
+        "replies": 2,
+        "likes": 54,
+        "date": "Hace 1 semana",
+        "category": "experiencias",
+        "comments": [
+          {
+            "id": 7,
+            "author": "Vicente Martín",
+            "avatar": "VM",
+            "content": "Gracias por compartir tu historia. Realmente inspirador.",
+            "date": "Hace 6 días"
+          },
+          {
+            "id": 8,
+            "author": "Sofía Ruiz",
+            "avatar": "SR",
+            "content": "De nada, espero que ayude a otros en la misma situación.",
+            "date": "Hace 5 días"
+          }
+        ]
+      }
+    ],
+    "ejercicio": [
+      {
+        "id": 7,
+        "author": "Trainer Cristian",
+        "avatar": "TC",
+        "title": "Ejercicios seguros para EM",
+        "content": "Como entrenador personal especializado en EM, os recomiendo estos ejercicios que puedo hacer sin riesgo...",
+        "replies": 4,
+        "likes": 78,
+        "date": "Hace 2 días",
+        "category": "ejercicio",
+        "comments": [
+          {
+            "id": 9,
+            "author": "Isabel Sánchez",
+            "avatar": "IS",
+            "content": "¿Estos ejercicios son para todos los tipos de EM?",
+            "date": "Hace 1 día"
+          },
+          {
+            "id": 10,
+            "author": "Trainer Cristian",
+            "avatar": "TC",
+            "content": "Depende del nivel de severidad. Siempre es mejor consultar con tu médico primero.",
+            "date": "Hace 1 día"
+          },
+          {
+            "id": 11,
+            "author": "Marco Antonio",
+            "avatar": "MA",
+            "content": "Llevo una semana haciéndolos y me siento mucho mejor!",
+            "date": "Hace 12 horas"
+          },
+          {
+            "id": 12,
+            "author": "Isabel Sánchez",
+            "avatar": "IS",
+            "content": "¡Qué bueno escuchar esto! Voy a empezar mañana mismo.",
+            "date": "Hace 2 horas"
+          }
+        ]
+      }
+    ],
+    "ayuda": [
+      {
+        "id": 8,
+        "author": "Javier Pérez",
+        "avatar": "JP",
+        "title": "Necesito ayuda, no sé a dónde acudir",
+        "content": "Acabo de ser diagnosticado y estoy perdido. No sé qué hacer ni a quién acudir. ¿Alguien puede ayudarme?",
+        "replies": 5,
+        "likes": 89,
+        "date": "Hace 6 horas",
+        "category": "ayuda",
+        "comments": [
+          {
+            "id": 13,
+            "author": "María del Carmen",
+            "avatar": "MDC",
+            "content": "Lo primero es hablar con tu médico sobre opciones de tratamiento.",
+            "date": "Hace 5 horas"
+          },
+          {
+            "id": 14,
+            "author": "Psicólogo David",
+            "avatar": "PD",
+            "content": "También es importante el apoyo psicológico. Puedo recomendarte recursos.",
+            "date": "Hace 4 horas"
+          },
+          {
+            "id": 15,
+            "author": "Asociación EM",
+            "avatar": "AE",
+            "content": "Desde nuestra asociación tenemos un programa de apoyo. Contáctanos!",
+            "date": "Hace 3 horas"
+          },
+          {
+            "id": 16,
+            "author": "Javier Pérez",
+            "avatar": "JP",
+            "content": "Gracias a todos! Esto me ayuda mucho a sentirme menos solo.",
+            "date": "Hace 2 horas"
+          },
+          {
+            "id": 17,
+            "author": "Luis García",
+            "avatar": "LG",
+            "content": "Ánimo! La comunidad está aquí para apoyarte.",
+            "date": "Hace 1 hora"
+          }
+        ]
+      }
+    ]
+  },
+  "likedPosts": [1, 4, 5, 7, 8],
+  "nextPostId": 9,
+  "nextReplyId": 18,
+  "exportedAt": "2025-12-09T10:00:00Z"
+}

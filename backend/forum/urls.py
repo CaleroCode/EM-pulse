@@ -1,0 +1,11 @@
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import ForumPostViewSet, ForumCommentViewSet
+
+router = DefaultRouter()
+router.register(r'posts', ForumPostViewSet, basename='forum-post')
+router.register(r'comments', ForumCommentViewSet, basename='forum-comment')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
