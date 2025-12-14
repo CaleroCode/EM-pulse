@@ -94,13 +94,13 @@ em-pulse/
 ### GDPR
 - ✅ Política de privacidad con 6 derechos GDPR explicados
 - ✅ Consentimiento explícito para cookies/datos
-- ✅ Contacto de privacidad: privacy@empulse.es
+- ✅ Contacto de privacidad: CaleroCode@gmail.com
 - ✅ Información de seguridad clara
 
 ### España
 - ✅ Cumplimiento LSSI-CE
 - ✅ Ley aplicable especificada
-- ✅ Contacto legal: legal@empulse.es
+- ✅ Contacto legal: CaleroCode@gmail.com
 
 ### Médico/Salud
 - ✅ **Descargo de responsabilidad médica prominente**
