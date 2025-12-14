@@ -16,11 +16,17 @@ export default function ChatEmPulse() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const messagesEndRef = useRef(null);
+  const headerRef = useRef(null);
 
   // Auto-scroll cuando hay nuevos mensajes
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // Scroll al header cuando el componente se monta
+  useEffect(() => {
+    headerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -75,7 +81,7 @@ export default function ChatEmPulse() {
 
   return (
     <div className="flex flex-col h-[650px] bg-dark-bg text-slate-100">
-      <div className="border-b border-empulseAccent/40 bg-dark-bg/50 p-4 flex items-center justify-between">
+      <div ref={headerRef} className="border-b border-empulseAccent/40 bg-dark-bg/50 p-4 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-bold text-empulsePrimary">EM-PULSE Chat</h2>
           <p className="text-xs text-slate-400">Apoyo emocional con IA</p>
