@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",  # CORS SIEMPRE ARRIBA DEL TODO
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Servir estáticos en producción
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -96,15 +97,30 @@ WSGI_APPLICATION = "empulse_backend.wsgi.application"
 # ASGI_APPLICATION = "empulse_backend.asgi.application"
 
 # =========================
-# BASE DE DATOS (SQLite para desarrollo)
+# BASE DE DATOS
 # =========================
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+# Usar PostgreSQL en producción (Render proporciona DATABASE_URL)
+# En desarrollo usar SQLite
+import dj_database_url
+
+if os.getenv("DATABASE_URL"):
+    # Producción: usar PostgreSQL
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=os.getenv("DATABASE_URL"),
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
-}
+else:
+    # Desarrollo: usar SQLite
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # =========================
 # VALIDACIÓN DE CONTRASEÑAS
@@ -186,13 +202,18 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
 # =========================
 
 # Para desarrollo, deja todo abierto (tu frontend Vite en 5173, etc.)
-CORS_ALLOW_ALL_ORIGINS = True
-
-# Si quieres ser más estricto:
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5173",
-#     "http://127.0.0.1:5173",
-# ]
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    # Producción: especificar los orígenes permitidos
+    cors_origins = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+    CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins if origin.strip()]
+    if not CORS_ALLOWED_ORIGINS:
+        # Si no hay variable de entorno, usar valores por defecto
+        CORS_ALLOWED_ORIGINS = [
+            "https://empulse.onrender.com",
+            "https://empulse-api.onrender.com",
+        ]
 
 # =========================
 # OTROS
