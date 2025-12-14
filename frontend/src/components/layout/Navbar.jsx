@@ -108,6 +108,16 @@ export default function Navbar({
     setShowICDATA(false);
     setShowChat(false);
     setShowWhatIsEM(false);
+    scrollToSection(sectionId);
+  };
+
+  // Función para scroll suave hacia el top
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
     setShowTypesAndDiagnosis(false);
     setShowSymptomsDetail(false);
     setShowMovement(false);
@@ -218,6 +228,7 @@ export default function Navbar({
                       setShowTypesAndDiagnosis(false);
                       setMobileMenuOpen(false);
                       setExpandedMenu(null);
+                      scrollToTop();
                     }}
                     className="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/10 rounded-lg transition-all duration-200">
                     Qué es
@@ -228,6 +239,7 @@ export default function Navbar({
                       setShowWhatIsEM(false);
                       setMobileMenuOpen(false);
                       setExpandedMenu(null);
+                      scrollToTop();
                     }}
                     className="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/10 rounded-lg transition-all duration-200">
                     Tipos y diagnóstico
@@ -258,6 +270,7 @@ export default function Navbar({
                       setShowMentalHealth(false);
                       setMobileMenuOpen(false);
                       setExpandedMenu(null);
+                      scrollToTop();
                     }}
                     className="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/10 rounded-lg transition-all duration-200">
                     EM-FORMA
@@ -270,6 +283,7 @@ export default function Navbar({
                       setShowMovement(false);
                       setMobileMenuOpen(false);
                       setExpandedMenu(null);
+                      scrollToTop();
                     }}
                     className="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/10 rounded-lg transition-all duration-200">
                     Salud mental
@@ -302,6 +316,7 @@ export default function Navbar({
                       setShowTypesAndDiagnosis(false);
                       setMobileMenuOpen(false);
                       setExpandedMenu(null);
+                      scrollToTop();
                     }}
                     className="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/10 rounded-lg transition-all duration-200">
                     Tus derechos
@@ -316,6 +331,7 @@ export default function Navbar({
                       setShowTypesAndDiagnosis(false);
                       setMobileMenuOpen(false);
                       setExpandedMenu(null);
+                      scrollToTop();
                     }}
                     className="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/10 rounded-lg transition-all duration-200">
                     Guías y recursos
@@ -336,6 +352,7 @@ export default function Navbar({
                 setShowWhatIsEM(false);
                 setShowTypesAndDiagnosis(false);
                 setMobileMenuOpen(false);
+                scrollToTop();
               }}
               className="w-full text-left px-4 py-3 font-semibold text-empulsePrimary hover:text-white hover:bg-empulseAccent/15 rounded-lg transition-all duration-200 flex items-center gap-2"
             >
@@ -367,6 +384,7 @@ export default function Navbar({
                       setShowTypesAndDiagnosis(false);
                       setMobileMenuOpen(false);
                       setExpandedMenu(null);
+                      scrollToTop();
                     }}
                     className="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/10 rounded-lg transition-all duration-200">
                     Foro de Discusión
@@ -398,6 +416,7 @@ export default function Navbar({
                 setShowWhatIsEM(false);
                 setShowTypesAndDiagnosis(false);
                 setMobileMenuOpen(false);
+                scrollToTop();
               }}
               className="w-full text-left px-4 py-3 font-semibold text-white rounded-lg transition-all duration-200 flex items-center gap-2 hover:shadow-lg hover:shadow-[#2D8659]/40"
               style={{ backgroundColor: "#2D8659" }}
@@ -480,6 +499,7 @@ export default function Navbar({
             onClick={() => {
               setShowChat(false);
               handleNavigate("symptoms");
+              scrollToTop();
             }}
             className={`px-3 py-2 font-semibold rounded-lg transition-all duration-300 flex items-center gap-1.5 relative group ${
               isActive("symptoms")
@@ -511,6 +531,7 @@ export default function Navbar({
                   onClick={() => {
                     setShowWhatIsEM(true);
                     setShowTypesAndDiagnosis(false);
+                    scrollToTop();
                   }}
                   className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                   <span className="relative z-10">Qué es</span>
@@ -520,6 +541,7 @@ export default function Navbar({
                 onClick={() => {
                   setShowTypesAndDiagnosis(true);
                   setShowWhatIsEM(false);
+                  scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                 <span className="relative z-10">Tipos y diagnóstico</span>
@@ -543,6 +565,7 @@ export default function Navbar({
                   setShowMovement(true);
                   setShowWhatIsEM(false);
                   setShowTypesAndDiagnosis(false);
+                  scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                 <span className="relative z-10">EM-FORMA</span>
@@ -554,6 +577,7 @@ export default function Navbar({
                   setShowWhatIsEM(false);
                   setShowTypesAndDiagnosis(false);
                   setShowMovement(false);
+                  scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                 <span className="relative z-10">Salud mental</span>
@@ -579,6 +603,7 @@ export default function Navbar({
                   setShowMentalHealth(false);
                   setShowWhatIsEM(false);
                   setShowTypesAndDiagnosis(false);
+                  scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                 <span className="relative z-10">Tus derechos</span>
@@ -592,6 +617,7 @@ export default function Navbar({
                   setShowMentalHealth(false);
                   setShowWhatIsEM(false);
                   setShowTypesAndDiagnosis(false);
+                  scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                 <span className="relative z-10">Guías y recursos</span>
@@ -606,6 +632,7 @@ export default function Navbar({
                   setShowMentalHealth(false);
                   setShowWhatIsEM(false);
                   setShowTypesAndDiagnosis(false);
+                  scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                 <span className="relative z-10">Foro de Discusión</span>
@@ -625,6 +652,7 @@ export default function Navbar({
               setShowChat(false);
               setShowWhatIsEM(false);
               setShowTypesAndDiagnosis(false);
+              scrollToTop();
             }}
             className="px-3 py-2 font-semibold text-empulsePrimary hover:text-white hover:bg-empulseAccent/15 rounded-lg transition-all duration-200 flex items-center gap-1.5"
           >
@@ -652,6 +680,7 @@ export default function Navbar({
                   setShowICDATA(false);
                   setShowWhatIsEM(false);
                   setShowTypesAndDiagnosis(false);
+                  scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                 <span className="relative z-10">Foro de Discusión</span>
@@ -665,6 +694,7 @@ export default function Navbar({
                   setShowWhatIsEM(false);
                   setShowTypesAndDiagnosis(false);
                   handleNavigate("newsletter");
+                  scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                 <span className="relative z-10">Newsletter</span>
@@ -688,6 +718,7 @@ export default function Navbar({
               setShowChat(false);
               setShowWhatIsEM(false);
               setShowTypesAndDiagnosis(false);
+              scrollToTop();
             }}
             className="px-3 py-1.5 rounded-lg text-white font-semibold text-[11px] transition-all duration-200 hover:shadow-lg hover:shadow-[#2D8659]/40 hover:scale-105"
             style={{ background: "linear-gradient(135deg, #2D8659 0%, #1f5a3d 100%)" }}
