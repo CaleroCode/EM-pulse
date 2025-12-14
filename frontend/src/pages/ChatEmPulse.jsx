@@ -88,27 +88,6 @@ export default function ChatEmPulse() {
         </div>
       </div>
 
-      {/* Status Ollama */}
-      {ollama_status?.status === 'error' && (
-        <div className="bg-yellow-500/10 border-l-4 border-yellow-500 p-4 mx-4 mt-4 rounded-lg flex items-start gap-3">
-          <AlertCircle className="text-yellow-500 flex-shrink-0 mt-0.5" size={20} />
-          <div>
-            <p className="text-yellow-400 font-semibold">⚠️ {ollama_status.message}</p>
-            <p className="text-yellow-300 text-sm mt-1">{ollama_status.hint}</p>
-          </div>
-        </div>
-      )}
-
-      {ollama_status?.status === 'loading' && (
-        <div className="bg-blue-500/10 border-l-4 border-blue-500 p-4 mx-4 mt-4 rounded-lg flex items-start gap-3">
-          <AlertCircle className="text-blue-500 flex-shrink-0 mt-0.5" size={20} />
-          <div>
-            <p className="text-blue-400 font-semibold">ℹ️ {ollama_status.message}</p>
-            <p className="text-blue-300 text-sm mt-1">{ollama_status.hint}</p>
-          </div>
-        </div>
-      )}
-
       {/* Chat Messages */}
       <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
         {messages.map((message) => (
