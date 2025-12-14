@@ -519,6 +519,7 @@ function App() {
         {showAssociations ? (
           <AssociationsSection
             showAssociations={showAssociations}
+            setShowAssociations={setShowAssociations}
           />
         ) : showICDATA ? (
           <ICDATASection
