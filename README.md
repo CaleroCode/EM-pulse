@@ -107,18 +107,6 @@ em-pulse/
 - ✅ "EM-PULSE no sustituye consejo médico profesional"
 - ✅ En caja destacada en Términos de Servicio
 
-## 📚 Documentación
-
-| Documento | Descripción | Leer |
-|-----------|-------------|------|
-| **[COMPLETION_SUMMARY.txt](COMPLETION_SUMMARY.txt)** | ⭐ Resumen ejecutivo | Primero |
-| **[HOW_TO_VIEW_CHANGES.md](HOW_TO_VIEW_CHANGES.md)** | Guía paso-a-paso para ver cambios | Segundo |
-| **[DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md)** | Índice de toda la documentación | Navegar |
-| **[LEGAL_COMPLIANCE.md](LEGAL_COMPLIANCE.md)** | Detalles técnicos de componentes | Técnico |
-| **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** | Resumen detallado de cambios | Completo |
-| **[VERIFICATION_CHECKLIST.md](VERIFICATION_CHECKLIST.md)** | Checklist de 94 items (100% ✅) | Validar |
-| **[VISUAL_GUIDE.txt](VISUAL_GUIDE.txt)** | Diagramas y ASCII art | Diseño |
-
 ## 🎯 Características Implementadas
 
 ### Punto 1: Certificaciones y Cumplimiento Legal ✅
