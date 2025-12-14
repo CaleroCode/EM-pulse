@@ -331,6 +331,7 @@ export default function Navbar({
                       setShowTypesAndDiagnosis(false);
                       setShowAssociations(false);
                       setShowICDATA(false);
+                      setShowForum(false);
                       setMobileMenuOpen(false);
                       setExpandedMenu(null);
                       scrollToTop();
@@ -647,25 +648,6 @@ export default function Navbar({
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                 <span className="relative z-10">Guías y recursos</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-empulseAccent/0 via-empulseAccent/10 to-empulseAccent/0 transform scale-x-0 group-hover/item:scale-x-100 transition-transform duration-300 origin-left"></div>
-              </button>
-              <button 
-                onClick={() => {
-                  setShowForum(true);
-                  setShowRights(false);
-                  setShowGuides(false);
-                  setShowMovement(false);
-                  setShowMentalHealth(false);
-                  setShowWhatIsEM(false);
-                  setShowTypesAndDiagnosis(false);
-                  setShowAssociations(false);
-                  setShowICDATA(false);
-                  setShowAllNews(false);
-                  setShowChat(false);
-                  scrollToTop();
-                }}
-                className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
-                <span className="relative z-10">Foro de Discusión</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-empulseAccent/0 via-empulseAccent/10 to-empulseAccent/0 transform scale-x-0 group-hover/item:scale-x-100 transition-transform duration-300 origin-left"></div>
               </button>
             </div>
