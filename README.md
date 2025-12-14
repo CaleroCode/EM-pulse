@@ -58,12 +58,13 @@ npm run dev
 ```
 em-pulse/
 ├── backend/                    # Django REST API
-│   ├── empulse_backend/       # Configuración principal
+│   ├── empulse_backend/       # Configuración principal + Sitemaps
 │   ├── communications/        # Chat y noticias
 │   ├── health/                # Síntomas y salud
 │   ├── subscribers/           # Newsletter
 │   ├── activity/              # Actividad de usuario
 │   ├── compliance/            # Cumplimiento legal
+│   ├── forum/                 # Foro comunitario
 │   ├── db.sqlite3            # Base de datos
 │   └── manage.py
 │
@@ -74,6 +75,7 @@ em-pulse/
     │   │   ├── TermsOfService.jsx         (NUEVO)
     │   │   ├── GDPRNotice.jsx             (NUEVO)
     │   │   ├── ChatEmPulse.jsx            (MEJORADO)
+    │   │   ├── Forum.jsx                  (FORO)
     │   │   └── ...otros
     │   ├── components/
     │   │   ├── layout/
@@ -132,17 +134,28 @@ em-pulse/
 ## 🛠️ Tecnologías
 
 ### Backend
-- Django 4.2+
-- Django REST Framework
+- Django 5.2+
+- Django REST Framework 3.16+
+- CORS Headers (django-cors-headers)
+- Token Authentication (DRF)
+- python-dotenv (variables de entorno)
 - SQLite (desarrollo)
+- PostgreSQL (producción - psycopg2)
 - NewsAPI (noticias externas)
 
 ### Frontend
-- React 18+
-- Vite 5+
-- Tailwind CSS
-- Lucide Icons
-- Hugging Face API (chat)
+- React 19+
+- Vite 7+
+- Tailwind CSS 3.4+
+- Lucide React Icons
+- ESLint 9+ (linting)
+- PostCSS + Autoprefixer (procesamiento CSS)
+- Hugging Face API (chat con IA)
+
+### Infraestructura
+- SEO Sitemaps (Django)
+- CORS Configuration
+- Static & Media Files Management
 
 ## 📊 API Endpoints
 
@@ -240,7 +253,3 @@ Proyecto final personal del bootcamp Full Stack Developer SuperKode de Factoria 
 ```
 
 ---
-
-**Última actualización**: December 9, 2025
-**Versión**: 1.0 + Mejoras de Profesionalidad
-**Estado**: ✅ PRODUCCIÓN READY
