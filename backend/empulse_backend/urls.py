@@ -12,8 +12,7 @@ urlpatterns = [
     path("api/", include("subscribers.urls")),
     path("api/", include("health.urls")),
     path("api/forum/", include("forum.urls")),
-    # más adelante:
-    path("api/", include("communications.urls")),
+    path("api/communications/", include("communications.urls")),
     # path("api/", include("activity.urls")),
     # path("api/", include("compliance.urls")),
 ]
