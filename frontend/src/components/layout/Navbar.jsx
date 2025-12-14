@@ -320,21 +320,6 @@ export default function Navbar({
                     className="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/10 rounded-lg transition-all duration-200">
                     Guías y recursos
                   </button>
-                  <button 
-                    onClick={() => {
-                      setShowForum(true);
-                      setShowRights(false);
-                      setShowGuides(false);
-                      setShowMovement(false);
-                      setShowMentalHealth(false);
-                      setShowWhatIsEM(false);
-                      setShowTypesAndDiagnosis(false);
-                      setMobileMenuOpen(false);
-                      setExpandedMenu(null);
-                    }}
-                    className="block w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/10 rounded-lg transition-all duration-200">
-                    Foro de Discusión
-                  </button>
                 </div>
               )}
             </div>
