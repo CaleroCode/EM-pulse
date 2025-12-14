@@ -190,8 +190,6 @@ GET  /api/communications/chat-health/    # Health check
 3. Set environment variables
 4. Deploy
 
-Ver: [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md)
-
 ## 🔧 Configuración
 
 ### Backend (.env)
@@ -222,7 +220,6 @@ VITE_HF_TOKEN=your-huggingface-token
 - Limpiar localStorage: `localStorage.removeItem('gdpr_accepted')`
 - Recargar página
 
-Ver: [HOW_TO_VIEW_CHANGES.md](HOW_TO_VIEW_CHANGES.md#comandos-útiles)
 
 ## ‍💼 Créditos
 
@@ -232,8 +229,7 @@ IA Chat: Hugging Face
 
 ## 📄 Licencia
 
-Proyecto final personal del **Full Stack Developer SuperKode de Factoria F5**. 
-Código abierto para fines educativos y de demostración.
+Proyecto final personal del bootcamp Full Stack Developer SuperKode de Factoria F5. Código abierto para fines educativos y de demostración.
 
 ## 🎉 Status
 
