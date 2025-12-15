@@ -171,7 +171,31 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # =========================
-# CONFIG DJANGO REST FRAMEWORK
+# CACHÉ FRAMEWORK
+# =========================
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "empulse-cache",
+        "OPTIONS": {
+            "MAX_ENTRIES": 1000
+        },
+        "KEY_PREFIX": "empulse",
+        "TIMEOUT": 300,  # 5 minutos por defecto
+    }
+}
+
+# En producción con Redis (más eficiente):
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.redis.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
+#     }
+# }
+
+# =========================
+# CONFIGURACIÓN DJANGO REST FRAMEWORK
 # =========================
 
 REST_FRAMEWORK = {

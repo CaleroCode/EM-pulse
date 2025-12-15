@@ -1,16 +1,22 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.db.models import Prefetch
 from .models import ForumPost, ForumComment, ForumLike
 from .serializers import ForumPostSerializer, ForumCommentSerializer
 
 
 class ForumPostViewSet(viewsets.ModelViewSet):
-    queryset = ForumPost.objects.all()
     serializer_class = ForumPostSerializer
+    permission_classes = []
 
     def get_queryset(self):
-        queryset = ForumPost.objects.prefetch_related('comments')
+        """Optimizar queryset con prefetch_related para comentarios"""
+        queryset = ForumPost.objects.prefetch_related(
+            Prefetch('comments', queryset=ForumComment.objects.order_by('created_at'))
+        )
         category = self.request.query_params.get('category')
         search = self.request.query_params.get('search')
 
@@ -24,6 +30,11 @@ class ForumPostViewSet(viewsets.ModelViewSet):
             )
 
         return queryset.order_by('-created_at')
+
+    @method_decorator(cache_page(60 * 5))  # Caché de 5 minutos para listado
+    def list(self, request, *args, **kwargs):
+        """Listar posts con caché"""
+        return super().list(request, *args, **kwargs)
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
