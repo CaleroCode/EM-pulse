@@ -159,7 +159,7 @@ export default function MentalHealth({ showMentalHealth, setShowMentalHealth }) 
 
       {/* Contenido */}
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-12">
-        <div className="space-y-12 text-slate-200 leading-relaxed">
+        <div className="space-y-12 text-slate-200 leading-relaxed text-justify">
           
           {/* Introducción empática */}
           <section className="bg-gradient-to-r from-empulsePrimary/10 to-empulseMid/10 border border-empulsePrimary/30 rounded-2xl p-8">

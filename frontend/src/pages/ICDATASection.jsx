@@ -38,27 +38,43 @@ const ICDATASection = ({ showICDATA }) => {
         {/* Contenido de presentación con párrafos separados */}
         <div className="space-y-6 mb-10 text-left">
           <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">
-            Sé lo que es sentarte delante de un neurólogo, escuchar las dos palabras malditas —esclerosis múltiple— y notar cómo el suelo se abre medio metro bajo tus pies. Sé lo que es salir de la consulta con un folleto en la mano, mil preguntas en la cabeza y una sola certeza: el miedo. El miedo al mañana, al cuerpo que ya no reconoces del todo, a esa sombra que de repente se ha sentado a tu mesa y dice que piensa quedarse.
+            Sé lo que es sentarte frente a un neurólogo y escuchar dos palabras que no piden permiso para arrasarlo todo: esclerosis múltiple. Sé lo que es notar cómo el suelo se hunde bajo los pies, no de golpe, sino despacio, con crueldad, lo justo para que tengas tiempo de entender que nada vuelve a ser igual. Sé lo que es salir de la consulta con un folleto mal impreso, la cabeza llena de preguntas sin respuesta y una certeza única, afilada como un cuchillo: <strong>el miedo</strong>.
+          </p>
+          <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">
+            Miedo al mañana. Miedo al cuerpo, que empieza a ser territorio enemigo. Miedo a esa sombra que se sienta contigo a la mesa y te informa, sin dramatismos, de que ha venido para quedarse.
           </p>
 
           <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">
-            También sé lo que es la soledad disfrazada de buenas palabras. Los "ánimo", los "eres muy fuerte", los "va a salir todo bien" que te dicen con cariño, pero que a veces suenan lejos, como ecos en una habitación vacía. Y luego está Internet: información dispersa, técnica, contradictoria. Artículos que parecen escritos para médicos, testimonios perdidos en foros, datos que asustan más de lo que ayudan. Mucho ruido. Muy pocas brújulas.
+            También sé lo que es la soledad maquillada de buenas intenciones. Los “ánimo”, los “eres muy fuerte”, los “todo irá bien” dichos con cariño, sí, pero que a veces suenan huecos, como voces lejanas rebotando en una habitación vacía. Y luego está Internet, ese vertedero infinito: información técnica escrita para médicos con prisas, testimonios rotos en foros olvidados, cifras que no explican nada y asustan demasiado. Ruido. Mucho ruido. Y ninguna brújula.
           </p>
 
           <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">
-            Mientras aprendía a ser Full Stack Developer, una idea no dejaba de golpearme la cabeza: si iba a construir mi primer gran proyecto, tenía que servir para algo más que para un portfolio bonito. <span className="text-[#2D8659] text-[18px]">Tenía que servir para nosotros.</span> Para los que convivimos con la EM, día sí y día también. Para los que sabemos lo que es mirar el calendario y medir la vida en brotes, resonancias y analíticas.
+           Mientras aprendía a ser Full Stack Developer, una idea insistente me golpeaba la cabeza como un martillo: si iba a construir algo, no podía ser solo para adornar un portfolio. 
+           <p><span className="text-[#2D8659] text-[18px]">Tenía que servir. Tenía que ser útil. Tenía que ser para nosotros.</span> </p> 
+           
+           <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">Para los que convivimos con la EM, día sí y día también. <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">Para quienes aprendimos a medir la vida en brotes, resonancias, analíticas y silencios incómodos. </p></p>
+           <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">Para quienes sabemos que esta guerra no siempre se nota desde fuera, pero nunca se detiene por dentro. </p>
           </p>
 
           <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">
-            Así nació EM-PULSE: porque necesitábamos un lugar donde estuviera todo lo que siempre buscamos a trompicones. Los síntomas, explicados sin florituras. Las noticias, en español y en inglés, para no ir siempre un paso por detrás. Nuestros derechos, para que nadie nos pase por encima. Pautas y consejos para intentar que la enfermedad no avance más de lo que tiene que avanzar. Información sobre la medicación, sin promesas mágicas, pero con claridad. Y, sobre todo, lo más importante: la salud mental. Lo que esto le hace a la cabeza, al ánimo, a la identidad. Lo que casi nunca sale en los folletos.
+            Así nació <strong>EM-PULSE</strong>. Porque necesitábamos un lugar donde encontrar, sin rodeos ni humo, todo aquello que siempre buscamos a trompicones. Los síntomas, explicados con claridad y sin florituras. Las noticias, en español y en inglés, para no vivir siempre un paso por detrás. Nuestros derechos, para que nadie nos los arrebate por ignorancia o desidia. Consejos y pautas realistas para intentar que la enfermedad no avance más de lo inevitable. Información sobre la medicación, sin promesas milagrosas ni cuentos de feria, solo verdad.
           </p>
 
           <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">
-            No soy médico, ni gurú, ni salvador de nadie. Solo soy alguien que sabe lo que es convivir con esta guerra silenciosa y que ha intentado poner algo de orden en el caos. No sé si lo he conseguido. Ojalá, al menos, haya logrado una pizca, una brizna de ayuda. Si no es así, perdonadme. Pero os aseguro que EM-PULSE está hecho con todo mi corazón, con todas mis dudas y con toda mi rabia bien enfocada.
+            Y, sobre todo, lo que casi nunca aparece en los folletos: la salud mental. Lo que esto le hace a la cabeza. Al ánimo. A la identidad. A la forma en que te miras al espejo y te reconoces —o no—.
           </p>
 
           <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">
-            Va por vosotros, por nosotros. Sois más fuertes de lo que creéis.
+            No soy médico, ni gurú, ni salvador de nadie; soy tan solo alguien que sabe lo que es convivir con esta guerra silenciosa y que ha intentado poner algo de orden en el caos. No sé si lo he logrado. Ojalá, al menos, haya conseguido una pequeña grieta por la que entre algo de luz. Si no es así, perdonadme. Pero EM-PULSE está hecho con todo mi corazón, con todas mis dudas y con toda mi rabia bien dirigida.
+          </p>
+
+           <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">
+            Va por vosotros. Va por nosotros.
+          </p>
+
+
+          <p className="text-base text-empulseSoft leading-relaxed text-justify indent-8">
+            Y recordadlo, incluso cuando cueste creerlo: sois más fuertes de lo que pensáis.
           </p>
 
           <div className="text-center pt-4 border-t border-empulseAccent/20">
