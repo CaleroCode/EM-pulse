@@ -1,28 +1,23 @@
 const CACHE_NAME = 'em-pulse-v1';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
-];
 
 // Instalar Service Worker
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache);
-    })
-  );
+  console.log('Service Worker instalado');
+  self.skipWaiting();
 });
 
 // Activar Service Worker
 self.addEventListener('activate', (event) => {
+  console.log('Service Worker activado');
+  event.waitUntil(clients.claim());
+  
+  // Limpiar caches viejos
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheName !== CACHE_NAME) {
+            console.log('Borrando cache viejo:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -31,42 +26,43 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch - Servir desde cache, actualizar en background
+// Fetch - Estrategia Network First, fallback Cache
 self.addEventListener('fetch', (event) => {
-  // No cachear requests POST
-  if (event.request.method !== 'GET') {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // No cachear API calls o POST requests
+  if (request.method !== 'GET' || url.pathname.includes('/api/')) {
     return;
   }
 
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) {
-        return response;
-      }
-
-      return fetch(event.request).then((response) => {
-        // No cachear si no es un response válido
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
+    fetch(request)
+      .then((response) => {
+        // Clonar y guardar en cache
+        if (response && response.status === 200) {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, responseToCache);
+          });
         }
-
-        // Clonar la respuesta
-        const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
-
         return response;
-      }).catch(() => {
-        // Fallback si no hay conexión
-        return new Response('Aplicación sin conexión a Internet', {
-          status: 503,
-          statusText: 'Service Unavailable',
-          headers: new Headers({
-            'Content-Type': 'text/plain'
-          })
+      })
+      .catch(() => {
+        // Si falla, intentar desde cache
+        return caches.match(request).then((response) => {
+          if (response) {
+            return response;
+          }
+          // Si no está en cache, retornar offline page
+          return new Response('Offline - Contenido no disponible', {
+            status: 503,
+            statusText: 'Service Unavailable',
+            headers: new Headers({
+              'Content-Type': 'text/plain'
+            })
+          });
         });
-      });
-    })
+      })
   );
 });
