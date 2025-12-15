@@ -32,7 +32,7 @@ export default function WhatIsEM({ showWhatIsEM, setShowWhatIsEM }) {
 
       {/* Contenido */}
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-12">
-        <div className="space-y-12 text-slate-200 leading-relaxed">
+        <div className="space-y-12 text-slate-200 leading-relaxed text-justify">
           {/* Introducción empática */}
           <section className="bg-empulseBg/50 border border-empulseAccent/20 rounded-2xl p-8">
             <p className="text-lg text-empulseSoft">

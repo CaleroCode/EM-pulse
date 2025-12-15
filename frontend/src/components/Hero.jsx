@@ -1,4 +1,30 @@
+import React from 'react';
+
 export default function Hero({ searchQuery, setSearchQuery }) {
+  const [deferredPrompt, setDeferredPrompt] = React.useState(null);
+  const [showInstallPrompt, setShowInstallPrompt] = React.useState(false);
+
+  React.useEffect(() => {
+    const handler = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallPrompt(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`El usuario respondió: ${outcome}`);
+      setDeferredPrompt(null);
+      setShowInstallPrompt(false);
+    }
+  };
+
   return (
     <section id="hero" className="max-w-6xl mx-auto px-4 py-10 text-center">
       <div>
@@ -16,6 +42,44 @@ export default function Hero({ searchQuery, setSearchQuery }) {
         <p className="text-sm text-slate-300 mb-8 max-w-2xl mx-auto">
         EM-PULSE es para todos vosotros, para nosotros.
         </p>
+
+        {/* Sección de Descarga PWA */}
+        <div className="bg-gradient-to-r from-empulsePrimary/20 to-empulseMid/20 border-2 border-empulsePrimary/50 rounded-2xl p-8 mb-8 max-w-2xl mx-auto">
+          <h2 className="text-2xl font-bold text-empulsePrimary mb-4">
+            ¡¡DESCARGA EM-PULSE EN TU SMARTPHONE!!
+          </h2>
+          <p className="text-sm text-slate-300 mb-6">
+            Accede a EM-PULSE en cualquier momento desde tu dispositivo móvil, tablet o PC. Sin necesidad de App Store, completamente gratis.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {showInstallPrompt && deferredPrompt && (
+              <button
+                onClick={handleInstallClick}
+                className="px-6 py-3 bg-gradient-to-r from-empulsePrimary to-empulseMid text-white font-bold rounded-lg hover:shadow-lg hover:shadow-empulsePrimary/50 transition-all duration-200 text-sm sm:text-base"
+              >
+                📱 Instalar Ahora
+              </button>
+            )}
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                // Mostrar instrucciones según navegador
+                const ua = navigator.userAgent.toLowerCase();
+                if (ua.includes('iphone') || ua.includes('ipad')) {
+                  alert('1. Toca el botón Compartir (↑)\n2. Selecciona "Agregar a pantalla de inicio"\n3. ¡Listo! EM-PULSE en tu pantalla principal');
+                } else if (ua.includes('android')) {
+                  alert('1. Busca el menú (⋮) en tu navegador\n2. Selecciona "Instalar aplicación"\n3. ¡Listo! EM-PULSE en tu pantalla principal');
+                } else {
+                  alert('1. Busca el icono de instalación en la barra del navegador\n2. Toca "Instalar EM-PULSE"\n3. ¡Listo!');
+                }
+              }}
+              className="px-6 py-3 border-2 border-empulsePrimary text-empulsePrimary font-bold rounded-lg hover:bg-empulsePrimary/10 transition-all duration-200 text-sm sm:text-base"
+            >
+              ℹ️ Ver Instrucciones
+            </a>
+          </div>
+        </div>
         
         {/* Buscador */}
         <div className="flex justify-center mb-8">
