@@ -115,8 +115,14 @@ export default function Navbar({
     setShowGuides(false);
     setShowForum(false);
     setShowAllNews(false);
-    scrollToSection(sectionId);
     setMobileMenuOpen(false);
+    
+    // Si es hero (inicio), hacer scroll al top
+    if (sectionId === "hero") {
+      scrollToTop();
+    } else {
+      scrollToSection(sectionId);
+    }
   };
 
   // Función para scroll suave hacia el top
