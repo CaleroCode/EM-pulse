@@ -30,7 +30,7 @@ export const forumAPI = {
    */
   createPost: async (postData) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/posts/`, {
+      const response = await fetch(`${API_FORUM_URL}/posts/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export const forumAPI = {
    */
   updatePost: async (postId, postData) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/posts/${postId}/`, {
+      const response = await fetch(`${API_FORUM_URL}/posts/${postId}/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ export const forumAPI = {
    */
   deletePost: async (postId) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/posts/${postId}/`, {
+      const response = await fetch(`${API_FORUM_URL}/posts/${postId}/`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Error al eliminar post');
@@ -90,7 +90,7 @@ export const forumAPI = {
    */
   likePost: async (postId, userIdentifier) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/posts/${postId}/like/`, {
+      const response = await fetch(`${API_FORUM_URL}/posts/${postId}/like/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ export const forumAPI = {
    */
   unlikePost: async (postId, userIdentifier) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/posts/${postId}/unlike/`, {
+      const response = await fetch(`${API_FORUM_URL}/posts/${postId}/unlike/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ export const forumAPI = {
    */
   addComment: async (postId, commentData) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/posts/${postId}/add_comment/`, {
+      const response = await fetch(`${API_FORUM_URL}/posts/${postId}/add_comment/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ export const forumAPI = {
    */
   deleteComment: async (commentId) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/comments/${commentId}/`, {
+      const response = await fetch(`${API_FORUM_URL}/comments/${commentId}/`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Error al eliminar comentario');
@@ -178,7 +178,7 @@ export const forumAPI = {
    */
   likeComment: async (commentId, userIdentifier) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/comments/${commentId}/like/`, {
+      const response = await fetch(`${API_FORUM_URL}/comments/${commentId}/like/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ export const forumAPI = {
    */
   unlikeComment: async (commentId, userIdentifier) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/comments/${commentId}/unlike/`, {
+      const response = await fetch(`${API_FORUM_URL}/comments/${commentId}/unlike/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
