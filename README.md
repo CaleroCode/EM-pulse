@@ -42,13 +42,49 @@ Plataforma comunitaria y educativa para personas con Esclerosis Múltiple, con r
 
 ## 🚀 Instalación y Setup
 
-### Requisitos Previos
+### ✨ EM-PULSE es una PWA (Progressive Web App)
+
+```
+✅ Descargable gratis en Android, iOS, Windows, Mac
+✅ Funciona offline sin internet
+✅ Se instala desde el navegador (sin App Store)
+✅ Actualización automática
+✅ Acceso a hardware (cámara, micrófono, ubicación)
+```
+
+### Cómo Instalar
+
+**Android/Chrome:**
+```
+1. Abrir navegador
+2. Ir a: https://empulse.com
+3. Tocar "Instalar EM-PULSE"
+4. Se descarga en pantalla principal
+```
+
+**iPhone/Safari:**
+```
+1. Abrir Safari
+2. Ir a: https://empulse.com
+3. Compartir → "Agregar a pantalla de inicio"
+```
+
+**Windows/Mac:**
+```
+1. Abrir Chrome/Edge
+2. Ir a: https://empulse.com
+3. Botón instalar (arriba derecha)
+```
+
+---
+
+### Requisitos Previos (Para Desarrollo)
 - Python 3.8+ 
 - Node.js 14+ y npm/yarn
 - Git
 - Variables de entorno configuradas
 
-### Instalación Paso a Paso
+### Instalación Paso a Paso (Desarrollo)
 
 #### 1. Clonar el repositorio
 ```bash
@@ -419,7 +455,40 @@ Desktop:     > 1024px     (Escritorio)
 - **Tablet**: 768px - 1024px
 - **Desktop**: > 1024px
 
-## 🚢 Deployment en Render
+## 🚢 Deployment PWA
+
+### Quick Deploy (Render - Gratis)
+
+```bash
+# 1. Ya está en GitHub
+
+# 2. Ir a: https://render.com/
+# 3. Conectar con GitHub
+# 4. Crear Static Site:
+#    - Root Directory: frontend
+#    - Build: npm install && npm run build
+#    - Publish: dist
+# 5. Deploy (automático)
+
+# Tu PWA estará en: https://em-pulse-xxx.onrender.com
+```
+
+**Características:**
+- ✅ Gratis (750 horas/mes)
+- ✅ HTTPS automático (necesario para PWA)
+- ✅ Deploy automático con git push
+- ✅ Sin configuración
+
+### Alternativas
+- **Vercel**: Aún más rápido y optimizado
+- **GitHub Pages**: Ultra gratis, perfectamente funcional
+- **Netlify**: Excelente para PWA
+
+Ver: [PWA_DEPLOYMENT.md](PWA_DEPLOYMENT.md) para guía completa
+
+---
+
+## 🚢 Deployment Original (Render)
 
 ### Pasos para Desplegar
 
