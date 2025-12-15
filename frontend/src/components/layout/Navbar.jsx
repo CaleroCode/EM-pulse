@@ -69,7 +69,6 @@ export default function Navbar({
   setShowRights,
   setShowGuides,
   setShowForum,
-  setSectionToNavigate,
   setShowAllNews,
   handleLogout,
 }) {

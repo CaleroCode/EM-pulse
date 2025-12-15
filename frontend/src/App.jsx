@@ -516,7 +516,17 @@ function App() {
           />
 
       <main className="flex-1">
-        {showAssociations ? (
+        {showForum ? (
+          <Forum user={user} profileImage={profileImage} showForum={showForum} />
+        ) : showAllNews ? (
+          <AllNewsSection
+            showAllNews={showAllNews}
+            setShowAllNews={setShowAllNews}
+            allExternalNews={allExternalNews}
+            allNewsLoading={allNewsLoading}
+            formatDate={formatDate}
+          />
+        ) : showAssociations ? (
           <AssociationsSection
             showAssociations={showAssociations}
             setShowAssociations={setShowAssociations}
@@ -544,16 +554,6 @@ function App() {
           <GuiasYRecursos
             showGuides={showGuides}
             setShowGuides={setShowGuides}
-          />
-        ) : showForum ? (
-          <Forum user={user} profileImage={profileImage} showForum={showForum} />
-        ) : showAllNews ? (
-          <AllNewsSection
-            showAllNews={showAllNews}
-            setShowAllNews={setShowAllNews}
-            allExternalNews={allExternalNews}
-            allNewsLoading={allNewsLoading}
-            formatDate={formatDate}
           />
         ) : showTypesAndDiagnosis ? (
           <TypesAndDiagnosis

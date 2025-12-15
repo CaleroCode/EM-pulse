@@ -221,7 +221,7 @@ const ASSOCIATIONS_DATA = [
     },
 ];
 
-const AssociationsSection = ({ showAssociations, setShowAssociations }) => {
+const AssociationsSection = ({ showAssociations }) => {
   const [selectedCommunity, setSelectedCommunity] = useState("all");
   const [expandedAssociation, setExpandedAssociation] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");

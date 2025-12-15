@@ -1,8 +1,6 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
 from django.db.models import Prefetch
 from .models import ForumPost, ForumComment, ForumLike
 from .serializers import ForumPostSerializer, ForumCommentSerializer
@@ -31,9 +29,8 @@ class ForumPostViewSet(viewsets.ModelViewSet):
 
         return queryset.order_by('-created_at')
 
-    @method_decorator(cache_page(60 * 5))  # Caché de 5 minutos para listado
     def list(self, request, *args, **kwargs):
-        """Listar posts con caché"""
+        """Listar posts sin caché para mostrar posts nuevos inmediatamente"""
         return super().list(request, *args, **kwargs)
 
     def get_serializer_context(self):
