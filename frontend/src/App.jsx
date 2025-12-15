@@ -156,7 +156,7 @@ function App() {
   // ======================
   // Estado: Chat EM-PULSE
   // ======================
-  const [showChat, setShowChat] = useState(false);
+  const [_showChat, setShowChat] = useState(false);
 
   // ======================
   // Estado: Foro
