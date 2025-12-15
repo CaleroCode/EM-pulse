@@ -70,6 +70,7 @@ export default function Navbar({
   setShowGuides,
   setShowForum,
   setShowAllNews,
+  setShowAccessibility,
   handleLogout,
   goToHome,
 }) {
@@ -425,6 +426,31 @@ export default function Navbar({
               )}
             </div>
 
+            {/* Accesibilidad */}
+            <button
+              onClick={() => {
+                setShowAssociations(false);
+                setShowICDATA(false);
+                setShowChat(false);
+                setShowWhatIsEM(false);
+                setShowTypesAndDiagnosis(false);
+                setShowMovement(false);
+                setShowMentalHealth(false);
+                setShowRights(false);
+                setShowGuides(false);
+                setShowForum(false);
+                setShowAllNews(false);
+                setShowAccessibility(true);
+                setMobileMenuOpen(false);
+              }}
+              className="w-full text-left px-4 py-3 font-semibold text-white rounded-lg transition-all duration-200 flex items-center gap-2 hover:shadow-lg hover:shadow-blue-500/40"
+              style={{ backgroundColor: "#0066cc" }}
+              title="Opciones de accesibilidad"
+              aria-label="Abrir página de accesibilidad con opciones para modo oscuro, tamaño de texto, contraste alto y más"
+            >
+              ♿ Accesibilidad
+            </button>
+
             {/* ICDATA */}
             <button
               onClick={() => {
@@ -439,6 +465,7 @@ export default function Navbar({
                 setShowGuides(false);
                 setShowForum(false);
                 setShowAllNews(false);
+                setShowAccessibility(false);
                 setMobileMenuOpen(false);
                 scrollToTop();
               }}
@@ -759,6 +786,29 @@ export default function Navbar({
           {/* Espaciador derecho para empujar ICDATA */}
           <div className="flex-1"></div>
 
+          {/* Accesibilidad - Solo ícono */}
+          <button
+            onClick={() => {
+              setShowAssociations(false);
+              setShowICDATA(false);
+              setShowChat(false);
+              setShowWhatIsEM(false);
+              setShowTypesAndDiagnosis(false);
+              setShowMovement(false);
+              setShowMentalHealth(false);
+              setShowRights(false);
+              setShowGuides(false);
+              setShowForum(false);
+              setShowAllNews(false);
+              setShowAccessibility(true);
+            }}
+            className="text-3xl transition-all duration-200 hover:scale-110 cursor-pointer"
+            title="Opciones de accesibilidad"
+            aria-label="Abrir página de accesibilidad"
+          >
+            ♿
+          </button>
+
           {/* Separador con espacio */}
           <div className="h-6 w-1 bg-empulseAccent/20 mx-1"></div>
 
@@ -776,6 +826,7 @@ export default function Navbar({
               setShowGuides(false);
               setShowForum(false);
               setShowAllNews(false);
+              setShowAccessibility(false);
               scrollToTop();
             }}
             className="px-3 py-1.5 rounded-lg text-white font-semibold text-[11px] transition-all duration-200 hover:shadow-lg hover:shadow-[#2D8659]/40 hover:scale-105"

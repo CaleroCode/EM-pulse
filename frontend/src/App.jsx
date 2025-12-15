@@ -25,6 +25,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import GDPRNotice from "./pages/GDPRNotice";
 import Forum from "./pages/Forum";
+import AccessibilityPage from "./pages/AccessibilityPage";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -165,6 +166,11 @@ function App() {
   const [sectionToNavigate, setSectionToNavigate] = useState(null);
 
   // ======================
+  // Estado: Accesibilidad
+  // ======================
+  const [showAccessibility, setShowAccessibility] = useState(false);
+
+  // ======================
   // Efectos: cargar datos
   // ======================
 
@@ -223,6 +229,21 @@ function App() {
 
     fetchExternalNews();
   }, [newsLanguageFilter]);
+
+  // Aplicar preferencias de accesibilidad guardadas al cargar
+  useEffect(() => {
+    const darkMode = localStorage.getItem("em-pulse-dark-mode") === "true";
+    const highContrast = localStorage.getItem("em-pulse-high-contrast") === "true";
+    const focusIndicators = localStorage.getItem("em-pulse-focus-indicators") === "true";
+    const reducedMotion = localStorage.getItem("em-pulse-reduced-motion") === "true";
+    const fontSize = parseInt(localStorage.getItem("em-pulse-font-size")) || 100;
+
+    document.documentElement.classList.toggle("dark-mode-em", darkMode);
+    document.documentElement.classList.toggle("high-contrast-em", highContrast);
+    document.documentElement.classList.toggle("enhanced-focus-em", focusIndicators);
+    document.documentElement.classList.toggle("reduce-motion-em", reducedMotion);
+    document.documentElement.style.fontSize = `${fontSize}%`;
+  }, []);
 
   // Restaurar usuario del token al cargar
   useEffect(() => {
@@ -437,6 +458,7 @@ function App() {
     setShowPrivacy(false);
     setShowTerms(false);
     setShowChat(false);
+    setShowAccessibility(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -510,6 +532,55 @@ function App() {
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: #5CC4DE;
         }
+
+        /* Estilos de Accesibilidad Globales */
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border-width: 0;
+        }
+
+        .dark-mode-em {
+          color-scheme: dark;
+          filter: invert(1) hue-rotate(180deg);
+        }
+
+        .dark-mode-em body {
+          background-color: #020f18;
+          color: #e2e8f0;
+        }
+
+        .high-contrast-em {
+          --text-color: #000000;
+          --bg-color: #ffffff;
+          --primary-color: #0066cc;
+        }
+
+        .high-contrast-em body {
+          background-color: #ffffff;
+          color: #000000;
+        }
+
+        .high-contrast-em button {
+          border: 2px solid #000000;
+        }
+
+        .enhanced-focus-em *:focus-visible {
+          outline: 4px solid #ffff00;
+          outline-offset: 2px;
+        }
+
+        .reduce-motion-em * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
       `}</style>
 
       {/* Mostrar IndexPage si showIndex es true */}
@@ -540,12 +611,15 @@ function App() {
             setShowForum={setShowForum}
             setSectionToNavigate={setSectionToNavigate}
             setShowAllNews={setShowAllNews}
+            setShowAccessibility={setShowAccessibility}
             handleLogout={handleLogout}
             goToHome={goToHome}
           />
 
       <main className="flex-1">
-        {showForum ? (
+        {showAccessibility ? (
+          <AccessibilityPage onClose={() => setShowAccessibility(false)} />
+        ) : showForum ? (
           <Forum user={user} profileImage={profileImage} showForum={showForum} />
         ) : showAllNews ? (
           <AllNewsSection
