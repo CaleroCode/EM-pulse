@@ -154,6 +154,11 @@ function App() {
   const [showTerms, setShowTerms] = useState(false);
 
   // ======================
+  // Estado: Chat EM-PULSE
+  // ======================
+  const [showChat, setShowChat] = useState(false);
+
+  // ======================
   // Estado: Foro
   // ======================
   const [showForum, setShowForum] = useState(false);
@@ -413,6 +418,28 @@ function App() {
     }
   };
 
+  // Función para ir a la página inicial cerrando todos los overlays
+  const goToHome = () => {
+    setShowIndex(false);
+    setShowProfilePage(false);
+    setShowAuthModal(false);
+    setShowAssociations(false);
+    setShowICDATA(false);
+    setShowWhatIsEM(false);
+    setShowTypesAndDiagnosis(false);
+    setShowSymptomsDetail(false);
+    setShowMovement(false);
+    setShowMentalHealth(false);
+    setShowRights(false);
+    setShowGuides(false);
+    setShowForum(false);
+    setShowAllNews(false);
+    setShowPrivacy(false);
+    setShowTerms(false);
+    setShowChat(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // scroll suave
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -502,6 +529,7 @@ function App() {
             setShowProfilePage={setShowProfilePage}
             setShowAssociations={setShowAssociations}
             setShowICDATA={setShowICDATA}
+            setShowChat={setShowChat}
             setShowWhatIsEM={setShowWhatIsEM}
             setShowTypesAndDiagnosis={setShowTypesAndDiagnosis}
             setShowSymptomsDetail={setShowSymptomsDetail}
@@ -513,6 +541,7 @@ function App() {
             setSectionToNavigate={setSectionToNavigate}
             setShowAllNews={setShowAllNews}
             handleLogout={handleLogout}
+            goToHome={goToHome}
           />
 
       <main className="flex-1">

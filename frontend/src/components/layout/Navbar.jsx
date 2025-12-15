@@ -71,6 +71,7 @@ export default function Navbar({
   setShowForum,
   setShowAllNews,
   handleLogout,
+  goToHome,
 }) {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -115,14 +116,8 @@ export default function Navbar({
     setShowGuides(false);
     setShowForum(false);
     setShowAllNews(false);
+    scrollToSection(sectionId);
     setMobileMenuOpen(false);
-    
-    // Si es hero (inicio), hacer scroll al top
-    if (sectionId === "hero") {
-      scrollToTop();
-    } else {
-      scrollToSection(sectionId);
-    }
   };
 
   // Función para scroll suave hacia el top
@@ -158,7 +153,7 @@ export default function Navbar({
           {/* Logo centrado y grande */}
           <div className="flex-1 text-center">
             <button 
-              onClick={() => handleNavigate("hero")}
+              onClick={goToHome}
               className="cursor-pointer transition-all duration-200 hover:scale-110"
             >
               <span className="text-4xl md:text-5xl font-bold tracking-tighter heartbeat-pulse glow-pulse inline-block">
@@ -365,6 +360,9 @@ export default function Navbar({
                 setShowGuides(false);
                 setShowForum(false);
                 setShowAllNews(false);
+                setShowProfilePage(false);
+                setShowSymptomsDetail(false);
+                setShowAuthModal(false);
                 setMobileMenuOpen(false);
                 scrollToTop();
               }}
@@ -522,11 +520,7 @@ export default function Navbar({
           <div className="flex items-center gap-1">
           {/* Síntomas y Noticias */}
           <button
-            onClick={() => {
-              setShowChat(false);
-              handleNavigate("symptoms");
-              scrollToTop();
-            }}
+            onClick={goToHome}
             className={`px-3 py-2 font-semibold rounded-lg transition-all duration-300 flex items-center gap-1.5 relative group ${
               isActive("symptoms")
                 ? "text-white bg-empulseAccent/25"
@@ -559,6 +553,13 @@ export default function Navbar({
                     setShowTypesAndDiagnosis(false);
                     setShowAssociations(false);
                     setShowICDATA(false);
+                    setShowMovement(false);
+                    setShowMentalHealth(false);
+                    setShowRights(false);
+                    setShowGuides(false);
+                    setShowForum(false);
+                    setShowChat(false);
+                    setShowAllNews(false);
                     scrollToTop();
                   }}
                   className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
@@ -571,6 +572,13 @@ export default function Navbar({
                   setShowWhatIsEM(false);
                   setShowAssociations(false);
                   setShowICDATA(false);
+                  setShowMovement(false);
+                  setShowMentalHealth(false);
+                  setShowRights(false);
+                  setShowGuides(false);
+                  setShowForum(false);
+                  setShowChat(false);
+                  setShowAllNews(false);
                   scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
@@ -597,6 +605,12 @@ export default function Navbar({
                   setShowTypesAndDiagnosis(false);
                   setShowAssociations(false);
                   setShowICDATA(false);
+                  setShowRights(false);
+                  setShowGuides(false);
+                  setShowMentalHealth(false);
+                  setShowForum(false);
+                  setShowChat(false);
+                  setShowAllNews(false);
                   scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
@@ -611,6 +625,11 @@ export default function Navbar({
                   setShowMovement(false);
                   setShowAssociations(false);
                   setShowICDATA(false);
+                  setShowRights(false);
+                  setShowGuides(false);
+                  setShowForum(false);
+                  setShowChat(false);
+                  setShowAllNews(false);
                   scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
@@ -639,6 +658,9 @@ export default function Navbar({
                   setShowTypesAndDiagnosis(false);
                   setShowAssociations(false);
                   setShowICDATA(false);
+                  setShowForum(false);
+                  setShowChat(false);
+                  setShowAllNews(false);
                   scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
@@ -655,6 +677,9 @@ export default function Navbar({
                   setShowTypesAndDiagnosis(false);
                   setShowAssociations(false);
                   setShowICDATA(false);
+                  setShowForum(false);
+                  setShowChat(false);
+                  setShowAllNews(false);
                   scrollToTop();
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
@@ -680,6 +705,10 @@ export default function Navbar({
               setShowRights(false);
               setShowGuides(false);
               setShowForum(false);
+              setShowAllNews(false);
+              setShowProfilePage(false);
+              setShowSymptomsDetail(false);
+              setShowAuthModal(false);
               scrollToTop();
             }}
             className="px-3 py-2 font-semibold text-empulsePrimary hover:text-white hover:bg-empulseAccent/15 rounded-lg transition-all duration-200 flex items-center gap-1.5"
@@ -716,18 +745,8 @@ export default function Navbar({
               </button>
               <button 
                 onClick={() => {
-                  setShowAllNews(true);
-                  setShowForum(false);
-                  setShowChat(false);
-                  setShowAssociations(false);
-                  setShowICDATA(false);
-                  setShowWhatIsEM(false);
-                  setShowTypesAndDiagnosis(false);
-                  setShowMovement(false);
-                  setShowMentalHealth(false);
-                  setShowRights(false);
-                  setShowGuides(false);
-                  scrollToTop();
+                  goToHome();
+                  setTimeout(() => scrollToSection("newsletter"), 50);
                 }}
                 className="block w-full text-left whitespace-nowrap px-4 py-2.5 text-[11px] md:text-xs text-slate-300 hover:text-empulsePrimary hover:bg-empulseAccent/15 transition-all duration-200 group/item relative overflow-hidden">
                 <span className="relative z-10">Newsletter</span>
