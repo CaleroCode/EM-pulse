@@ -1,0 +1,47 @@
+services:
+  - type: pserv
+    name: empulse-postgres
+    env: postgres
+    region: frankfurt
+    plan: free
+    ipAllowList: []
+    databaseName: empulse_db
+    user: empulse_user
+    envVars:
+      - key: POSTGRES_PASSWORD
+        generateValue: true
+
+  - type: web
+    name: empulse-api
+    env: python
+    region: frankfurt
+    plan: free
+    buildCommand: cd backend && pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py collectstatic --noinput
+    startCommand: cd backend && gunicorn empulse_backend.wsgi:application --bind 0.0.0.0:$PORT --timeout 60 --workers 2
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: "empulse-api.onrender.com,empulse.onrender.com,localhost,127.0.0.1"
+      - key: DATABASE_URL
+        fromService:
+          type: pserv
+          name: empulse-postgres
+          property: connectionString
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://empulse.onrender.com,http://localhost:5173,http://localhost:3000"
+
+  - type: web
+    name: empulse
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm run preview
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: "https://empulse-api.onrender.com"
+
