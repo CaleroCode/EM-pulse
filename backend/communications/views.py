@@ -2,6 +2,8 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 import requests
 import os
 from datetime import datetime, timedelta
@@ -24,10 +26,21 @@ class NewsViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=False, methods=['get'])
     def external_recent(self, request):
-        """Obtiene las últimas 3 noticias externas sobre Esclerosis Múltiple"""
+        """Obtiene las últimas 3 noticias externas sobre Esclerosis Múltiple (caché 30 min)"""
         try:
             language = request.query_params.get('language', 'both')  # 'es', 'en', 'both'
-            external_news = self._fetch_external_news(limit=3, language=language)
+            # Implementar caché simple basado en lenguaje
+            cache_key = f'external_recent_news_{language}'
+            
+            # Intenta obtener del caché de Django
+            from django.core.cache import cache
+            external_news = cache.get(cache_key)
+            
+            if external_news is None:
+                external_news = self._fetch_external_news(limit=3, language=language)
+                # Cachear por 30 minutos
+                cache.set(cache_key, external_news, 60 * 30)
+            
             return Response(external_news, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(

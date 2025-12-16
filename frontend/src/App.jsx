@@ -186,6 +186,7 @@ function App() {
   // ======================
 
   // Cargar síntomas
+  // Cargar síntomas PRIMERO (solo texto, más rápido)
   useEffect(() => {
     const fetchSymptoms = async () => {
       try {
@@ -212,7 +213,8 @@ function App() {
     fetchSymptoms();
   }, []);
 
-  // Cargar noticias externas (recientes)
+  // Cargar noticias externas DESPUÉS (contenido más pesado)
+  // Se ejecuta después de que los síntomas se carguen
   useEffect(() => {
     const fetchExternalNews = async () => {
       try {
@@ -238,7 +240,12 @@ function App() {
       }
     };
 
-    fetchExternalNews();
+    // Pequeño delay (50ms) para asegurar que síntomas se cargan primero
+    const newsTimer = setTimeout(() => {
+      fetchExternalNews();
+    }, 50);
+
+    return () => clearTimeout(newsTimer);
   }, [newsLanguageFilter]);
 
   // Aplicar preferencias de accesibilidad guardadas al cargar
