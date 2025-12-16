@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, Heart, Reply, Search, Plus, User, Clock, X } from "lucide-react";
 import { forumAPI } from "../services/forumAPI";
+import ShareButtons from "../components/ShareButtons";
 
 export default function Forum({ user, profileImage, showForum }) {
   const [selectedCategory, setSelectedCategory] = useState("general");
@@ -395,6 +396,15 @@ export default function Forum({ user, profileImage, showForum }) {
                     {expandedPost === post.id && (
                       <div className="mt-6 pt-6 border-t border-empulseAccent/20">
                         <p className="text-slate-300 mb-6">{post.content}</p>
+
+                        {/* Share Buttons */}
+                        <div className="mb-6">
+                          <ShareButtons 
+                            title={post.title}
+                            url={`${window.location.href}#post-${post.id}`}
+                            description={post.content.substring(0, 100)}
+                          />
+                        </div>
 
                         {/* Comments Section */}
                         {(post.comments || []).length > 0 && (

@@ -1,4 +1,5 @@
 import Button from '../components/ui/Button';
+import ShareButtons from '../components/ShareButtons';
 
 export default function NewsSection({
   externalNews,
@@ -75,6 +76,13 @@ export default function NewsSection({
               <p className="text-xs text-slate-300 mb-3 line-clamp-2">
                 {item.description}
               </p>
+              <div className="mb-3">
+                <ShareButtons 
+                  title={item.title}
+                  url={item.url}
+                  description={item.description}
+                />
+              </div>
               <div className="flex items-center justify-between">
                 <span className="text-[11px] text-slate-500">
                   {formatDate(item.published_at)}

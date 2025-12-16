@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Button from '../components/ui/Button';
+import ShareButtons from '../components/ShareButtons';
 
 export default function AllNewsSection({
   showAllNews,
@@ -72,6 +73,13 @@ export default function AllNewsSection({
                     <p className="text-sm text-slate-300 mb-4 leading-relaxed">
                       {item.description}
                     </p>
+                    <div className="mb-4">
+                      <ShareButtons 
+                        title={item.title}
+                        url={item.url}
+                        description={item.description}
+                      />
+                    </div>
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-slate-500">
                         {formatDate(item.published_at)}
