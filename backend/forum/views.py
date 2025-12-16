@@ -31,6 +31,26 @@ class ForumPostViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         """Listar posts sin caché para mostrar posts nuevos inmediatamente"""
         return super().list(request, *args, **kwargs)
+    
+    def create(self, request, *args, **kwargs):
+        """Crear un nuevo post con validación"""
+        # Validar datos requeridos
+        required_fields = ['author', 'title', 'content', 'category']
+        missing_fields = [field for field in required_fields if not request.data.get(field)]
+        
+        if missing_fields:
+            return Response(
+                {'error': f'Campos requeridos faltantes: {", ".join(missing_fields)}'}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Crear post
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            self.perform_create(serializer)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get_serializer_context(self):
         context = super().get_serializer_context()

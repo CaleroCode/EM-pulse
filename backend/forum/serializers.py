@@ -28,7 +28,25 @@ class ForumPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = ForumPost
         fields = ['id', 'author', 'author_avatar', 'title', 'content', 'category', 'likes', 'created_at', 'updated_at', 'comments', 'comments_count', 'user_has_liked']
-        read_only_fields = ['id', 'created_at', 'updated_at', 'likes']
+        read_only_fields = ['id', 'created_at', 'updated_at', 'likes', 'comments_count', 'user_has_liked']
+    
+    def validate_title(self, value):
+        """Validar que el título no esté vacío"""
+        if not value or not value.strip():
+            raise serializers.ValidationError("El título no puede estar vacío")
+        return value
+    
+    def validate_content(self, value):
+        """Validar que el contenido no esté vacío"""
+        if not value or not value.strip():
+            raise serializers.ValidationError("El contenido no puede estar vacío")
+        return value
+    
+    def validate_author(self, value):
+        """Validar que el autor no esté vacío"""
+        if not value or not value.strip():
+            raise serializers.ValidationError("El autor no puede estar vacío")
+        return value
 
     def get_comments_count(self, obj):
         return obj.comments.count()
