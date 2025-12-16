@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Search, X, Filter, ChevronDown } from "lucide-react";
 
-export default function AdvancedSearch({ onSearch, onClose }) {
+export default function AdvancedSearch({ onClose }) {
   const [query, setQuery] = useState("");
   const [searchType, setSearchType] = useState("all"); // all, posts, news, symptoms, articles
   const [category, setCategory] = useState("all");
@@ -34,27 +34,11 @@ export default function AdvancedSearch({ onSearch, onClose }) {
     { id: "popular", name: "Más Popular" },
   ];
 
-  // Simulación de búsqueda
-  useEffect(() => {
-    if (query.trim().length > 2) {
-      performSearch();
-    } else {
-      setResults([]);
-    }
-  }, [query, searchType, category, sortBy]);
-
   const performSearch = async () => {
     setLoading(true);
+    setResults([]);
     try {
       const api = import.meta.env.VITE_API_URL || "http://localhost:8000";
-      
-      // Construir URL de búsqueda
-      const params = new URLSearchParams({
-        search: query,
-        type: searchType !== "all" ? searchType : "",
-        category: category !== "all" ? category : "",
-        sort: sortBy,
-      });
 
       // Ejemplo: búsqueda en posts
       if (searchType === "all" || searchType === "posts") {
@@ -115,6 +99,16 @@ export default function AdvancedSearch({ onSearch, onClose }) {
       setLoading(false);
     }
   };
+
+  // Simulación de búsqueda
+  useEffect(() => {
+    if (query.trim().length > 2) {
+      performSearch();
+    } else {
+      setResults([]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, searchType, category, sortBy]);
 
   const getIcon = (type) => {
     switch (type) {

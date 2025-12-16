@@ -88,10 +88,6 @@ export default function Hero({ searchQuery, setSearchQuery }) {
         {/* Modal de Búsqueda Avanzada */}
         {showAdvancedSearch && (
           <AdvancedSearch 
-            onSearch={(query) => {
-              setSearchQuery(query);
-              setShowAdvancedSearch(false);
-            }}
             onClose={() => setShowAdvancedSearch(false)}
           />
         )}
