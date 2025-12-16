@@ -33,7 +33,11 @@ class ForumPostSerializer(serializers.ModelSerializer):
         fields = ['id', 'author', 'author_avatar', 'title', 'content', 'category', 'likes', 'created_at', 'updated_at', 'comments', 'comments_count', 'user_has_liked']
         read_only_fields = ['id', 'created_at', 'updated_at', 'likes', 'comments_count', 'user_has_liked']
         extra_kwargs = {
-            'author_avatar': {'required': False, 'allow_blank': True}
+            'author_avatar': {'required': False, 'allow_blank': True},
+            'author': {'required': True},
+            'title': {'required': True},
+            'content': {'required': True},
+            'category': {'required': True}
         }
     
     def validate_title(self, value):

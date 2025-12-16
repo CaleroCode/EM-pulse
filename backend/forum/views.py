@@ -84,11 +84,18 @@ class ForumPostViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """Guardar el post asegurando que se persiste a la base de datos"""
-        logger.info("perform_create iniciado")
-        with transaction.atomic():
+        logger.info(f"perform_create: Guardando con datos validados: {serializer.validated_data}")
+        try:
             instance = serializer.save()
-            logger.info(f"Post guardado en BD con ID: {instance.id}")
-            return instance
+            logger.info(f"perform_create: Post guardado exitosamente en BD con ID: {instance.id}")
+            logger.info(f"perform_create: Verificando post en BD...")
+            
+            # Verificar que realmente se guardó
+            from_db = ForumPost.objects.get(id=instance.id)
+            logger.info(f"perform_create: Confirmado en BD - ID: {from_db.id}, Título: {from_db.title}")
+        except Exception as e:
+            logger.error(f"perform_create ERROR: {str(e)}", exc_info=True)
+            raise
 
     def get_serializer_context(self):
         context = super().get_serializer_context()

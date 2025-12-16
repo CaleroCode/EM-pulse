@@ -50,14 +50,10 @@ export default function Forum({ user, profileImage, showForum }) {
         console.log('Forum: selectedCategory=', selectedCategory);
         console.log('Forum: userIdentifier=', userIdentifier);
         
-        // PRIMERO: Cargar SIN filtro para debug
-        const allData = await forumAPI.getPosts(null, null, userIdentifier);
-        console.log('Forum: TODOS los posts (sin filtro):', allData);
-        console.log('Forum: Total posts:', allData?.length);
-        
-        // SEGUNDO: Cargar CON filtro
-        const data = await forumAPI.getPosts(selectedCategory, null, userIdentifier);
-        console.log('Forum: Posts filtrados por categoría', selectedCategory, ':', data);
+        // Cargar TODOS los posts (sin filtrar por categoría en la API)
+        // El filtro será solo visual
+        const data = await forumAPI.getPosts(null, null, userIdentifier);
+        console.log('Forum: TODOS los posts cargados:', data);
         console.log('Forum: Es array?', Array.isArray(data), 'Longitud:', data?.length);
         setPosts(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -70,13 +66,20 @@ export default function Forum({ user, profileImage, showForum }) {
     };
     
     loadPosts();
-  }, [selectedCategory, userIdentifier]);
+  }, [userIdentifier]);
 
   const currentPosts = posts;
-  const filteredPosts = currentPosts.filter(post =>
-    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    post.content.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredPosts = currentPosts.filter(post => {
+    // Filtrar por búsqueda
+    const matchesSearch = 
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    // Filtrar por categoría (solo si NO es "all")
+    const matchesCategory = selectedCategory === "all" || post.category === selectedCategory;
+    
+    return matchesSearch && matchesCategory;
+  });
 
   const handleCreatePost = async () => {
     if (newPostTitle.trim() && newPostContent.trim()) {
