@@ -492,18 +492,20 @@ Desktop:     > 1024px     (Escritorio)
 
 ## 🚢 Deployment PWA - 🌐 ACTIVO
 
-### Plataforma Actual: Render ✅
+### Plataforma Actual: Render ✅ (con PostgreSQL persistente)
 
 Tu PWA está desplegada en **Render** (gratuito con HTTPS automático):
-- URL: `https://empulse-pwa.onrender.com/`
+- URL: `https://empulse.com` o `https://empulse-pwa.onrender.com/`
 - Estado: ✅ Activo y funcionando
 - Actualizaciones: Automáticas con cada `git push`
 - Certificado HTTPS: ✅ Automático (necesario para PWA)
+- **Base de Datos: PostgreSQL persistente** ✅ (Los posts del foro se guardan permanentemente)
 
 ### Deploy Automático con Render
 
 1. **Ya está conectado a GitHub**
    - Cualquier `git push` a la rama main dispara deployment automático
+   - Se ejecuta `python manage.py migrate` automáticamente
    - Sin necesidad de hacer nada más
 
 2. **Verificar Deployment**
@@ -513,10 +515,27 @@ Tu PWA está desplegada en **Render** (gratuito con HTTPS automático):
    ```
 
 3. **Detalles del Deploy en Render**
-   - Build Command: `npm install && npm run build`
-   - Publish Directory: `dist`
-   - Ambiente: Static Site
-   - Gratuitamente: 750 horas/mes
+   - Build Command: `cd backend && pip install -r requirements.txt && python manage.py migrate`
+   - Start Command: `cd backend && gunicorn empulse_backend.wsgi:application --bind 0.0.0.0:$PORT`
+   - Ambiente: Python + PostgreSQL persistente
+   - Gratuitamente: 750 horas/mes + 90 días de inactividad máx.
+
+### Base de Datos PostgreSQL en Render
+
+La configuración ahora incluye:
+- **PostgreSQL** persistente (no se reinicia con redeploys)
+- **Conexión automática** a través de `DATABASE_URL`
+- **Migraciones automáticas** en cada deploy
+- **Datos permanentes**: Posts, comentarios, usuarios se guardan siempre
+
+**Configuración en render.yaml:**
+```yaml
+services:
+  - type: pserv          # PostgreSQL service
+    name: empulse-postgres
+    databaseName: empulse_db
+    # Conectado automáticamente a backend via DATABASE_URL
+```
 
 ### Características de la PWA en Producción
 
@@ -527,6 +546,7 @@ Tu PWA está desplegada en **Render** (gratuito con HTTPS automático):
 ✅ **Caché Inteligente**: Network First, fallback a cache
 ✅ **Actualizaciones Automáticas**: Detecta cambios y actualiza
 ✅ **HTTPS**: Necesario y automático en Render
+✅ **Base de Datos Persistente**: PostgreSQL para datos duraderos
 
 ### Alternativas de Hosting
 - **Vercel**: Más rápido, pero tiene limite gratuito menor
@@ -830,9 +850,13 @@ Ambos errores han sido corregidos en la versión actual.
 | **HTTPS** | Automático ✅ |
 | **Auto-Deploy** | Git push automático ✅ |
 
----
+### Necesito Ayuda con la Configuración de PostgreSQL
+- **Documentación completa**: [RENDER_POSTGRESQL_SETUP.md](RENDER_POSTGRESQL_SETUP.md)
+- Pasos detallados para configurar BD persistente en Render
+- Cómo validar que los datos se guardan correctamente
+- Troubleshooting de problemas comunes
 
-## 📞 Contacto y Soporte
+---
 
 - **Email de Contacto**: En footer de la app
 - **Política de Privacidad**: Accessible en footer
