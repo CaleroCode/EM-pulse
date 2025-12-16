@@ -46,15 +46,9 @@ export default function Forum({ user, profileImage, showForum }) {
       setLoading(true);
       setError(null);
       try {
-        console.log('Forum: loadPosts iniciado');
-        console.log('Forum: selectedCategory=', selectedCategory);
-        console.log('Forum: userIdentifier=', userIdentifier);
-        
         // Cargar TODOS los posts (sin filtrar por categoría en la API)
         // El filtro será solo visual
         const data = await forumAPI.getPosts(null, null, userIdentifier);
-        console.log('Forum: TODOS los posts cargados:', data);
-        console.log('Forum: Es array?', Array.isArray(data), 'Longitud:', data?.length);
         setPosts(Array.isArray(data) ? data : []);
       } catch (err) {
         setError('Error al cargar los posts');
@@ -94,9 +88,7 @@ export default function Forum({ user, profileImage, showForum }) {
           category: newPostCategory,
         };
 
-        console.log('Creando post con datos:', newPost);
         const createdPost = await forumAPI.createPost(newPost);
-        console.log('Post creado exitosamente:', createdPost);
         
         // Agregar el nuevo post a la lista
         setPosts(prevPosts => [createdPost, ...prevPosts]);
@@ -110,11 +102,9 @@ export default function Forum({ user, profileImage, showForum }) {
         
         // Recargar todos los posts después de 1 segundo
         setTimeout(async () => {
-          console.log('Recargando posts después de crear uno...');
           try {
             const data = await forumAPI.getPosts(null, null, userIdentifier);
             setPosts(Array.isArray(data) ? data : []);
-            console.log('Posts recargados:', data);
           } catch (err) {
             console.error('Error recargando posts:', err);
           }

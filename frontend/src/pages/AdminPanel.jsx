@@ -55,7 +55,6 @@ export default function AdminPanel() {
   // Auto-reload posts cuando se autentica
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('Admin autenticado, recargando posts automáticamente');
       loadPosts();
       // Recargar cada 10 segundos
       const interval = setInterval(loadPosts, 10000);
@@ -68,14 +67,8 @@ export default function AdminPanel() {
     setLoading(true);
     setError("");
     try {
-      console.log('AdminPanel: Cargando posts...');
       const data = await forumAPI.getPosts();
-      console.log('AdminPanel: Posts obtenidos:', data);
-      console.log('AdminPanel: Es array?', Array.isArray(data));
-      console.log('AdminPanel: Longitud:', data?.length);
-      
       const postsArray = Array.isArray(data) ? data : [];
-      console.log('AdminPanel: Seteando posts:', postsArray);
       setPosts(postsArray);
       filterPosts(postsArray);
     } catch (err) {
@@ -103,17 +96,10 @@ export default function AdminPanel() {
       filtered = filtered.filter((post) => post.category === categoryFilter);
     }
 
-    console.log('filterPosts:', { 
-      totalPosts: postsToFilter?.length || 0, 
-      afterSearch: filtered.length, 
-      searchQuery, 
-      categoryFilter 
-    });
     setFilteredPosts(filtered);
   };
 
   useEffect(() => {
-    console.log('useEffect filterPosts ejecutado, posts:', posts.length);
     filterPosts(posts);
   }, [searchQuery, categoryFilter, posts]);
 
@@ -325,7 +311,6 @@ export default function AdminPanel() {
 
         {/* Posts list */}
         <div className="space-y-4">
-          {console.log('RENDER: loading=', loading, 'filteredPosts.length=', filteredPosts?.length)}
           {loading ? (
             <div className="text-center py-12 text-slate-400">
               Cargando posts...

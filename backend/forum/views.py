@@ -20,47 +20,32 @@ class ForumPostViewSet(viewsets.ModelViewSet):
         queryset = ForumPost.objects.all().prefetch_related(
             Prefetch('comments', queryset=ForumComment.objects.order_by('created_at'))
         )
-        
-        logger.info(f"Total posts en BD: {queryset.count()}")
-        
         category = self.request.query_params.get('category')
         search = self.request.query_params.get('search')
 
         if category:
-            logger.info(f"Filtrando por categoría: {category}")
             queryset = queryset.filter(category=category)
         if search:
-            logger.info(f"Buscando: {search}")
             queryset = queryset.filter(
                 Q(title__icontains=search) | 
                 Q(content__icontains=search)
             )
 
-        result = queryset.order_by('-created_at')
-        logger.info(f"Posts después de filtros: {result.count()}")
-        logger.info(f"Posts IDs: {list(result.values_list('id', flat=True))}")
-        return result
+        return queryset.order_by('-created_at')
 
     def list(self, request, *args, **kwargs):
         """Listar posts sin caché para mostrar posts nuevos inmediatamente"""
-        logger.info(f"GET /posts/ - Parámetros: {dict(request.query_params)}")
-        response = super().list(request, *args, **kwargs)
-        logger.info(f"Retornando {len(response.data)} posts")
-        return response
+        return super().list(request, *args, **kwargs)
     
     def create(self, request, *args, **kwargs):
         """Crear un nuevo post con validación"""
-        logger.info(f"Recibido POST request con datos: {request.data}")
-        
         # Validar datos requeridos
         required_fields = ['author', 'title', 'content', 'category']
         missing_fields = [field for field in required_fields if not request.data.get(field)]
         
         if missing_fields:
-            error_msg = f'Campos requeridos faltantes: {", ".join(missing_fields)}'
-            logger.warning(f"POST creation failed: {error_msg}")
             return Response(
-                {'error': error_msg}, 
+                {'error': f'Campos requeridos faltantes: {", ".join(missing_fields)}'}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
         
@@ -68,34 +53,19 @@ class ForumPostViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             try:
-                logger.info("Validación OK, guardando post...")
                 self.perform_create(serializer)
-                logger.info(f"Post guardado exitosamente: {serializer.data}")
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except Exception as e:
-                logger.error(f"Error al guardar post: {str(e)}", exc_info=True)
                 return Response(
                     {'error': f'Error al guardar el post: {str(e)}'}, 
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
         
-        logger.warning(f"Validación falló: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def perform_create(self, serializer):
-        """Guardar el post asegurando que se persiste a la base de datos"""
-        logger.info(f"perform_create: Guardando con datos validados: {serializer.validated_data}")
-        try:
-            instance = serializer.save()
-            logger.info(f"perform_create: Post guardado exitosamente en BD con ID: {instance.id}")
-            logger.info(f"perform_create: Verificando post en BD...")
-            
-            # Verificar que realmente se guardó
-            from_db = ForumPost.objects.get(id=instance.id)
-            logger.info(f"perform_create: Confirmado en BD - ID: {from_db.id}, Título: {from_db.title}")
-        except Exception as e:
-            logger.error(f"perform_create ERROR: {str(e)}", exc_info=True)
-            raise
+        """Guardar el post en la base de datos"""
+        serializer.save()
 
     def get_serializer_context(self):
         context = super().get_serializer_context()

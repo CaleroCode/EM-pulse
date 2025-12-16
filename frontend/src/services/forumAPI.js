@@ -16,25 +16,20 @@ export const forumAPI = {
       
       if (params.length > 0) url += '?' + params.join('&');
       
-      console.log('Obteniendo posts desde:', url);
       const response = await fetch(url);
       if (!response.ok) throw new Error('Error al obtener posts');
       const data = await response.json();
-      console.log('Datos obtenidos:', data);
       
       // Si es respuesta paginada de DRF, extraer results
       if (data && typeof data === 'object' && 'results' in data) {
-        console.log('Respuesta paginada detectada, retornando results');
         return Array.isArray(data.results) ? data.results : [];
       }
       
       // Si es un array directo
       if (Array.isArray(data)) {
-        console.log('Respuesta es array directo');
         return data;
       }
       
-      console.warn('Respuesta inesperada:', data);
       return [];
     } catch (error) {
       console.error('Error en getPosts:', error);
@@ -47,7 +42,6 @@ export const forumAPI = {
    */
   createPost: async (postData) => {
     try {
-      console.log('Enviando post:', postData);
       const response = await fetch(`${API_FORUM_URL}/posts/`, {
         method: 'POST',
         headers: {
@@ -56,13 +50,10 @@ export const forumAPI = {
         body: JSON.stringify(postData),
       });
       
-      console.log('Respuesta status:', response.status);
       const responseData = await response.json();
-      console.log('Respuesta data:', responseData);
       
       if (!response.ok) {
         const errorMsg = responseData?.detail || responseData?.error || responseData?.errors || 'Error al crear post';
-        console.error('Error response:', errorMsg);
         throw new Error(typeof errorMsg === 'object' ? JSON.stringify(errorMsg) : errorMsg);
       }
       return responseData;
