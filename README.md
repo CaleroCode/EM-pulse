@@ -25,6 +25,12 @@ Plataforma comunitaria y educativa para personas con Esclerosis Múltiple, con r
   - Filtrar por categoría: General, Síntomas, Tratamientos, Experiencias, Ejercicio, Ayuda
   - Ordenar por: Relevancia, Fecha, Popularidad
   - Atajo de teclado: **⌘K** (Mac) o **Ctrl+K** (Windows/Linux)
+- **📥 Exportar a PDF** - Descarga de posts, noticias y artículos con marca de agua EM-PULSE
+  - Watermark profesional (EM-PULSE branding)
+  - Incluye URL de la web: empulse.onrender.com
+  - Metadata completa (autor, fecha, fuente)
+  - Descargo de responsabilidad legal incluido
+  - Disponible en todos los posts, noticias y artículos
 
 ### ♿ Accesibilidad (WCAG 2.1 AA) 
 
@@ -368,6 +374,7 @@ em-pulse/
 - [x] Búsqueda avanzada con filtros (posts, noticias, síntomas, artículos)
 - [x] Ordenamiento de resultados (relevancia, fecha, popularidad)
 - [x] Atajo de teclado ⌘K/Ctrl+K para búsqueda global
+- [x] **Exportar a PDF con marca de agua EM-PULSE** (posts, noticias, artículos)
 
 ### 7. SEO
 - [x] Sitemaps XML generados
