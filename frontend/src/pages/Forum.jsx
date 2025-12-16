@@ -49,8 +49,15 @@ export default function Forum({ user, profileImage, showForum }) {
         console.log('Forum: loadPosts iniciado');
         console.log('Forum: selectedCategory=', selectedCategory);
         console.log('Forum: userIdentifier=', userIdentifier);
+        
+        // PRIMERO: Cargar SIN filtro para debug
+        const allData = await forumAPI.getPosts(null, null, userIdentifier);
+        console.log('Forum: TODOS los posts (sin filtro):', allData);
+        console.log('Forum: Total posts:', allData?.length);
+        
+        // SEGUNDO: Cargar CON filtro
         const data = await forumAPI.getPosts(selectedCategory, null, userIdentifier);
-        console.log('Forum: Posts cargados:', data);
+        console.log('Forum: Posts filtrados por categoría', selectedCategory, ':', data);
         console.log('Forum: Es array?', Array.isArray(data), 'Longitud:', data?.length);
         setPosts(Array.isArray(data) ? data : []);
       } catch (err) {
