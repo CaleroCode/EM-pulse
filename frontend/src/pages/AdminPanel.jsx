@@ -71,8 +71,13 @@ export default function AdminPanel() {
       console.log('AdminPanel: Cargando posts...');
       const data = await forumAPI.getPosts();
       console.log('AdminPanel: Posts obtenidos:', data);
-      setPosts(Array.isArray(data) ? data : []);
-      filterPosts(Array.isArray(data) ? data : []);
+      console.log('AdminPanel: Es array?', Array.isArray(data));
+      console.log('AdminPanel: Longitud:', data?.length);
+      
+      const postsArray = Array.isArray(data) ? data : [];
+      console.log('AdminPanel: Seteando posts:', postsArray);
+      setPosts(postsArray);
+      filterPosts(postsArray);
     } catch (err) {
       setError("Error al cargar los posts");
       console.error('AdminPanel: Error cargando posts:', err);
@@ -82,8 +87,8 @@ export default function AdminPanel() {
   };
 
   // Filter posts
-  const filterPosts = (postsToFilter = posts) => {
-    let filtered = postsToFilter;
+  const filterPosts = (postsToFilter) => {
+    let filtered = Array.isArray(postsToFilter) ? postsToFilter : [];
 
     if (searchQuery) {
       filtered = filtered.filter(
@@ -98,11 +103,18 @@ export default function AdminPanel() {
       filtered = filtered.filter((post) => post.category === categoryFilter);
     }
 
+    console.log('filterPosts:', { 
+      totalPosts: postsToFilter?.length || 0, 
+      afterSearch: filtered.length, 
+      searchQuery, 
+      categoryFilter 
+    });
     setFilteredPosts(filtered);
   };
 
   useEffect(() => {
-    filterPosts();
+    console.log('useEffect filterPosts ejecutado, posts:', posts.length);
+    filterPosts(posts);
   }, [searchQuery, categoryFilter, posts]);
 
   // Delete post
