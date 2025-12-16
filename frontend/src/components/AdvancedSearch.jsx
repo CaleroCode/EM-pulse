@@ -40,61 +40,76 @@ export default function AdvancedSearch({ onClose }) {
     try {
       const api = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-      // Ejemplo: búsqueda en posts
+      // Búsqueda en posts
       if (searchType === "all" || searchType === "posts") {
-        const postsRes = await fetch(`${api}/api/forum/posts/?search=${encodeURIComponent(query)}`);
-        if (postsRes.ok) {
-          const posts = await postsRes.json();
-          const formattedPosts = (Array.isArray(posts) ? posts : posts.results || []).map(p => ({
-            id: p.id,
-            type: "post",
-            title: p.title,
-            description: p.content.substring(0, 100),
-            category: p.category,
-            date: p.created_at,
-            url: "#",
-          }));
-          setResults(prev => [...prev, ...formattedPosts]);
+        try {
+          const postsRes = await fetch(`${api}/api/forum/posts/?search=${encodeURIComponent(query)}`);
+          if (postsRes.ok) {
+            const posts = await postsRes.json();
+            const postList = Array.isArray(posts) ? posts : (posts.results || []);
+            const formattedPosts = postList.map(p => ({
+              id: p.id,
+              type: "post",
+              title: p.title,
+              description: p.content?.substring(0, 100) || "Sin descripción",
+              category: p.category || "General",
+              date: p.created_at,
+              url: "#",
+            }));
+            setResults(prev => [...prev, ...formattedPosts]);
+          }
+        } catch (err) {
+          console.error("Error en búsqueda de posts:", err);
         }
       }
 
-      // Ejemplo: búsqueda en noticias
+      // Búsqueda en noticias
       if (searchType === "all" || searchType === "news") {
-        const newsRes = await fetch(`${api}/api/communications/news/?search=${encodeURIComponent(query)}`);
-        if (newsRes.ok) {
-          const news = await newsRes.json();
-          const formattedNews = (Array.isArray(news) ? news : news.results || []).map(n => ({
-            id: n.id,
-            type: "news",
-            title: n.title,
-            description: n.description,
-            category: "Noticias",
-            date: n.publishedAt,
-            url: n.url,
-          }));
-          setResults(prev => [...prev, ...formattedNews]);
+        try {
+          const newsRes = await fetch(`${api}/api/communications/news/?search=${encodeURIComponent(query)}`);
+          if (newsRes.ok) {
+            const news = await newsRes.json();
+            const newsList = Array.isArray(news) ? news : (news.results || []);
+            const formattedNews = newsList.map(n => ({
+              id: n.id,
+              type: "news",
+              title: n.title || "Sin título",
+              description: n.description?.substring(0, 100) || "Sin descripción",
+              category: "Noticias",
+              date: n.publishedAt || n.published_at || n.created_at,
+              url: n.url || "#",
+            }));
+            setResults(prev => [...prev, ...formattedNews]);
+          }
+        } catch (err) {
+          console.error("Error en búsqueda de noticias:", err);
         }
       }
 
-      // Ejemplo: búsqueda en síntomas
+      // Búsqueda en síntomas
       if (searchType === "all" || searchType === "symptoms") {
-        const symptomsRes = await fetch(`${api}/api/health/symptoms/?search=${encodeURIComponent(query)}`);
-        if (symptomsRes.ok) {
-          const symptoms = await symptomsRes.json();
-          const formattedSymptoms = (Array.isArray(symptoms) ? symptoms : symptoms.results || []).map(s => ({
-            id: s.id,
-            type: "symptom",
-            title: s.name,
-            description: s.description,
-            category: "Síntomas",
-            date: s.created_at,
-            url: "#",
-          }));
-          setResults(prev => [...prev, ...formattedSymptoms]);
+        try {
+          const symptomsRes = await fetch(`${api}/api/health/symptoms/?search=${encodeURIComponent(query)}`);
+          if (symptomsRes.ok) {
+            const symptoms = await symptomsRes.json();
+            const symptomList = Array.isArray(symptoms) ? symptoms : (symptoms.results || []);
+            const formattedSymptoms = symptomList.map(s => ({
+              id: s.id,
+              type: "symptom",
+              title: s.name || "Sin nombre",
+              description: s.description?.substring(0, 100) || "Sin descripción",
+              category: s.category || "Síntomas",
+              date: s.created_at || new Date().toISOString(),
+              url: "#",
+            }));
+            setResults(prev => [...prev, ...formattedSymptoms]);
+          }
+        } catch (err) {
+          console.error("Error en búsqueda de síntomas:", err);
         }
       }
     } catch (error) {
-      console.error("Error en búsqueda:", error);
+      console.error("Error general en búsqueda:", error);
     } finally {
       setLoading(false);
     }
