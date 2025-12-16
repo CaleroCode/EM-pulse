@@ -48,6 +48,9 @@ db.sqlite3
 # Node
 node_modules/
 npm-debug.log
+
+# PowerShell scripts (local utilities)
+*.ps1
 yarn-error.log
 dist/
 .next/
