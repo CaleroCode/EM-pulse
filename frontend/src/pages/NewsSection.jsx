@@ -1,5 +1,6 @@
 import Button from '../components/ui/Button';
 import ShareButtons from '../components/ShareButtons';
+import ExportPDF from '../components/ExportPDF';
 
 export default function NewsSection({
   externalNews,
@@ -76,11 +77,20 @@ export default function NewsSection({
               <p className="text-xs text-slate-300 mb-3 line-clamp-2">
                 {item.description}
               </p>
-              <div className="mb-3">
-                <ShareButtons 
+              <div className="mb-3 flex flex-wrap gap-2">
+                <div className="flex-1">
+                  <ShareButtons 
+                    title={item.title}
+                    url={item.url}
+                    description={item.description}
+                  />
+                </div>
+                <ExportPDF 
                   title={item.title}
-                  url={item.url}
-                  description={item.description}
+                  content={`<h2>${item.title}</h2><p>${item.description || ''}</p><p><strong>Fuente:</strong> ${item.source}</p><p><a href="${item.url}" target="_blank">Leer noticia completa</a></p>`}
+                  author={item.source}
+                  date={new Date(item.published_at).toLocaleDateString('es-ES')}
+                  buttonSize="sm"
                 />
               </div>
               <div className="flex items-center justify-between">

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { MessageCircle, Heart, Reply, Search, Plus, User, Clock, X } from "lucide-react";
 import { forumAPI } from "../services/forumAPI";
 import ShareButtons from "../components/ShareButtons";
+import ExportPDF from "../components/ExportPDF";
 
 export default function Forum({ user, profileImage, showForum }) {
   const [selectedCategory, setSelectedCategory] = useState("general");
@@ -397,12 +398,21 @@ export default function Forum({ user, profileImage, showForum }) {
                       <div className="mt-6 pt-6 border-t border-empulseAccent/20">
                         <p className="text-slate-300 mb-6">{post.content}</p>
 
-                        {/* Share Buttons */}
-                        <div className="mb-6">
-                          <ShareButtons 
+                        {/* Share & Export Buttons */}
+                        <div className="mb-6 flex flex-wrap gap-3">
+                          <div className="flex-1">
+                            <ShareButtons 
+                              title={post.title}
+                              url={`${window.location.href}#post-${post.id}`}
+                              description={post.content.substring(0, 100)}
+                            />
+                          </div>
+                          <ExportPDF 
                             title={post.title}
-                            url={`${window.location.href}#post-${post.id}`}
-                            description={post.content.substring(0, 100)}
+                            content={`<h2>${post.title}</h2><p>${post.content}</p><p><strong>Categoría:</strong> ${post.category}</p><p><strong>Autor:</strong> ${post.author}</p>`}
+                            author={post.author}
+                            date={new Date(post.created_at).toLocaleDateString('es-ES')}
+                            buttonSize="sm"
                           />
                         </div>
 

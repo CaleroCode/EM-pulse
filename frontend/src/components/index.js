@@ -22,6 +22,7 @@ export { default as Hero } from "./Hero";
 export { default as AlertModal } from "./AlertModal";
 export { default as ShareButtons } from "./ShareButtons";
 export { default as AdvancedSearch } from "./AdvancedSearch";
+export { default as ExportPDF } from "./ExportPDF";
 
 // Page components
 export { default as ProfilePage } from "../pages/ProfilePage";
