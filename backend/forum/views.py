@@ -5,11 +5,15 @@ from django.db.models import Prefetch, Q
 from django.db import transaction
 from .models import ForumPost, ForumComment, ForumLike
 from .serializers import ForumPostSerializer, ForumCommentSerializer
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class ForumPostViewSet(viewsets.ModelViewSet):
     serializer_class = ForumPostSerializer
     permission_classes = []
+    queryset = ForumPost.objects.all()
 
     def get_queryset(self):
         """Optimizar queryset con prefetch_related para comentarios"""
@@ -35,13 +39,17 @@ class ForumPostViewSet(viewsets.ModelViewSet):
     
     def create(self, request, *args, **kwargs):
         """Crear un nuevo post con validación"""
+        logger.info(f"Recibido POST request con datos: {request.data}")
+        
         # Validar datos requeridos
         required_fields = ['author', 'title', 'content', 'category']
         missing_fields = [field for field in required_fields if not request.data.get(field)]
         
         if missing_fields:
+            error_msg = f'Campos requeridos faltantes: {", ".join(missing_fields)}'
+            logger.warning(f"POST creation failed: {error_msg}")
             return Response(
-                {'error': f'Campos requeridos faltantes: {", ".join(missing_fields)}'}, 
+                {'error': error_msg}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
         
@@ -49,20 +57,27 @@ class ForumPostViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             try:
+                logger.info("Validación OK, guardando post...")
                 self.perform_create(serializer)
+                logger.info(f"Post guardado exitosamente: {serializer.data}")
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except Exception as e:
+                logger.error(f"Error al guardar post: {str(e)}", exc_info=True)
                 return Response(
                     {'error': f'Error al guardar el post: {str(e)}'}, 
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
         
+        logger.warning(f"Validación falló: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def perform_create(self, serializer):
         """Guardar el post asegurando que se persiste a la base de datos"""
+        logger.info("perform_create iniciado")
         with transaction.atomic():
-            serializer.save()
+            instance = serializer.save()
+            logger.info(f"Post guardado en BD con ID: {instance.id}")
+            return instance
 
     def get_serializer_context(self):
         context = super().get_serializer_context()

@@ -79,7 +79,9 @@ export default function Forum({ user, profileImage, showForum }) {
           category: newPostCategory,
         };
 
+        console.log('Creando post con datos:', newPost);
         const createdPost = await forumAPI.createPost(newPost);
+        console.log('Post creado exitosamente:', createdPost);
         
         // Agregar el nuevo post a la lista
         setPosts(prevPosts => [createdPost, ...prevPosts]);
@@ -89,6 +91,7 @@ export default function Forum({ user, profileImage, showForum }) {
         setNewPostContent("");
         setNewPostCategory("general");
         setShowNewPost(false);
+        setError("");
       } catch (err) {
         console.error('Error creating post:', err);
         const errorMsg = err.message || 'Error desconocido al crear el post';

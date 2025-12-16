@@ -30,6 +30,7 @@ export const forumAPI = {
    */
   createPost: async (postData) => {
     try {
+      console.log('Enviando post:', postData);
       const response = await fetch(`${API_FORUM_URL}/posts/`, {
         method: 'POST',
         headers: {
@@ -37,12 +38,17 @@ export const forumAPI = {
         },
         body: JSON.stringify(postData),
       });
+      
+      console.log('Respuesta status:', response.status);
+      const responseData = await response.json();
+      console.log('Respuesta data:', responseData);
+      
       if (!response.ok) {
-        const errorData = await response.json();
-        const errorMsg = errorData?.detail || errorData?.error || 'Error al crear post';
-        throw new Error(errorMsg);
+        const errorMsg = responseData?.detail || responseData?.error || responseData?.errors || 'Error al crear post';
+        console.error('Error response:', errorMsg);
+        throw new Error(typeof errorMsg === 'object' ? JSON.stringify(errorMsg) : errorMsg);
       }
-      return await response.json();
+      return responseData;
     } catch (error) {
       console.error('Error en createPost:', error);
       throw error;
