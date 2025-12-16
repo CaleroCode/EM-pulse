@@ -60,11 +60,6 @@ def load_symptoms(apps, schema_editor):
             "description": "Incontinencia, retención de orina o urgencia para orinar frecuentemente.",
             "category": "Urológico"
         },
-        {
-            "name": "Disfunción sexual",
-            "description": "Cambios en el deseo sexual o dificultades en la función sexual.",
-            "category": "General"
-        },
     ]
 
     created_count = 0
