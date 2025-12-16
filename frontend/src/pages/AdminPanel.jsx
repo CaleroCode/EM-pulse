@@ -325,13 +325,14 @@ export default function AdminPanel() {
 
         {/* Posts list */}
         <div className="space-y-4">
+          {console.log('RENDER: loading=', loading, 'filteredPosts.length=', filteredPosts?.length)}
           {loading ? (
             <div className="text-center py-12 text-slate-400">
               Cargando posts...
             </div>
           ) : filteredPosts.length === 0 ? (
             <div className="text-center py-12 text-slate-400">
-              No se encontraron posts
+              No se encontraron posts (filteredPosts.length = {filteredPosts.length})
             </div>
           ) : (
             filteredPosts.map((post) => (
