@@ -46,9 +46,12 @@ export default function Forum({ user, profileImage, showForum }) {
       setLoading(true);
       setError(null);
       try {
-        console.log('Forum: Cargando posts de categoría:', selectedCategory);
+        console.log('Forum: loadPosts iniciado');
+        console.log('Forum: selectedCategory=', selectedCategory);
+        console.log('Forum: userIdentifier=', userIdentifier);
         const data = await forumAPI.getPosts(selectedCategory, null, userIdentifier);
         console.log('Forum: Posts cargados:', data);
+        console.log('Forum: Es array?', Array.isArray(data), 'Longitud:', data?.length);
         setPosts(Array.isArray(data) ? data : []);
       } catch (err) {
         setError('Error al cargar los posts');
