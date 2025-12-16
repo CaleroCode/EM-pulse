@@ -53,6 +53,21 @@ Plataforma comunitaria y educativa para personas con Esclerosis Múltiple, con r
 - **Soporte total offline** - Acceso completo a contenido sin internet
 - **Rendimiento optimizado** - Carga instantánea en localhost (sin delay de 15s)
 
+### 🔗 Compartir en Redes Sociales
+
+- **Botones de Compartir** - Disponibles en Posts del Forum, Noticias y Artículos
+- **6 Redes Soportadas**:
+  - 🐦 **Twitter/X** - Comparte los posts con tus seguidores
+  - 👍 **Facebook** - Compartir en tu muro o grupos
+  - 💬 **WhatsApp** - Envía posts a tus contactos
+  - 💼 **LinkedIn** - Comparte contenido profesional
+  - ✉️ **Email** - Manda por correo a amigos o familia
+  - 📋 **Copiar Link** - Copia el enlace al portapapeles
+- **Integración Total** - Todos los posts, noticias y artículos tienen botones de compartir
+- **Diseño Intuitivo** - Botones con colores nativos de cada red
+- **Funcionalidad Completa** - Incluye título, descripción y enlace automático
+- **Mejora Viralidad** - Permite a usuarios difundir información sobre EM
+
 ## 🚀 Instalación y Setup
 
 ### ✨ EM-PULSE es una PWA (Progressive Web App)
@@ -344,6 +359,7 @@ em-pulse/
 - [x] Transiciones suaves
 - [x] Formularios validados
 - [x] Modales y overlays
+- [x] Botones de compartir en redes sociales (Twitter, Facebook, WhatsApp, LinkedIn, Email, Copiar link)
 
 ### 7. SEO
 - [x] Sitemaps XML generados
@@ -547,6 +563,65 @@ services:
 ✅ **Actualizaciones Automáticas**: Detecta cambios y actualiza
 ✅ **HTTPS**: Necesario y automático en Render
 ✅ **Base de Datos Persistente**: PostgreSQL para datos duraderos
+
+### 🔗 Componente ShareButtons - Compartir en Redes Sociales
+
+**Ubicación**: `frontend/src/components/ShareButtons.jsx`
+
+**Implementación**: El componente `ShareButtons` está integrado en:
+- ✅ **Forum.jsx** - Botones de compartir en posts del foro
+- ✅ **NewsSection.jsx** - Compartir noticias en sección de home
+- ✅ **AllNewsSection.jsx** - Compartir en página de todas las noticias
+
+**Características**:
+```jsx
+<ShareButtons 
+  title="Título del post o noticia"
+  url="https://empulse.com/post/123"
+  description="Descripción o primeras líneas del contenido"
+/>
+```
+
+**Redes Soportadas**:
+| Red | Función | Comportamiento |
+|-----|---------|----------------|
+| 🐦 Twitter/X | Compartir en timeline | Abre ventana popup |
+| 👍 Facebook | Compartir en muro/grupos | Abre ventana popup |
+| 💬 WhatsApp | Enviar a contactos | Abre en app o web |
+| 💼 LinkedIn | Publicar contenido | Abre ventana popup |
+| ✉️ Email | Enviar por correo | Abre cliente de email |
+| 📋 Copiar Link | Copiar URL | Copia al portapapeles |
+
+**Código del Componente**:
+```javascript
+// Props requeridas
+title:       string  // Título para compartir
+url:         string  // URL completa a compartir
+description: string  // Descripción corta (máx 160 caracteres)
+
+// Ejemplo de uso:
+<ShareButtons 
+  title="Cómo manejar la fatiga en EM"
+  url="https://empulse.com/news/123"
+  description="La fatiga es uno de los síntomas más comunes en EM..."
+/>
+```
+
+**Ventajas**:
+- 🚀 Aumenta viralidad y alcance del contenido
+- 📱 Funciona en mobile y desktop
+- 🎨 Botones con colores nativos de cada red
+- 💾 No requiere librerías externas pesadas
+- ⚡ Rendimiento optimizado (popups ligeros)
+- 🔒 No toma datos personales del usuario
+- 🌍 Mejora el SEO mediante backlinks
+
+**Detalles Técnicos**:
+- URL encoding automático para parámetros especiales
+- Ventanas popup de tamaño óptimo (600x400px)
+- Fallback a web version si no está instalada la app nativa
+- Compatible con caracteres especiales y emojis
+- Soporte multiidioma (automático según navegador)
 
 ### Alternativas de Hosting
 - **Vercel**: Más rápido, pero tiene limite gratuito menor
