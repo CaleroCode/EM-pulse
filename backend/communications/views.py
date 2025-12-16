@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
+from django.db.models import Q
 import requests
 import os
 from datetime import datetime, timedelta
@@ -16,13 +17,27 @@ class NewsViewSet(viewsets.ReadOnlyModelViewSet):
     API solo lectura para noticias/boletines.
     - GET /api/news/      -> lista de noticias
     - GET /api/news/{id}/ -> detalle de una noticia
+    - GET /api/news/?search=... -> búsqueda de noticias
     - GET /api/news/external/recent/ -> últimas 3 noticias externas sobre EM
     - GET /api/news/external/all/ -> todas las noticias externas sobre EM
     """
 
-    queryset = News.objects.filter(is_active=True).order_by("-published_at")
     serializer_class = NewsSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        """Permitir búsqueda por título y descripción"""
+        queryset = News.objects.filter(is_active=True).order_by("-published_at")
+        
+        search = self.request.query_params.get('search', None)
+        if search:
+            queryset = queryset.filter(
+                Q(title__icontains=search) | 
+                Q(description__icontains=search) |
+                Q(content__icontains=search)
+            )
+        
+        return queryset
 
     @action(detail=False, methods=['get'])
     def external_recent(self, request):

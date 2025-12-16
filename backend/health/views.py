@@ -3,6 +3,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
+from django.db.models import Q
 from .models import Symptom
 from .serializers import SymptomSerializer, SymptomListSerializer
 
@@ -12,10 +13,23 @@ class SymptomViewSet(viewsets.ReadOnlyModelViewSet):
     API solo de lectura para síntomas.
     - GET /api/symptoms/        -> lista de síntomas (caché 1 hora)
     - GET /api/symptoms/{id}/   -> detalle de un síntoma (caché 2 horas)
+    - GET /api/symptoms/?search=... -> búsqueda de síntomas
     """
 
-    queryset = Symptom.objects.filter(is_active=True).order_by("name")
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        """Permitir búsqueda por nombre y descripción"""
+        queryset = Symptom.objects.filter(is_active=True).order_by("name")
+        
+        search = self.request.query_params.get('search', None)
+        if search:
+            queryset = queryset.filter(
+                Q(name__icontains=search) | 
+                Q(description__icontains=search)
+            )
+        
+        return queryset
 
     def get_serializer_class(self):
         """Usar serializer ligero para listados"""

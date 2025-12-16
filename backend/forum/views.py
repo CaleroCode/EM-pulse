@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 from .models import ForumPost, ForumComment, ForumLike
 from .serializers import ForumPostSerializer, ForumCommentSerializer
 
@@ -22,9 +22,8 @@ class ForumPostViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(category=category)
         if search:
             queryset = queryset.filter(
-                title__icontains=search
-            ) | queryset.filter(
-                content__icontains=search
+                Q(title__icontains=search) | 
+                Q(content__icontains=search)
             )
 
         return queryset.order_by('-created_at')
