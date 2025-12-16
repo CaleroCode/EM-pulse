@@ -2,6 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Prefetch, Q
+from django.db import transaction
 from .models import ForumPost, ForumComment, ForumLike
 from .serializers import ForumPostSerializer, ForumCommentSerializer
 
@@ -12,7 +13,7 @@ class ForumPostViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Optimizar queryset con prefetch_related para comentarios"""
-        queryset = ForumPost.objects.prefetch_related(
+        queryset = ForumPost.objects.all().prefetch_related(
             Prefetch('comments', queryset=ForumComment.objects.order_by('created_at'))
         )
         category = self.request.query_params.get('category')
@@ -47,10 +48,21 @@ class ForumPostViewSet(viewsets.ModelViewSet):
         # Crear post
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            self.perform_create(serializer)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            try:
+                self.perform_create(serializer)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except Exception as e:
+                return Response(
+                    {'error': f'Error al guardar el post: {str(e)}'}, 
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def perform_create(self, serializer):
+        """Guardar el post asegurando que se persiste a la base de datos"""
+        with transaction.atomic():
+            serializer.save()
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -119,6 +131,25 @@ class ForumCommentViewSet(viewsets.ModelViewSet):
         if user_identifier:
             context['user_identifier'] = user_identifier
         return context
+
+    def create(self, request, *args, **kwargs):
+        """Crear comentario con validación"""
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                self.perform_create(serializer)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except Exception as e:
+                return Response(
+                    {'error': f'Error al guardar el comentario: {str(e)}'}, 
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def perform_create(self, serializer):
+        """Guardar comentario con transacción"""
+        with transaction.atomic():
+            serializer.save()
 
     @action(detail=True, methods=['post'])
     def like(self, request, pk=None):

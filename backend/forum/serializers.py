@@ -9,6 +9,9 @@ class ForumCommentSerializer(serializers.ModelSerializer):
         model = ForumComment
         fields = ['id', 'author', 'author_avatar', 'content', 'likes', 'created_at', 'user_has_liked']
         read_only_fields = ['id', 'created_at', 'likes']
+        extra_kwargs = {
+            'author_avatar': {'required': False, 'allow_blank': True}
+        }
 
     def get_user_has_liked(self, obj):
         request = self.context.get('request')
@@ -29,6 +32,9 @@ class ForumPostSerializer(serializers.ModelSerializer):
         model = ForumPost
         fields = ['id', 'author', 'author_avatar', 'title', 'content', 'category', 'likes', 'created_at', 'updated_at', 'comments', 'comments_count', 'user_has_liked']
         read_only_fields = ['id', 'created_at', 'updated_at', 'likes', 'comments_count', 'user_has_liked']
+        extra_kwargs = {
+            'author_avatar': {'required': False, 'allow_blank': True}
+        }
     
     def validate_title(self, value):
         """Validar que el título no esté vacío"""
