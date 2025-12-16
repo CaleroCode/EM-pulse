@@ -713,7 +713,7 @@ function App() {
           />
         ) : (
           <>
-            <Hero searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <Hero />
 
             <section className="border-t border-empulseAccent/40 bg-empulseBg/90">
               <div className="max-w-7xl mx-auto px-4 py-10">

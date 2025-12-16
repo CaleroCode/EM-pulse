@@ -1,7 +1,7 @@
 import React from 'react';
 import AdvancedSearch from './AdvancedSearch';
 
-export default function Hero({ searchQuery, setSearchQuery }) {
+export default function Hero() {
   const [deferredPrompt, setDeferredPrompt] = React.useState(null);
   const [showInstallPrompt, setShowInstallPrompt] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
@@ -42,6 +42,11 @@ export default function Hero({ searchQuery, setSearchQuery }) {
           Además, podrás ver todas las noticias relacionadas con la enfermedad,
           y un newsletter para recibir toda la información que desees.
         </p>
+
+         <p className="text-sm text-slate-300 mb-8 max-w-2xl mx-auto">
+        La Esclerosis Múltiple es la enfermedad de las 1.000 caras, y no todo el mundo sufrirá los mismos síntomas (ni en la misma intensidad). Por eso, en EM-PULSE hemos creado una herramienta que te permitirá entender mejor cómo se vive esta enfermedad desde dentro.
+        </p>
+
         <p className="text-sm text-slate-300 mb-8 max-w-2xl mx-auto">
         EM-PULSE es para todos vosotros, para nosotros.
         </p>
