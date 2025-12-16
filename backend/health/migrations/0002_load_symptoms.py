@@ -55,11 +55,6 @@ def load_symptoms(apps, schema_editor):
             "description": "Rigidez muscular y contracciones involuntarias que causan tensión y dolor.",
             "category": "Motriz"
         },
-        {
-            "name": "Problemas de vejiga",
-            "description": "Incontinencia, retención de orina o urgencia para orinar frecuentemente.",
-            "category": "Urológico"
-        },
     ]
 
     created_count = 0
