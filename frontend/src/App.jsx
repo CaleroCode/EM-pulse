@@ -28,6 +28,7 @@ import TermsOfService from "./pages/TermsOfService";
 import GDPRNotice from "./pages/GDPRNotice";
 import Forum from "./pages/Forum";
 import AccessibilityPage from "./pages/AccessibilityPage";
+import AdminPanel from "./pages/AdminPanel";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -184,6 +185,11 @@ function App() {
   const [showAccessibility, setShowAccessibility] = useState(false);
 
   // ======================
+  // Estado: Admin Panel
+  // ======================
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
+
+  // ======================
   // Efectos: cargar datos
   // ======================
 
@@ -311,6 +317,28 @@ function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Detectar acceso al panel admin por URL
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash === '#admin-em-pulse-panel') {
+      setShowAdminPanel(true);
+    } else {
+      setShowAdminPanel(false);
+    }
+
+    const handleHashChange = () => {
+      const newHash = window.location.hash;
+      if (newHash === '#admin-em-pulse-panel') {
+        setShowAdminPanel(true);
+      } else {
+        setShowAdminPanel(false);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   // ======================
@@ -654,7 +682,9 @@ function App() {
           />
 
       <main className="flex-1">
-        {showAccessibility ? (
+        {showAdminPanel ? (
+          <AdminPanel />
+        ) : showAccessibility ? (
           <AccessibilityPage onClose={() => setShowAccessibility(false)} />
         ) : showForum ? (
           <Forum user={user} profileImage={profileImage} showForum={showForum} />
