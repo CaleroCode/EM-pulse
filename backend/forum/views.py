@@ -20,22 +20,33 @@ class ForumPostViewSet(viewsets.ModelViewSet):
         queryset = ForumPost.objects.all().prefetch_related(
             Prefetch('comments', queryset=ForumComment.objects.order_by('created_at'))
         )
+        
+        logger.info(f"Total posts en BD: {queryset.count()}")
+        
         category = self.request.query_params.get('category')
         search = self.request.query_params.get('search')
 
         if category:
+            logger.info(f"Filtrando por categoría: {category}")
             queryset = queryset.filter(category=category)
         if search:
+            logger.info(f"Buscando: {search}")
             queryset = queryset.filter(
                 Q(title__icontains=search) | 
                 Q(content__icontains=search)
             )
 
-        return queryset.order_by('-created_at')
+        result = queryset.order_by('-created_at')
+        logger.info(f"Posts después de filtros: {result.count()}")
+        logger.info(f"Posts IDs: {list(result.values_list('id', flat=True))}")
+        return result
 
     def list(self, request, *args, **kwargs):
         """Listar posts sin caché para mostrar posts nuevos inmediatamente"""
-        return super().list(request, *args, **kwargs)
+        logger.info(f"GET /posts/ - Parámetros: {dict(request.query_params)}")
+        response = super().list(request, *args, **kwargs)
+        logger.info(f"Retornando {len(response.data)} posts")
+        return response
     
     def create(self, request, *args, **kwargs):
         """Crear un nuevo post con validación"""

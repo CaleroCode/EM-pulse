@@ -52,6 +52,17 @@ export default function AdminPanel() {
     }
   };
 
+  // Auto-reload posts cuando se autentica
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log('Admin autenticado, recargando posts automáticamente');
+      loadPosts();
+      // Recargar cada 10 segundos
+      const interval = setInterval(loadPosts, 10000);
+      return () => clearInterval(interval);
+    }
+  }, [isAuthenticated]);
+
   // Load all posts
   const loadPosts = async () => {
     setLoading(true);

@@ -46,7 +46,9 @@ export default function Forum({ user, profileImage, showForum }) {
       setLoading(true);
       setError(null);
       try {
+        console.log('Forum: Cargando posts de categoría:', selectedCategory);
         const data = await forumAPI.getPosts(selectedCategory, null, userIdentifier);
+        console.log('Forum: Posts cargados:', data);
         setPosts(Array.isArray(data) ? data : []);
       } catch (err) {
         setError('Error al cargar los posts');
@@ -92,6 +94,18 @@ export default function Forum({ user, profileImage, showForum }) {
         setNewPostCategory("general");
         setShowNewPost(false);
         setError("");
+        
+        // Recargar todos los posts después de 1 segundo
+        setTimeout(async () => {
+          console.log('Recargando posts después de crear uno...');
+          try {
+            const data = await forumAPI.getPosts(null, null, userIdentifier);
+            setPosts(Array.isArray(data) ? data : []);
+            console.log('Posts recargados:', data);
+          } catch (err) {
+            console.error('Error recargando posts:', err);
+          }
+        }, 1000);
       } catch (err) {
         console.error('Error creating post:', err);
         const errorMsg = err.message || 'Error desconocido al crear el post';
