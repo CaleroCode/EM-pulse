@@ -14,6 +14,7 @@ import {
   IndexPage,
   WhatIsEM,
 } from "./components";
+import AlertModal from "./components/AlertModal";
 import SEOSchema from "./components/SEOSchema";
 import TypesAndDiagnosis from "./pages/TypesAndDiagnosis";
 import SymptomsDetail from "./pages/SymptomsDetail";
@@ -42,6 +43,16 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+
+  // ======================
+  // Estado: AlertModal
+  // ======================
+  const [alertModal, setAlertModal] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+    type: 'error'
+  });
 
   // ======================
   // Estado: Síntomas
@@ -433,7 +444,12 @@ function App() {
       scrollToSection("all-news-section");
     } catch (err) {
       console.error(err);
-      alert("Error al cargar todas las noticias. Intenta más tarde.");
+      setAlertModal({
+        isOpen: true,
+        title: 'Error',
+        message: 'Error al cargar todas las noticias. Intenta más tarde.',
+        type: 'error'
+      });
     } finally {
       setAllNewsLoading(false);
     }
@@ -822,6 +838,14 @@ function App() {
       <GDPRNotice 
         onPrivacyClick={() => setShowPrivacy(true)}
         onTermsClick={() => setShowTerms(true)}
+      />
+
+      <AlertModal 
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal({...alertModal, isOpen: false})}
+        title={alertModal.title}
+        message={alertModal.message}
+        type={alertModal.type}
       />
     </div>
   );

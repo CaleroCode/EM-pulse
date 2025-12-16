@@ -3,6 +3,7 @@ import React from 'react';
 export default function Hero({ searchQuery, setSearchQuery }) {
   const [deferredPrompt, setDeferredPrompt] = React.useState(null);
   const [showInstallPrompt, setShowInstallPrompt] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
 
   React.useEffect(() => {
     const handler = (e) => {
@@ -60,24 +61,12 @@ export default function Hero({ searchQuery, setSearchQuery }) {
                 📱 Instalar Ahora
               </button>
             )}
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                // Mostrar instrucciones según navegador
-                const ua = navigator.userAgent.toLowerCase();
-                if (ua.includes('iphone') || ua.includes('ipad')) {
-                  alert('1. Toca el botón Compartir (↑)\n2. Selecciona "Agregar a pantalla de inicio"\n3. ¡Listo! EM-PULSE en tu pantalla principal');
-                } else if (ua.includes('android')) {
-                  alert('1. Busca el menú (⋮) en tu navegador\n2. Selecciona "Instalar aplicación"\n3. ¡Listo! EM-PULSE en tu pantalla principal');
-                } else {
-                  alert('1. Busca el icono de instalación en la barra del navegador\n2. Toca "Instalar EM-PULSE"\n3. ¡Listo!');
-                }
-              }}
+            <button
+              onClick={() => setShowModal(true)}
               className="px-6 py-3 border-2 border-empulsePrimary text-empulsePrimary font-bold rounded-lg hover:bg-empulsePrimary/10 transition-all duration-200 text-sm sm:text-base"
             >
-              ℹ️ Ver Instrucciones
-            </a>
+              📲 Instala EM-PULSE
+            </button>
           </div>
         </div>
         
@@ -100,6 +89,60 @@ export default function Hero({ searchQuery, setSearchQuery }) {
         <div className="flex flex-col items-center gap-3">
         </div>
       </div>
+
+      {/* Modal de Instrucciones */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="bg-empulseBg border-2 border-empulsePrimary rounded-2xl p-8 max-w-md w-full">
+            <h3 className="text-2xl font-bold text-empulsePrimary mb-6">📲 Cómo Instalar EM-PULSE</h3>
+            
+            <div className="space-y-6">
+              {/* Android */}
+              <div>
+                <h4 className="text-lg font-bold text-empulseMid mb-2">📱 Android</h4>
+                <ol className="text-sm text-slate-300 space-y-1 list-decimal list-inside">
+                  <li>Abre EM-PULSE en tu navegador</li>
+                  <li>Busca el menú (⋮) en tu navegador</li>
+                  <li>Selecciona "Instalar aplicación"</li>
+                  <li>Confirma la instalación</li>
+                  <li>¡Listo! Aparecerá en tu pantalla principal</li>
+                </ol>
+              </div>
+
+              {/* iPhone */}
+              <div>
+                <h4 className="text-lg font-bold text-empulseMid mb-2">🍎 iPhone/iPad</h4>
+                <ol className="text-sm text-slate-300 space-y-1 list-decimal list-inside">
+                  <li>Abre EM-PULSE en Safari</li>
+                  <li>Toca el botón Compartir (↗️)</li>
+                  <li>Selecciona "Agregar a pantalla de inicio"</li>
+                  <li>Elige un nombre y toca "Añadir"</li>
+                  <li>¡Listo! Aparecerá como app</li>
+                </ol>
+              </div>
+
+              {/* PC */}
+              <div>
+                <h4 className="text-lg font-bold text-empulseMid mb-2">💻 Windows/Mac</h4>
+                <ol className="text-sm text-slate-300 space-y-1 list-decimal list-inside">
+                  <li>Abre EM-PULSE en Chrome/Edge</li>
+                  <li>Haz clic en el icono (⬇️) en la barra</li>
+                  <li>Selecciona "Instalar EM-PULSE"</li>
+                  <li>Confirma la instalación</li>
+                  <li>¡Listo! Se añadirá a tus aplicaciones</li>
+                </ol>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowModal(false)}
+              className="w-full mt-8 px-6 py-3 bg-gradient-to-r from-empulsePrimary to-empulseMid text-white font-bold rounded-lg hover:shadow-lg hover:shadow-empulsePrimary/50 transition-all duration-200"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
