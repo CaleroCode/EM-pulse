@@ -29,8 +29,9 @@ export default function ExportPDF({
                   Plataforma de Apoyo para Esclerosis Múltiple
                 </div>
               </div>
-              <div style="text-align: right; opacity: 0.1; font-size: 60px; font-weight: bold; position: absolute; right: 20px; top: 0;">
-                EM
+              <div style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); text-align: right; opacity: 0.08; font-size: 80px; font-weight: bold; line-height: 1; white-space: nowrap;">
+                <div style="margin-bottom: -20px;">EM</div>
+                <div style="font-size: 12px; font-weight: normal; opacity: 0.4;">empulse.onrender.com</div>
               </div>
             </div>
           </div>
