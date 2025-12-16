@@ -57,12 +57,14 @@ export default function AdminPanel() {
     setLoading(true);
     setError("");
     try {
+      console.log('AdminPanel: Cargando posts...');
       const data = await forumAPI.getPosts();
+      console.log('AdminPanel: Posts obtenidos:', data);
       setPosts(Array.isArray(data) ? data : []);
       filterPosts(Array.isArray(data) ? data : []);
     } catch (err) {
       setError("Error al cargar los posts");
-      console.error(err);
+      console.error('AdminPanel: Error cargando posts:', err);
     } finally {
       setLoading(false);
     }

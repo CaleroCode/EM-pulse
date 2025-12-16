@@ -16,9 +16,26 @@ export const forumAPI = {
       
       if (params.length > 0) url += '?' + params.join('&');
       
+      console.log('Obteniendo posts desde:', url);
       const response = await fetch(url);
       if (!response.ok) throw new Error('Error al obtener posts');
-      return await response.json();
+      const data = await response.json();
+      console.log('Datos obtenidos:', data);
+      
+      // Si es respuesta paginada de DRF, extraer results
+      if (data && typeof data === 'object' && 'results' in data) {
+        console.log('Respuesta paginada detectada, retornando results');
+        return Array.isArray(data.results) ? data.results : [];
+      }
+      
+      // Si es un array directo
+      if (Array.isArray(data)) {
+        console.log('Respuesta es array directo');
+        return data;
+      }
+      
+      console.warn('Respuesta inesperada:', data);
+      return [];
     } catch (error) {
       console.error('Error en getPosts:', error);
       return [];
