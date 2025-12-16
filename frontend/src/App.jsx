@@ -13,6 +13,7 @@ import {
   ICDATASection,
   IndexPage,
   WhatIsEM,
+  AdvancedSearch,
 } from "./components";
 import AlertModal from "./components/AlertModal";
 import SEOSchema from "./components/SEOSchema";
@@ -76,6 +77,7 @@ function App() {
   // Estado: Buscador
   // ======================
   const [searchQuery, setSearchQuery] = useState("");
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
 
   // ======================
   // Estado: Autenticación
@@ -298,6 +300,18 @@ function App() {
       }, 100);
     }
   }, [showForum, sectionToNavigate]);
+
+  // Atajo de teclado para búsqueda avanzada (⌘K o Ctrl+K)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setShowAdvancedSearch(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // ======================
   // Handlers de autenticación
@@ -854,6 +868,16 @@ function App() {
         message={alertModal.message}
         type={alertModal.type}
       />
+
+      {showAdvancedSearch && (
+        <AdvancedSearch 
+          onSearch={(query) => {
+            setSearchQuery(query);
+            setShowAdvancedSearch(false);
+          }}
+          onClose={() => setShowAdvancedSearch(false)}
+        />
+      )}
     </div>
   );
 }

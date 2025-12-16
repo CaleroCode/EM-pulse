@@ -1,9 +1,11 @@
 import React from 'react';
+import AdvancedSearch from './AdvancedSearch';
 
 export default function Hero({ searchQuery, setSearchQuery }) {
   const [deferredPrompt, setDeferredPrompt] = React.useState(null);
   const [showInstallPrompt, setShowInstallPrompt] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
+  const [showAdvancedSearch, setShowAdvancedSearch] = React.useState(false);
 
   React.useEffect(() => {
     const handler = (e) => {
@@ -70,21 +72,29 @@ export default function Hero({ searchQuery, setSearchQuery }) {
           </div>
         </div>
         
-        {/* Buscador */}
+        {/* Buscador Avanzado */}
         <div className="flex justify-center mb-8">
-          <div className="relative w-full max-w-md">
-            <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 text-empulseAccent/60 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="relative w-full max-w-md cursor-pointer" onClick={() => setShowAdvancedSearch(true)}>
+            <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 text-empulseAccent/60 w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <input
-              type="search"
-              placeholder="Buscar..."
-              className="w-full rounded-lg bg-empulseBg/50 border border-empulseAccent/40 pl-10 pr-4 py-3 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-empulsePrimary focus:border-empulsePrimary placeholder:text-slate-500 transition-all duration-200 hover:bg-empulseBg/70"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+            <div className="w-full rounded-lg bg-empulseBg/50 border border-empulseAccent/40 pl-10 pr-4 py-3 text-sm text-slate-500 hover:bg-empulseBg/70 hover:border-empulseAccent/60 transition-all duration-200 flex items-center">
+              <span>Búsqueda avanzada...</span>
+              <span className="ml-auto text-xs bg-empulseAccent/20 text-empulseAccent px-2 py-1 rounded">⌘K</span>
+            </div>
           </div>
         </div>
+        
+        {/* Modal de Búsqueda Avanzada */}
+        {showAdvancedSearch && (
+          <AdvancedSearch 
+            onSearch={(query) => {
+              setSearchQuery(query);
+              setShowAdvancedSearch(false);
+            }}
+            onClose={() => setShowAdvancedSearch(false)}
+          />
+        )}
         
         <div className="flex flex-col items-center gap-3">
         </div>
