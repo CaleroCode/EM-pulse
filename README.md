@@ -20,6 +20,11 @@ Plataforma comunitaria y educativa para personas con Esclerosis Múltiple, con r
 - **💬 Foro Comunitario** - Espacio para compartir experiencias y apoyo mutuo
 - **📧 Newsletter** - Suscripción personalizada con noticias semanales
 - **👤 Perfil de Usuario** - Gestión de cuenta personalizada
+- **🔍 Búsqueda Avanzada** - Busca posts, noticias, síntomas con filtros y ordenamiento
+  - Filtrar por tipo: Posts, Noticias, Síntomas, Artículos
+  - Filtrar por categoría: General, Síntomas, Tratamientos, Experiencias, Ejercicio, Ayuda
+  - Ordenar por: Relevancia, Fecha, Popularidad
+  - Atajo de teclado: **⌘K** (Mac) o **Ctrl+K** (Windows/Linux)
 
 ### ♿ Accesibilidad (WCAG 2.1 AA) 
 
@@ -360,6 +365,9 @@ em-pulse/
 - [x] Formularios validados
 - [x] Modales y overlays
 - [x] Botones de compartir en redes sociales (Twitter, Facebook, WhatsApp, LinkedIn, Email, Copiar link)
+- [x] Búsqueda avanzada con filtros (posts, noticias, síntomas, artículos)
+- [x] Ordenamiento de resultados (relevancia, fecha, popularidad)
+- [x] Atajo de teclado ⌘K/Ctrl+K para búsqueda global
 
 ### 7. SEO
 - [x] Sitemaps XML generados
@@ -623,6 +631,54 @@ description: string  // Descripción corta (máx 160 caracteres)
 - Compatible con caracteres especiales y emojis
 - Soporte multiidioma (automático según navegador)
 
+### 🔍 Componente AdvancedSearch - Búsqueda Avanzada
+
+**Ubicación**: `frontend/src/components/AdvancedSearch.jsx`
+
+**Característica**: Búsqueda global avanzada con filtros y ordenamiento
+
+**Cómo Acceder**:
+- Hacer clic en la barra de búsqueda en el home
+- Presionar **⌘K** (Mac) o **Ctrl+K** (Windows/Linux) desde cualquier página
+
+**Modal Features**:
+```jsx
+<AdvancedSearch 
+  onClose={() => closeSearch()}
+/>
+```
+
+**Opciones de Búsqueda**:
+
+| Filtro | Opciones | Descripción |
+|--------|----------|-------------|
+| **Tipo** | Todo, Posts, Noticias, Síntomas, Artículos | Limita búsqueda a tipo específico |
+| **Categoría** | General, Síntomas, Tratamientos, Experiencias, Ejercicio, Ayuda | Filtra por categoría del foro |
+| **Ordenamiento** | Relevancia, Fecha, Popular | Ordena resultados |
+
+**Características**:
+- 🔍 Búsqueda en tiempo real (mínimo 3 caracteres)
+- 🎯 Filtros por tipo de contenido (5 opciones)
+- 📂 Filtros por categoría (7 categorías)
+- 📊 Ordenamiento dinámico (3 opciones)
+- ⌨️ Atajo de teclado global (⌘K/Ctrl+K)
+- 📱 Resultados con preview y descripción
+- 🏷️ Etiquetas por tipo de resultado
+- 🔗 Enlaces directos a cada resultado
+
+**Resultados Mostrados**:
+```
+Posts del Foro:  💬 Título | Descripción (100 caracteres) | Categoría
+Noticias:        📰 Título | Descripción | Categoría
+Síntomas:        🏥 Título | Descripción | Categoría
+```
+
+**Rendimiento**:
+- Búsqueda instantánea mientras escribes
+- Caché de resultados para búsquedas recientes
+- Integración directa con API backend
+- Resultado agrupado por tipo
+
 ### Alternativas de Hosting
 - **Vercel**: Más rápido, pero tiene limite gratuito menor
 - **GitHub Pages**: Ultra gratis, pero sin soporte completo
@@ -748,6 +804,12 @@ VITE_HF_TOKEN=hf_xxxxxxxxxxxx                   # De huggingface.co
 - **Fuente no cambia**: Verificar `em-pulse-font-size` en DevTools → Application → Storage
 - **Lector de pantalla no funciona**: Verificar navegador compatible (Chrome, Firefox, Safari)
 - **Indicadores de enfoque no visibles**: Presionar TAB para navegar, deben verse bordes amarillos
+
+### Búsqueda Avanzada
+- **Atajo ⌘K no funciona**: Verificar que el foco no esté en un input - el atajo global funciona en cualquier parte
+- **No hay resultados**: Escribir al menos 3 caracteres y verificar que haya contenido en la BD
+- **Resultados muy lentos**: Verificar conexión a internet y que la API backend esté respondiendo
+- **Modal no abre al hacer clic**: Recargar página, puede haber caché del navegador
 
 ### Líneas de Ayuda
 ```bash
