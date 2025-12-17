@@ -6,6 +6,7 @@ const API_FORUM_URL = `${API_BASE_URL}/api/forum`;
 export const forumAPI = {
   /**
    * Obtener todos los posts (desde servidor, con fallback a localStorage)
+   * NO sobrescribe posts locales pendientes - los mergea
    */
   getPosts: async (category = null, search = null, userIdentifier = null) => {
     try {
@@ -30,9 +31,12 @@ export const forumAPI = {
         posts = data;
       }
       
-      // Sincronizar con localStorage
+      // Mergear posts del servidor con posts locales pendientes
       if (posts.length > 0) {
-        forumStorage.savePosts(posts);
+        const localPosts = forumStorage.getPosts();
+        const mergedPosts = forumAPI.mergePosts(posts, localPosts);
+        forumStorage.savePosts(mergedPosts);
+        return mergedPosts;
       }
       
       return posts;
@@ -46,6 +50,40 @@ export const forumAPI = {
       }
       return [];
     }
+  },
+
+  /**
+   * Mergear posts del servidor con posts locales pendientes
+   * Mantiene posts locales pendientes y actualiza posts del servidor
+   */
+  mergePosts: (serverPosts, localPosts) => {
+    // Posts locales que están pendientes (tiene ID temporal)
+    const pendingLocalPosts = localPosts.filter(
+      p => p.is_local || (typeof p.id === 'string' && p.id.startsWith('temp_'))
+    );
+    
+    // Crear mapa de IDs para búsqueda rápida
+    const serverPostMap = new Map();
+    serverPosts.forEach(post => {
+      serverPostMap.set(post.id, post);
+    });
+    
+    // Combinar: posts del servidor + posts locales pendientes
+    const merged = [...serverPosts];
+    
+    // Agregar posts locales que no están en el servidor
+    pendingLocalPosts.forEach(localPost => {
+      if (!serverPostMap.has(localPost.id)) {
+        merged.unshift(localPost);
+      }
+    });
+    
+    // Ordenar por fecha (más recientes primero)
+    return merged.sort((a, b) => {
+      const dateA = new Date(a.created_at);
+      const dateB = new Date(b.created_at);
+      return dateB - dateA;
+    });
   },
 
   /**

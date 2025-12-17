@@ -55,9 +55,11 @@ export default function Forum({ user, profileImage, showForum }) {
         }
 
         // 2. Intentar obtener datos frescos del servidor
+        // getPosts() ahora mergea automáticamente posts del servidor con posts locales pendientes
         const data = await forumAPI.getPosts(null, null, userIdentifier);
         const postsArray = Array.isArray(data) ? data : [];
         
+        // Siempre actualizar con los datos mergeados (que incluyen posts locales pendientes)
         if (postsArray.length > 0) {
           setPosts(postsArray);
         } else if (localPosts.length === 0) {
