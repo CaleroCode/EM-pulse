@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MessageCircle, Heart, Reply, Search, Plus, User, Clock, X } from "lucide-react";
 import { forumAPI } from "../services/forumAPI";
+import { forumStorage } from "../utils/forumStorage";
 import ShareButtons from "../components/ShareButtons";
 import ExportPDF from "../components/ExportPDF";
 
@@ -40,26 +41,64 @@ export default function Forum({ user, profileImage, showForum }) {
     { id: "ayuda", name: "Pedir Ayuda", color: "bg-pink-500/10 border-pink-500/30", icon: "🤝" },
   ];
 
-  // Cargar posts desde la API cuando el componente monta o cuando cambia la categoría
+  // Cargar posts desde localStorage primero, luego sincronizar con servidor
   useEffect(() => {
     const loadPosts = async () => {
       setLoading(true);
       setError(null);
+      
       try {
-        // Cargar TODOS los posts (sin filtrar por categoría en la API)
-        // El filtro será solo visual
+        // 1. Cargar desde localStorage primero (respuesta inmediata)
+        const localPosts = forumStorage.getPosts();
+        if (localPosts.length > 0) {
+          setPosts(localPosts);
+        }
+
+        // 2. Intentar obtener datos frescos del servidor
         const data = await forumAPI.getPosts(null, null, userIdentifier);
-        setPosts(Array.isArray(data) ? data : []);
+        const postsArray = Array.isArray(data) ? data : [];
+        
+        if (postsArray.length > 0) {
+          setPosts(postsArray);
+        } else if (localPosts.length === 0) {
+          // Si no hay datos ni en servidor ni localmente
+          setError('No se pudieron cargar los posts');
+        }
       } catch (err) {
-        setError('Error al cargar los posts');
         console.error('Error loading posts:', err);
-        setPosts([]);
+        // Si hay error pero tenemos datos locales, los usamos
+        const localPosts = forumStorage.getPosts();
+        if (localPosts.length === 0) {
+          setError('Error al cargar los posts. Verifica tu conexión.');
+        }
       } finally {
         setLoading(false);
       }
     };
     
     loadPosts();
+    
+    // Sincronizar posts locales pendientes cada 10 segundos
+    const syncInterval = setInterval(async () => {
+      const stats = forumStorage.getStats();
+      if (stats.localPosts > 0) {
+        try {
+          const result = await forumStorage.syncWithServer(forumAPI);
+          if (result.syncedCount > 0) {
+            console.log(`✓ ${result.syncedCount} posts sincronizados con el servidor`);
+            // Recargar posts para mostrar los sincronizados
+            const data = await forumAPI.getPosts(null, null, userIdentifier);
+            if (Array.isArray(data)) {
+              setPosts(data);
+            }
+          }
+        } catch (err) {
+          console.warn('Error durante sincronización:', err);
+        }
+      }
+    }, 10000); // Cada 10 segundos
+
+    return () => clearInterval(syncInterval);
   }, [userIdentifier]);
 
   const currentPosts = posts;
@@ -90,7 +129,7 @@ export default function Forum({ user, profileImage, showForum }) {
 
         const createdPost = await forumAPI.createPost(newPost);
         
-        // Agregar el nuevo post a la lista
+        // Agregar el nuevo post a la lista inmediatamente
         setPosts(prevPosts => [createdPost, ...prevPosts]);
 
         // Limpiar formulario y cerrar modal
@@ -100,15 +139,10 @@ export default function Forum({ user, profileImage, showForum }) {
         setShowNewPost(false);
         setError("");
         
-        // Recargar todos los posts después de 1 segundo
-        setTimeout(async () => {
-          try {
-            const data = await forumAPI.getPosts(null, null, userIdentifier);
-            setPosts(Array.isArray(data) ? data : []);
-          } catch (err) {
-            console.error('Error recargando posts:', err);
-          }
-        }, 1000);
+        // Mensaje de éxito
+        if (createdPost.is_local) {
+          console.log('Post guardado localmente. Se sincronizará cuando la API esté disponible.');
+        }
       } catch (err) {
         console.error('Error creating post:', err);
         const errorMsg = err.message || 'Error desconocido al crear el post';
@@ -245,10 +279,10 @@ export default function Forum({ user, profileImage, showForum }) {
 
         const createdComment = await forumAPI.addComment(postId, comment);
         
-        // Actualizar el post con el nuevo comentario
+        // Actualizar el post con el nuevo comentario inmediatamente
         setPosts(prevPosts =>
           prevPosts.map(post =>
-            post.id === postId
+            post.id === postId || post.id === parseInt(postId)
               ? { ...post, comments: [...(post.comments || []), createdComment] }
               : post
           )
@@ -256,6 +290,10 @@ export default function Forum({ user, profileImage, showForum }) {
 
         setReplyText("");
         setShowReplyForm(null);
+        
+        if (createdComment.is_local) {
+          console.log('Comentario guardado localmente. Se sincronizará cuando la API esté disponible.');
+        }
       } catch (err) {
         setError('Error al agregar comentario');
         console.error('Error adding reply:', err);
@@ -349,8 +387,19 @@ export default function Forum({ user, profileImage, showForum }) {
                 filteredPosts.map(post => (
                   <div
                     key={post.id}
-                    className="bg-dark-bg-secondary/30 border border-empulseAccent/20 rounded-lg p-6 hover:border-empulsePrimary/40 transition"
+                    className={`border rounded-lg p-6 hover:border-empulsePrimary/40 transition ${
+                      post.is_local 
+                        ? 'bg-yellow-500/10 border-yellow-500/30'
+                        : 'bg-dark-bg-secondary/30 border-empulseAccent/20'
+                    }`}
                   >
+                    {/* Local Post Badge */}
+                    {post.is_local && (
+                      <div className="mb-3 inline-block bg-yellow-500/20 border border-yellow-500/50 rounded px-2 py-1 text-xs text-yellow-300">
+                        ⏳ Sincronizando...
+                      </div>
+                    )}
+                    
                     {/* Post Header */}
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3 flex-1">

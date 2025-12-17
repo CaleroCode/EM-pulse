@@ -1,9 +1,11 @@
+import { forumStorage } from '../utils/forumStorage.js';
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const API_FORUM_URL = `${API_BASE_URL}/api/forum`;
 
 export const forumAPI = {
   /**
-   * Obtener todos los posts
+   * Obtener todos los posts (desde servidor, con fallback a localStorage)
    */
   getPosts: async (category = null, search = null, userIdentifier = null) => {
     try {
@@ -16,29 +18,38 @@ export const forumAPI = {
       
       if (params.length > 0) url += '?' + params.join('&');
       
-      const response = await fetch(url);
+      const response = await fetch(url, { timeout: 5000 });
       if (!response.ok) throw new Error('Error al obtener posts');
       const data = await response.json();
       
       // Si es respuesta paginada de DRF, extraer results
+      let posts = [];
       if (data && typeof data === 'object' && 'results' in data) {
-        return Array.isArray(data.results) ? data.results : [];
+        posts = Array.isArray(data.results) ? data.results : [];
+      } else if (Array.isArray(data)) {
+        posts = data;
       }
       
-      // Si es un array directo
-      if (Array.isArray(data)) {
-        return data;
+      // Sincronizar con localStorage
+      if (posts.length > 0) {
+        forumStorage.savePosts(posts);
       }
       
-      return [];
+      return posts;
     } catch (error) {
-      console.error('Error en getPosts:', error);
+      console.warn('Error al obtener posts del servidor, usando localStorage:', error);
+      // Fallback: obtener posts del localStorage
+      const localPosts = forumStorage.getPosts();
+      if (localPosts.length > 0) {
+        console.log(`Usando ${localPosts.length} posts del almacenamiento local`);
+        return localPosts;
+      }
       return [];
     }
   },
 
   /**
-   * Crear un nuevo post
+   * Crear un nuevo post (guardar en BD y localStorage)
    */
   createPost: async (postData) => {
     try {
@@ -56,10 +67,29 @@ export const forumAPI = {
         const errorMsg = responseData?.detail || responseData?.error || responseData?.errors || 'Error al crear post';
         throw new Error(typeof errorMsg === 'object' ? JSON.stringify(errorMsg) : errorMsg);
       }
+      
+      // Guardar en localStorage también
+      forumStorage.addPost(responseData);
+      
       return responseData;
     } catch (error) {
-      console.error('Error en createPost:', error);
-      throw error;
+      console.warn('Error en createPost (servidor):', error);
+      
+      // Fallback: guardar localmente con ID temporal
+      const localPost = {
+        ...postData,
+        id: `temp_${Date.now()}_${Math.random()}`,
+        likes: 0,
+        comments: [],
+        is_local: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+      
+      forumStorage.addPost(localPost);
+      console.log('Post guardado en almacenamiento local (se sincronizará cuando la API esté disponible)');
+      
+      return localPost;
     }
   },
 
@@ -164,10 +194,29 @@ export const forumAPI = {
         const errorMsg = errorData?.detail || errorData?.error || 'Error al agregar comentario';
         throw new Error(errorMsg);
       }
-      return await response.json();
+      const responseData = await response.json();
+      
+      // Actualizar en localStorage
+      forumStorage.addCommentToPost(postId, responseData);
+      
+      return responseData;
     } catch (error) {
-      console.error('Error en addComment:', error);
-      throw error;
+      console.warn('Error en addComment (servidor):', error);
+      
+      // Fallback: guardar comentario localmente
+      const localComment = {
+        ...commentData,
+        id: `temp_${Date.now()}_${Math.random()}`,
+        likes: 0,
+        is_local: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+      
+      forumStorage.addCommentToPost(postId, localComment);
+      console.log('Comentario guardado en almacenamiento local (se sincronizará cuando la API esté disponible)');
+      
+      return localComment;
     }
   },
 
