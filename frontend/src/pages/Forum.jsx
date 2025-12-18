@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { MessageCircle, Heart, Reply, Search, Plus, User, Clock, X } from "lucide-react";
 import { forumAPI } from "../services/forumAPI";
 import { forumStorage } from "../utils/forumStorage";

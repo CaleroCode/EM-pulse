@@ -224,8 +224,6 @@ export const forumAPI = {
       throw error;
     }
   },
-    }
-  },
 
   /**
    * Eliminar comentario
