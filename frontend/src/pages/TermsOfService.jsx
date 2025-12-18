@@ -108,7 +108,7 @@ export default function TermsOfService({ onClose }) {
           <section>
             <h2 className="text-2xl font-bold text-empulsePrimary mb-3">11. Contacto</h2>
             <p className="text-slate-300 leading-relaxed">
-              Para preguntas sobre estos términos, contacta a: <span className="text-empulsePrimary font-semibold">legal@empulse.es</span>
+              Para preguntas sobre estos términos, contacta a: <span className="text-empulsePrimary font-semibold">CaleroCode@gmail.com</span>
             </p>
           </section>
 

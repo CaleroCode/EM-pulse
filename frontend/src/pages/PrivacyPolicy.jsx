@@ -117,7 +117,7 @@ export default function PrivacyPolicy({ onClose }) {
           <section>
             <h2 className="text-2xl font-bold text-empulsePrimary mb-3">10. Contacto</h2>
             <p className="text-slate-300 leading-relaxed">
-              Para preguntas sobre privacidad o para ejercer tus derechos GDPR, contacta a: <span className="text-empulsePrimary font-semibold">privacy@empulse.es</span>
+              Para preguntas sobre privacidad o para ejercer tus derechos GDPR, contacta a: <span className="text-empulsePrimary font-semibold">CaleroCode@gmail.com</span>
             </p>
           </section>
 
