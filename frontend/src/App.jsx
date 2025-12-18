@@ -667,6 +667,7 @@ function App() {
             setShowICDATA={setShowICDATA}
             setShowChat={setShowChat}
             setShowWhatIsEM={setShowWhatIsEM}
+            setShowForum={setShowForum}
             setShowTypesAndDiagnosis={setShowTypesAndDiagnosis}
             setShowSymptomsDetail={setShowSymptomsDetail}
             setShowMovement={setShowMovement}

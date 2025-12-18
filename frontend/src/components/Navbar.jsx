@@ -62,6 +62,7 @@ export default function Navbar({
   setShowICDATA,
   setShowChat,
   setShowWhatIsEM,
+  setShowForum,
   handleLogout,
 }) {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -154,7 +155,11 @@ export default function Navbar({
           <div className="md:hidden bg-gradient-to-b from-empulseBg to-empulseBg/95 border-t border-empulseAccent/20 py-4 space-y-1 animate-in fade-in slide-in-from-top-2 duration-200">
             {/* SÍNTOMAS */}
             <button
-              onClick={() => handleNavigate("symptoms")}
+              onClick={() => {
+                handleNavigate("symptoms");
+                setShowForum(false);
+                setMobileMenuOpen(false);
+              }}
               className="block w-full text-left px-4 py-3 font-semibold text-empulsePrimary hover:text-white hover:bg-empulseAccent/15 rounded-lg transition-all duration-200 flex items-center gap-2"
             >
               <Heart size={16} />
@@ -163,7 +168,11 @@ export default function Navbar({
 
             {/* NOTICIAS */}
             <button
-              onClick={() => handleNavigate("news")}
+              onClick={() => {
+                handleNavigate("news");
+                setShowForum(false);
+                setMobileMenuOpen(false);
+              }}
               className="block w-full text-left px-4 py-3 font-semibold text-empulsePrimary hover:text-white hover:bg-empulseAccent/15 rounded-lg transition-all duration-200 flex items-center gap-2"
             >
               <FileText size={16} />
@@ -369,6 +378,7 @@ export default function Navbar({
           <button
             onClick={() => {
               setShowChat(false);
+              setShowForum(false);
               handleNavigate("symptoms");
             }}
             className={`px-3 py-2 font-semibold rounded-lg transition-all duration-300 flex items-center gap-1.5 relative group ${
