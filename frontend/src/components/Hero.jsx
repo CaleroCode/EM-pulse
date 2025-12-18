@@ -44,7 +44,7 @@ export default function Hero() {
         </p>
 
          <p className="text-sm text-slate-300 mb-8 max-w-2xl mx-auto">
-        La Esclerosis Múltiple es la enfermedad de las 1.000 caras, y no todo el mundo sufrirá los mismos síntomas (ni en la misma intensidad). Por eso, en EM-PULSE hemos creado una herramienta que te permitirá entender mejor cómo se vive esta enfermedad desde dentro.
+        La <strong>esclerosis múltiple</strong> es la enfermedad de las 1.000 caras, y no todo el mundo sufrirá los mismos síntomas (ni en la misma intensidad). Por eso, en EM-PULSE hemos creado una herramienta que te permitirá entender mejor cómo se vive esta enfermedad desde dentro.
         </p>
 
         <p className="text-sm text-slate-300 mb-8 max-w-2xl mx-auto">

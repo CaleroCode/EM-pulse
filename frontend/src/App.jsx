@@ -674,7 +674,6 @@ function App() {
             setShowMentalHealth={setShowMentalHealth}
             setShowRights={setShowRights}
             setShowGuides={setShowGuides}
-            setShowForum={setShowForum}
             setSectionToNavigate={setSectionToNavigate}
             setShowAllNews={setShowAllNews}
             setShowAccessibility={setShowAccessibility}
