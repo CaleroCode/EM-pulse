@@ -523,14 +523,14 @@ Desktop:     > 1024px     (Escritorio)
 
 ## 🚢 Deployment PWA - 🌐 ACTIVO
 
-### Plataforma Actual: Render ✅ (con PostgreSQL persistente)
+### Plataforma Actual: Render + Neon ✅ (con PostgreSQL en la nube)
 
 Tu PWA está desplegada en **Render** (gratuito con HTTPS automático):
 - URL: `https://empulse.com` o `https://empulse-pwa.onrender.com/`
 - Estado: ✅ Activo y funcionando
 - Actualizaciones: Automáticas con cada `git push`
 - Certificado HTTPS: ✅ Automático (necesario para PWA)
-- **Base de Datos: PostgreSQL persistente** ✅ (Los posts del foro se guardan permanentemente)
+- **Base de Datos: PostgreSQL en Neon** ✅ (Los posts del foro se guardan permanentemente en la nube)
 
 ### Deploy Automático con Render
 
@@ -551,21 +551,29 @@ Tu PWA está desplegada en **Render** (gratuito con HTTPS automático):
    - Ambiente: Python + PostgreSQL persistente
    - Gratuitamente: 750 horas/mes + 90 días de inactividad máx.
 
-### Base de Datos PostgreSQL en Render
+### Base de Datos PostgreSQL en Neon
 
-La configuración ahora incluye:
-- **PostgreSQL** persistente (no se reinicia con redeploys)
-- **Conexión automática** a través de `DATABASE_URL`
+La configuración ahora usa **Neon** para la base de datos (PostgreSQL serverless):
+- **PostgreSQL en Neon** - Base de datos en la nube (EU-West-2, AWS)
+- **Plan Gratuito**: 3 GB de almacenamiento (vs 256 MB en Render)
+- **Conexión automática** a través de `DATABASE_URL` en render.yaml
 - **Migraciones automáticas** en cada deploy
 - **Datos permanentes**: Posts, comentarios, usuarios se guardan siempre
+- **Mejor rendimiento**: Neon especializado en PostgreSQL serverless
+- **Escalabilidad**: Crece automáticamente según necesidad
+
+**Beneficios sobre PostgreSQL de Render:**
+✅ Más almacenamiento (3 GB vs 256 MB)  
+✅ Mejor rendimiento especializado en PostgreSQL  
+✅ Backups automáticos en Neon  
+✅ Escalado automático sin configuración  
+✅ Separación de backend (Render) y BD (Neon) = mejor arquitectura  
 
 **Configuración en render.yaml:**
 ```yaml
-services:
-  - type: pserv          # PostgreSQL service
-    name: empulse-postgres
-    databaseName: empulse_db
-    # Conectado automáticamente a backend via DATABASE_URL
+envVars:
+  - key: DATABASE_URL
+    value: "postgresql://neondb_owner:...@ep-delicate-frog-abzpua8i-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require"
 ```
 
 ### Características de la PWA en Producción
