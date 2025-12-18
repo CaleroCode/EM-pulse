@@ -105,7 +105,7 @@ export default function Navbar({
       setShowForum(false);
       setTimeout(() => {
         scrollToSection(sectionId);
-      }, 100);
+      }, 200); // Aumentado a 200ms para asegurar renderizado
     } else {
       scrollToSection(sectionId);
     }
