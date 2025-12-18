@@ -694,6 +694,28 @@ Síntomas:        🏥 Título | Descripción | Categoría
 - Integración directa con API backend
 - Resultado agrupado por tipo
 
+### 🛠️ Fixes de Navegación y BD
+
+#### Fix 1: ALLOWED_HOSTS para Guardar Posts en Neon ✅
+**Problema**: Posts NO se guardaban en Neon (Error 400: DisallowedHost)
+**Causa**: `ALLOWED_HOSTS` en settings.py estaba vacío
+**Solución**: Agregar `localhost`, `127.0.0.1`, `0.0.0.0`, `testserver` a ALLOWED_HOSTS
+**Archivo**: `backend/empulse_backend/settings.py`
+**Resultado**: Posts se guardan correctamente en Neon PostgreSQL
+
+#### Fix 2: Navegación Mejorada desde Cualquier Página ✅
+**Problema**: Al hacer click en "SÍNTOMAS Y NOTICIAS" desde otras páginas, no navegaba
+**Causa**: El ID "symptoms" no existía porque estaba mostrando otra página
+**Solución**: Agregar `setTimeout(100ms)` en `handleNavigate()` para esperar renderizado
+**Archivo**: `frontend/src/components/layout/Navbar.jsx`
+**Resultado**: Navegar funciona desde CUALQUIER página
+
+#### Fix 3: Forum como Página Normal ✅
+**Cambio de Arquitectura**: Forum ahora es una página normal en lugar de overlay
+**Beneficio**: Permite cerrar forum y navegar a otras secciones correctamente
+**Archivo**: `frontend/src/App.jsx`
+**Método**: `showForum ? <Forum /> : <>página principal</>`
+
 ### Alternativas de Hosting
 - **Vercel**: Más rápido, pero tiene limite gratuito menor
 - **GitHub Pages**: Ultra gratis, pero sin soporte completo
