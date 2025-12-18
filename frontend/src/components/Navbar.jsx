@@ -100,12 +100,16 @@ export default function Navbar({
     setShowICDATA(false);
     setShowChat(false);
     setShowWhatIsEM(false);
-    // Si estamos cerrando el foro, esperamos a que se renderice antes de hacer scroll
+    
+    // Si estamos cerrando el foro, hacer scroll a top primero, luego a la sección
     if (sectionId === "symptoms" || sectionId === "news") {
       setShowForum(false);
+      // Primero: scroll a top
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      // Segundo: después de cerrar el foro y llegar al top, scroll a la sección
       setTimeout(() => {
         scrollToSection(sectionId);
-      }, 200); // Aumentado a 200ms para asegurar renderizado
+      }, 600); // Esperar a que termine el scroll a top
     } else {
       scrollToSection(sectionId);
     }
