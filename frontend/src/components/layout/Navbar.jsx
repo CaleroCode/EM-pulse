@@ -117,7 +117,12 @@ export default function Navbar({
     setShowGuides(false);
     setShowForum(false);
     setShowAllNews(false);
-    scrollToSection(sectionId);
+    
+    // Esperar a que React cierre todas las páginas y renderice la principal
+    setTimeout(() => {
+      scrollToSection(sectionId);
+    }, 100);
+    
     setMobileMenuOpen(false);
   };
 
