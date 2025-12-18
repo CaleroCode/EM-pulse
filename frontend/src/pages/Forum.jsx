@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, Heart, Reply, Search, Plus, User, Clock, X } from "lucide-react";
 import { forumAPI } from "../services/forumAPI";
-import { forumStorage } from "../utils/forumStorage";
 import ShareButtons from "../components/ShareButtons";
 import ExportPDF from "../components/ExportPDF";
 
@@ -48,59 +47,23 @@ export default function Forum({ user, profileImage, showForum }) {
       setError(null);
       
       try {
-        // 1. Cargar desde localStorage primero (respuesta inmediata)
-        const localPosts = forumStorage.getPosts();
-        if (localPosts.length > 0) {
-          setPosts(localPosts);
-        }
-
-        // 2. Intentar obtener datos frescos del servidor
-        // getPosts() ahora mergea automáticamente posts del servidor con posts locales pendientes
+        // Obtener datos del servidor (Neon)
         const data = await forumAPI.getPosts(null, null, userIdentifier);
         const postsArray = Array.isArray(data) ? data : [];
         
-        // Siempre actualizar con los datos mergeados (que incluyen posts locales pendientes)
-        if (postsArray.length > 0) {
-          setPosts(postsArray);
-        } else if (localPosts.length === 0) {
-          // Si no hay datos ni en servidor ni localmente
-          setError('No se pudieron cargar los posts');
-        }
+        // Actualizar posts (puede estar vacío, eso no es error)
+        setPosts(postsArray);
       } catch (err) {
         console.error('Error loading posts:', err);
-        // Si hay error pero tenemos datos locales, los usamos
-        const localPosts = forumStorage.getPosts();
-        if (localPosts.length === 0) {
-          setError('Error al cargar los posts. Verifica tu conexión.');
-        }
+        // Solo mostrar error si hay problema de conexión real
+        setError('Error al cargar los posts. Verifica tu conexión.');
+        setPosts([]); // Mostrar lista vacía
       } finally {
         setLoading(false);
       }
     };
     
     loadPosts();
-    
-    // Sincronizar posts locales pendientes cada 10 segundos
-    const syncInterval = setInterval(async () => {
-      const stats = forumStorage.getStats();
-      if (stats.localPosts > 0) {
-        try {
-          const result = await forumStorage.syncWithServer(forumAPI);
-          if (result.syncedCount > 0) {
-            console.log(`✓ ${result.syncedCount} posts sincronizados con el servidor`);
-            // Recargar posts para mostrar los sincronizados
-            const data = await forumAPI.getPosts(null, null, userIdentifier);
-            if (Array.isArray(data)) {
-              setPosts(data);
-            }
-          }
-        } catch (err) {
-          console.warn('Error durante sincronización:', err);
-        }
-      }
-    }, 10000); // Cada 10 segundos
-
-    return () => clearInterval(syncInterval);
   }, [userIdentifier]);
 
   const currentPosts = posts;

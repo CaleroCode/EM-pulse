@@ -100,7 +100,15 @@ export default function Navbar({
     setShowICDATA(false);
     setShowChat(false);
     setShowWhatIsEM(false);
-    scrollToSection(sectionId);
+    // Si estamos cerrando el foro, esperamos a que se renderice antes de hacer scroll
+    if (sectionId === "symptoms" || sectionId === "news") {
+      setShowForum(false);
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 100);
+    } else {
+      scrollToSection(sectionId);
+    }
     setMobileMenuOpen(false);
   };
 
@@ -157,8 +165,6 @@ export default function Navbar({
             <button
               onClick={() => {
                 handleNavigate("symptoms");
-                setShowForum(false);
-                setMobileMenuOpen(false);
               }}
               className="block w-full text-left px-4 py-3 font-semibold text-empulsePrimary hover:text-white hover:bg-empulseAccent/15 rounded-lg transition-all duration-200 flex items-center gap-2"
             >
@@ -170,8 +176,6 @@ export default function Navbar({
             <button
               onClick={() => {
                 handleNavigate("news");
-                setShowForum(false);
-                setMobileMenuOpen(false);
               }}
               className="block w-full text-left px-4 py-3 font-semibold text-empulsePrimary hover:text-white hover:bg-empulseAccent/15 rounded-lg transition-all duration-200 flex items-center gap-2"
             >
@@ -376,11 +380,7 @@ export default function Navbar({
           <div className="flex items-center gap-1">
           {/* Síntomas y Noticias */}
           <button
-            onClick={() => {
-              setShowChat(false);
-              setShowForum(false);
-              handleNavigate("symptoms");
-            }}
+            onClick={() => handleNavigate("symptoms")}
             className={`px-3 py-2 font-semibold rounded-lg transition-all duration-300 flex items-center gap-1.5 relative group ${
               isActive("symptoms")
                 ? "text-white bg-empulseAccent/25"
