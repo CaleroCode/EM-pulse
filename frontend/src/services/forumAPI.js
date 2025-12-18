@@ -87,7 +87,7 @@ export const forumAPI = {
   },
 
   /**
-   * Crear un nuevo post (guardar en BD y localStorage)
+   * Crear un nuevo post (guardar en BD Neon solo, sin fallback a localStorage)
    */
   createPost: async (postData) => {
     try {
@@ -106,28 +106,11 @@ export const forumAPI = {
         throw new Error(typeof errorMsg === 'object' ? JSON.stringify(errorMsg) : errorMsg);
       }
       
-      // Guardar en localStorage también
-      forumStorage.addPost(responseData);
-      
       return responseData;
     } catch (error) {
-      console.warn('Error en createPost (servidor):', error);
-      
-      // Fallback: guardar localmente con ID temporal
-      const localPost = {
-        ...postData,
-        id: `temp_${Date.now()}_${Math.random()}`,
-        likes: 0,
-        comments: [],
-        is_local: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-      
-      forumStorage.addPost(localPost);
-      console.log('Post guardado en almacenamiento local (se sincronizará cuando la API esté disponible)');
-      
-      return localPost;
+      // No hay fallback a localStorage - lanzar error directamente
+      console.error('Error creating post in Neon:', error);
+      throw error;
     }
   },
 
@@ -216,7 +199,7 @@ export const forumAPI = {
   },
 
   /**
-   * Agregar comentario a un post
+   * Agregar comentario a un post (guardar en BD Neon solo, sin fallback a localStorage)
    */
   addComment: async (postId, commentData) => {
     try {
@@ -234,27 +217,13 @@ export const forumAPI = {
       }
       const responseData = await response.json();
       
-      // Actualizar en localStorage
-      forumStorage.addCommentToPost(postId, responseData);
-      
       return responseData;
     } catch (error) {
-      console.warn('Error en addComment (servidor):', error);
-      
-      // Fallback: guardar comentario localmente
-      const localComment = {
-        ...commentData,
-        id: `temp_${Date.now()}_${Math.random()}`,
-        likes: 0,
-        is_local: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-      
-      forumStorage.addCommentToPost(postId, localComment);
-      console.log('Comentario guardado en almacenamiento local (se sincronizará cuando la API esté disponible)');
-      
-      return localComment;
+      // No hay fallback a localStorage - lanzar error directamente
+      console.error('Error adding comment to Neon:', error);
+      throw error;
+    }
+  },
     }
   },
 
