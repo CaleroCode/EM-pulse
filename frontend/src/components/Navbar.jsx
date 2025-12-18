@@ -100,19 +100,13 @@ export default function Navbar({
     setShowICDATA(false);
     setShowChat(false);
     setShowWhatIsEM(false);
+    setShowForum(false); // Cerrar foro si está abierto
     
-    // Si estamos cerrando el foro, hacer scroll a top primero, luego a la sección
-    if (sectionId === "symptoms" || sectionId === "news") {
-      setShowForum(false);
-      // Primero: scroll a top
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      // Segundo: después de cerrar el foro y llegar al top, scroll a la sección
-      setTimeout(() => {
-        scrollToSection(sectionId);
-      }, 600); // Esperar a que termine el scroll a top
-    } else {
+    // Esperar a que React actualice el DOM después de cerrar el foro
+    setTimeout(() => {
       scrollToSection(sectionId);
-    }
+    }, 50);
+    
     setMobileMenuOpen(false);
   };
 
