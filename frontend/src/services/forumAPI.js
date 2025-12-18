@@ -1,12 +1,9 @@
-import { forumStorage } from '../utils/forumStorage.js';
-
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const API_FORUM_URL = `${API_BASE_URL}/api/forum`;
 
 export const forumAPI = {
   /**
-   * Obtener todos los posts (desde servidor, con fallback a localStorage)
-   * NO sobrescribe posts locales pendientes - los mergea
+   * Obtener todos los posts (desde servidor Neon, sin fallback a localStorage)
    */
   getPosts: async (category = null, search = null, userIdentifier = null) => {
     try {
@@ -31,24 +28,11 @@ export const forumAPI = {
         posts = data;
       }
       
-      // Mergear posts del servidor con posts locales pendientes
-      if (posts.length > 0) {
-        const localPosts = forumStorage.getPosts();
-        const mergedPosts = forumAPI.mergePosts(posts, localPosts);
-        forumStorage.savePosts(mergedPosts);
-        return mergedPosts;
-      }
-      
       return posts;
     } catch (error) {
-      console.warn('Error al obtener posts del servidor, usando localStorage:', error);
-      // Fallback: obtener posts del localStorage
-      const localPosts = forumStorage.getPosts();
-      if (localPosts.length > 0) {
-        console.log(`Usando ${localPosts.length} posts del almacenamiento local`);
-        return localPosts;
-      }
-      return [];
+      console.error('Error al obtener posts del servidor:', error);
+      // No hay fallback - lanzar el error
+      throw error;
     }
   },
 
