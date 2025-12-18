@@ -17,12 +17,13 @@ SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-cámbiame-en-producción")
 # DEBUG: por defecto True si no se indica otra cosa en .env
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-# ALLOWED_HOSTS: en desarrollo puede estar vacío
+# ALLOWED_HOSTS: incluir localhost, 127.0.0.1 y testserver para desarrollo/testing
 raw_allowed_hosts = os.getenv("ALLOWED_HOSTS", "")
+default_hosts = ["localhost", "127.0.0.1", "0.0.0.0", "testserver"]
 if raw_allowed_hosts:
-    ALLOWED_HOSTS = [host.strip() for host in raw_allowed_hosts.split(",")]
+    ALLOWED_HOSTS = default_hosts + [host.strip() for host in raw_allowed_hosts.split(",")]
 else:
-    ALLOWED_HOSTS = []  # En desarrollo con DEBUG=True no pasa nada
+    ALLOWED_HOSTS = default_hosts
 
 # =========================
 # APLICACIONES INSTALADAS
