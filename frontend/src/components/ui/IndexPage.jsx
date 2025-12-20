@@ -4,6 +4,7 @@ import Button from './Button';
 
 export default function IndexPage({ onEnter }) {
   const [isEntering, setIsEntering] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   const handleEnter = () => {
     setIsEntering(true);
@@ -63,7 +64,13 @@ export default function IndexPage({ onEnter }) {
           </div>
 
           {/* Botón Entrar */}
-          <div className="flex justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
+          <div className="flex justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            <button
+              onClick={() => setShowVideoModal(true)}
+              className="px-8 py-3 bg-empulsePrimary text-white font-semibold rounded-lg transition-all duration-300 hover:brightness-110 active:scale-95 drop-shadow-lg text-sm md:text-base"
+            >
+              Vídeo
+            </button>
             <Button
               onClick={handleEnter}
               size="md"
@@ -156,6 +163,33 @@ export default function IndexPage({ onEnter }) {
           }
         }
       `}</style>
+
+      {/* Modal de Vídeo */}
+      {showVideoModal && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setShowVideoModal(false)}>
+          <div className="bg-slate-900 rounded-lg overflow-hidden shadow-2xl max-w-2xl w-full" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center p-4 border-b border-slate-700">
+              <h2 className="text-xl font-bold text-white">EM-PULSE</h2>
+              <button
+                onClick={() => setShowVideoModal(false)}
+                className="text-slate-400 hover:text-white transition-colors text-2xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+            <div className="aspect-video bg-black flex items-center justify-center">
+              <video
+                src="/src/video/empulse_video.mp4"
+                controls
+                autoPlay
+                className="w-full h-full"
+              >
+                Tu navegador no soporta la etiqueta de vídeo.
+              </video>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
