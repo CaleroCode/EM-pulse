@@ -5,6 +5,7 @@ import Button from './Button';
 export default function IndexPage({ onEnter }) {
   const [isEntering, setIsEntering] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(true);
 
   const handleEnter = () => {
     setIsEntering(true);
@@ -65,12 +66,13 @@ export default function IndexPage({ onEnter }) {
 
           {/* Botón Entrar */}
           <div className="flex justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-            <button
+            <Button
               onClick={() => setShowVideoModal(true)}
-              className="px-8 py-3 bg-empulsePrimary text-white font-semibold rounded-lg transition-all duration-300 hover:brightness-110 active:scale-95 drop-shadow-lg text-sm md:text-base"
+              size="md"
+              className="text-white drop-shadow-lg"
             >
               Vídeo
-            </button>
+            </Button>
             <Button
               onClick={handleEnter}
               size="md"
@@ -167,22 +169,51 @@ export default function IndexPage({ onEnter }) {
       {/* Modal de Vídeo */}
       {showVideoModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setShowVideoModal(false)}>
-          <div className="bg-slate-900 rounded-lg overflow-hidden shadow-2xl max-w-2xl w-full" onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-between items-center p-4 border-b border-slate-700">
-              <h2 className="text-xl font-bold text-white">EM-PULSE</h2>
+          <div 
+            className="rounded-lg overflow-hidden shadow-2xl max-w-2xl w-full border border-empulseAccent/30"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: 'linear-gradient(135deg, rgba(8, 69, 99, 0.95) 0%, rgba(10, 122, 153, 0.90) 100%)',
+            }}
+          >
+            {/* Header */}
+            <div className="flex justify-between items-center p-4 border-b border-empulseAccent/30">
+              <h2 className="text-xl font-bold text-white glow-pulse">EM-PULSE</h2>
               <button
-                onClick={() => setShowVideoModal(false)}
-                className="text-slate-400 hover:text-white transition-colors text-2xl leading-none"
+                onClick={() => {
+                  setShowVideoModal(false);
+                  setVideoLoading(true);
+                }}
+                className="text-slate-300 hover:text-empulsePrimary transition-colors text-2xl leading-none font-bold"
               >
                 ×
               </button>
             </div>
-            <div className="aspect-video bg-black flex items-center justify-center">
+
+            {/* Video Container */}
+            <div className="aspect-video bg-black flex items-center justify-center relative">
+              {videoLoading && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 z-10">
+                  {/* Spinner */}
+                  <div className="relative w-16 h-16 mb-4">
+                    <div 
+                      className="absolute inset-0 rounded-full border-4 border-empulseAccent/20"
+                      style={{
+                        borderTop: '4px solid #15BCE6',
+                        animation: 'spin 1s linear infinite'
+                      }}
+                    />
+                  </div>
+                  <p className="text-slate-300 text-sm">Cargando vídeo...</p>
+                </div>
+              )}
               <video
                 src="/src/video/empulse_video.mp4"
-                controls
-                autoPlay
+                controls={!videoLoading}
+                autoPlay={false}
                 className="w-full h-full"
+                onCanPlayThrough={() => setVideoLoading(false)}
+                onLoadedMetadata={() => setVideoLoading(false)}
               >
                 Tu navegador no soporta la etiqueta de vídeo.
               </video>
@@ -190,6 +221,13 @@ export default function IndexPage({ onEnter }) {
           </div>
         </div>
       )}
+
+      {/* Estilos para el spinner */}
+      <style>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 }
