@@ -168,16 +168,19 @@ export default function IndexPage({ onEnter }) {
 
       {/* Modal de Vídeo */}
       {showVideoModal && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setShowVideoModal(false)}>
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 md:p-0" onClick={() => setShowVideoModal(false)}>
           <div 
-            className="rounded-lg overflow-hidden shadow-2xl max-w-2xl w-full border border-empulseAccent/30"
+            className="rounded-lg overflow-hidden shadow-2xl max-w-2xl w-full border border-empulseAccent/30 md:max-h-[90vh] md:aspect-video"
             onClick={(e) => e.stopPropagation()}
             style={{
               background: 'linear-gradient(135deg, rgba(8, 69, 99, 0.95) 0%, rgba(10, 122, 153, 0.90) 100%)',
+              // En smartphone: pantalla completa orientada
+              maxHeight: window.innerWidth < 768 ? '100vh' : 'auto',
+              maxWidth: window.innerWidth < 768 ? '100vw' : 'auto',
             }}
           >
             {/* Header */}
-            <div className="flex justify-between items-center p-4 border-b border-empulseAccent/30">
+            <div className="hidden md:flex justify-between items-center p-4 border-b border-empulseAccent/30">
               <h2 className="text-xl font-bold text-white glow-pulse">EM-PULSE</h2>
               <button
                 onClick={() => {
@@ -190,8 +193,21 @@ export default function IndexPage({ onEnter }) {
               </button>
             </div>
 
+            {/* Botón cerrar en mobile */}
+            <button
+              onClick={() => {
+                setShowVideoModal(false);
+                setVideoLoading(true);
+              }}
+              className="md:hidden absolute top-4 right-4 z-50 text-slate-300 hover:text-empulsePrimary transition-colors text-2xl leading-none font-bold bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+            >
+              ×
+            </button>
+
             {/* Video Container */}
-            <div className="aspect-video bg-black flex items-center justify-center relative">
+            <div className="aspect-video bg-black flex items-center justify-center relative" style={{
+              height: window.innerWidth < 768 ? '100vh' : 'auto',
+            }}>
               {videoLoading && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 z-10">
                   {/* Spinner */}
@@ -213,6 +229,7 @@ export default function IndexPage({ onEnter }) {
                 autoPlay={false}
                 preload="metadata"
                 className="w-full h-full"
+                allowFullScreen
                 onCanPlayThrough={() => setVideoLoading(false)}
                 onLoadedMetadata={() => setVideoLoading(false)}
               >
