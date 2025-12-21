@@ -274,6 +274,34 @@ const AssociationsSection = ({ showAssociations }) => {
           </p>
         </div>
 
+        {/* Card Esclerosis Múltiple España */}
+        <div className="mb-12 flex justify-center">
+          <div className="max-w-2xl w-full bg-gradient-to-r from-empulsePrimary/10 to-empulseAccent/10 border-2 border-empulsePrimary rounded-xl p-8 shadow-lg text-center">
+            <h3 className="text-2xl font-bold text-empulsePrimary mb-4">Esclerosis Múltiple España</h3>
+            <p className="text-empulseSoft text-base leading-relaxed mb-6">
+              Asociación Nacional de personas afectadas por Esclerosis Múltiple. Proporcionan información, apoyo y representación a nivel nacional, defendiendo los derechos de las personas con EM en toda España.
+            </p>
+            <div className="flex gap-4 flex-wrap justify-center">
+              <a 
+                href="https://www.esclerosismultiple.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-6 py-2 bg-empulsePrimary text-white rounded-lg font-semibold hover:bg-empulsePrimary/90 transition"
+              >
+                Visitar sitio web
+              </a>
+              <a 
+                href="https://www.esclerosismultiple.com/contacto"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-6 py-2 border-2 border-empulsePrimary text-empulsePrimary rounded-lg font-semibold hover:bg-empulsePrimary/10 transition"
+              >
+                Contactar
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* Buscador de comunidad */}
         <div className="mb-8 flex flex-col gap-4">
           {/* Selector de comunidad autónoma */}

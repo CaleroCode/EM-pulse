@@ -60,7 +60,7 @@ export default function IndexPage({ onEnter }) {
               La <strong>esclerosis múltiple</strong> es la enfermedad de las mil caras: nunca sabes con cuál va a presentarse.
             </p>
             <p className="text-slate-100 text-sm md:text-base leading-relaxed drop-shadow text-justify">
-              <strong>EM-PULSE</strong> es el lugar donde pones nombre a esas caras, encuentras respuestas y descubres que no afrontas la batalla sin aliados
+              <strong>EM-PULSE</strong> es el lugar donde pones nombre a esas caras, encuentras respuestas y descubres que no afrontas la batalla sin aliados.
             </p>
           </div>
 

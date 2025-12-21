@@ -176,7 +176,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
             <div className="space-y-6">
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Guía Práctica para la Defensa de Derechos</h3>
-                <p className="text-slate-300 leading-relaxed mb-3">
+                <p className="text-slate-300 leading-relaxed mb-3 text-justify">
                   Publicada por Esclerosis Múltiple España, esta guía jurídica proporciona orientación general sobre:
                 </p>
                 <ul className="text-slate-300 space-y-2 list-disc list-inside ml-2">
@@ -192,7 +192,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Información Oficial del Gobierno</h3>
-                <p className="text-slate-300 leading-relaxed mb-3">
+                <p className="text-slate-300 leading-relaxed mb-3 text-justify">
                   Los ministerios españoles publican información sobre:
                 </p>
                 <ul className="text-slate-300 space-y-2 list-disc list-inside ml-2">
@@ -204,7 +204,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Baremo de Discapacidad Actualizado</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   El Real Decreto que actualiza el baremo de discapacidad contiene la evaluación de criterios médicos para EM. Consultarlo te ayudará a entender cómo se valoran tus síntomas.
                 </p>
               </div>
@@ -224,7 +224,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
             <div className="space-y-6">
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Esclerosis Múltiple España</h3>
-                <p className="text-slate-300 leading-relaxed mb-3">
+                <p className="text-slate-300 leading-relaxed mb-3 text-justify">
                   La organización oficial referente en España.
                 </p>
                 <ul className="text-slate-300 space-y-2 list-disc list-inside ml-2">
@@ -240,21 +240,21 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Asociaciones Autonómicas</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   Cada comunidad autónoma tiene asociaciones locales de EM que ofrecen apoyo más cercano, programas de actividad física, charlas informativas y grupos de apoyo.
                 </p>
               </div>
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">EMSP (European MS Platform)</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   Plataforma europea que coordina información y recursos para personas con EM en toda Europa. Útil si viajas o necesitas información internacional.
                 </p>
               </div>
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">MSIF (MS International Federation)</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   Federación internacional de organizaciones de EM con recursos, investigación y advocacy global.
                 </p>
               </div>
@@ -274,7 +274,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
             <div className="space-y-6">
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Búsqueda de Neurólogos Especializados</h3>
-                <p className="text-slate-300 leading-relaxed mb-3">
+                <p className="text-slate-300 leading-relaxed mb-3 text-justify">
                   Es crucial tener un neurólogo que conozca EM:
                 </p>
                 <ul className="text-slate-300 space-y-2 list-disc list-inside ml-2">
@@ -286,7 +286,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Investigación en EM</h3>
-                <p className="text-slate-300 leading-relaxed mb-3">
+                <p className="text-slate-300 leading-relaxed mb-3 text-justify">
                   Mantenerse informado sobre avances:
                 </p>
                 <ul className="text-slate-300 space-y-2 list-disc list-inside ml-2">
@@ -298,7 +298,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Terapias Complementarias</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   Complementan (no reemplazan) el tratamiento médico:
                 </p>
                 <ul className="text-slate-300 space-y-2 list-disc list-inside ml-2 mt-3">
@@ -324,14 +324,14 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
             <div className="space-y-6">
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Redes de EM-PULSE</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   ¡Estás en ella! Nuestra plataforma conecta a personas con EM, ofrece información compartida y comunidad.
                 </p>
               </div>
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Redes Sociales de Asociaciones</h3>
-                <p className="text-slate-300 leading-relaxed mb-3">
+                <p className="text-slate-300 leading-relaxed mb-3 text-justify">
                   Las principales asociaciones tienen presencia activa:
                 </p>
                 <ul className="text-slate-300 space-y-2 list-disc list-inside ml-2">
@@ -344,7 +344,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Foros Internacionales</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   Comunidades donde puedes conectar con personas de todo el mundo:
                 </p>
                 <ul className="text-slate-300 space-y-2 list-disc list-inside ml-2 mt-3">
@@ -356,7 +356,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Canales de YouTube Educativos</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   Busca canales de neurología, EM y salud que carguen regularmente. Muchos ofrecen charlas de expertos y testimonios.
                 </p>
               </div>
@@ -376,28 +376,28 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
             <div className="space-y-6">
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Psicólogo Especializado en EM</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   La salud mental es parte crucial del manejo de EM. Muchos servicios públicos ofrecen psicólogo en centros de salud. Para uno especializado en enfermedades crónicas, solicita a tu asociación local.
                 </p>
               </div>
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Terapia Online</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   Si la movilidad es limitada, la terapia telemática es una opción. Plataformas como Mindfulness, apps de meditación, y terapia cognitivo-conductual online.
                 </p>
               </div>
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Grupos de Apoyo Emocional</h3>
-                <p className="text-slate-300 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed text-justify">
                   Conectar con otros que viven lo mismo es terapéutico. Las asociaciones ofrecen grupos presenciales y online donde compartir experiencias.
                 </p>
               </div>
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Crisis o Emergencia Psicológica</h3>
-                <p className="text-slate-300 leading-relaxed mb-3">
+                <p className="text-slate-300 leading-relaxed mb-3 text-justify">
                   Si sientes que necesitas ayuda inmediata:
                 </p>
                 <ul className="text-slate-300 space-y-2 list-disc list-inside ml-2">
@@ -433,7 +433,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
 
               <div className="bg-empulseBg/80 border border-empulseAccent/30 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-empulseMid mb-3">Documentación Importante</h3>
-                <p className="text-slate-300 leading-relaxed mb-3">
+                <p className="text-slate-300 leading-relaxed mb-3 text-justify">
                   Mantén organizados:
                 </p>
                 <ul className="text-slate-300 space-y-2 list-disc list-inside ml-2">
@@ -492,7 +492,7 @@ export default function GuiasYRecursos({ showGuides, setShowGuides }) {
             <p className="text-slate-300 leading-relaxed mb-4">
               Vivir con EM es desafiante, pero <strong>no estás solo</strong>. Hay recursos, profesionales, y una comunidad entera de personas que entienden. El conocimiento es poder: cuanto más sepas sobre tus derechos, opciones y estrategias, mejor podrás navegar tu camino.
             </p>
-            <p className="text-slate-300 leading-relaxed">
+            <p className="text-slate-300 leading-relaxed text-justify">
               Alcanza a asociaciones, únete a comunidades, busca apoyo profesional. Tu salud mental y física importan. Mereces vivir con dignidad, autonomía y esperanza.
             </p>
           </section>

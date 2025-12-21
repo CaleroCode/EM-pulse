@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
 import { Search, X, Filter, ChevronDown } from "lucide-react";
 
-export default function AdvancedSearch({ onClose }) {
+export default function AdvancedSearch({ 
+  onClose,
+  setShowMentalHealth,
+  setShowRights,
+  setShowGuides,
+  setShowForum,
+  sectionToNavigate,
+  setSectionToNavigate
+}) {
   const [query, setQuery] = useState("");
   const [searchType, setSearchType] = useState("all"); // all, posts, news, symptoms, articles
   const [category, setCategory] = useState("all");
@@ -34,9 +42,30 @@ export default function AdvancedSearch({ onClose }) {
     { id: "popular", name: "Más Popular" },
   ];
 
+  // Función para buscar coincidencias parciales
+  const searchInText = (text, query) => {
+    if (!text) return false;
+    const lowerText = text.toLowerCase();
+    const lowerQuery = query.toLowerCase();
+    return lowerText.includes(lowerQuery);
+  };
+
+  // Función para buscar en array de palabras clave
+  const matchesKeywords = (item, query) => {
+    const keywords = [
+      item.name,
+      item.title,
+      item.description,
+      item.content,
+      item.symptoms?.join(" "),
+    ].join(" ").toLowerCase();
+    
+    return keywords.includes(query.toLowerCase());
+  };
+
   const performSearch = async () => {
     setLoading(true);
-    setResults([]);
+    let allResults = [];
     try {
       const api = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -47,16 +76,18 @@ export default function AdvancedSearch({ onClose }) {
           if (postsRes.ok) {
             const posts = await postsRes.json();
             const postList = Array.isArray(posts) ? posts : (posts.results || []);
-            const formattedPosts = postList.map(p => ({
-              id: p.id,
-              type: "post",
-              title: p.title,
-              description: p.content?.substring(0, 100) || "Sin descripción",
-              category: p.category || "General",
-              date: p.created_at,
-              url: "#",
-            }));
-            setResults(prev => [...prev, ...formattedPosts]);
+            const formattedPosts = postList
+              .filter(p => matchesKeywords(p, query))
+              .map(p => ({
+                id: p.id,
+                type: "post",
+                title: p.title,
+                description: p.content?.substring(0, 100) || "Sin descripción",
+                category: p.category || "General",
+                date: p.created_at,
+                url: "#",
+              }));
+            allResults = [...allResults, ...formattedPosts];
           }
         } catch (err) {
           console.error("Error en búsqueda de posts:", err);
@@ -70,16 +101,18 @@ export default function AdvancedSearch({ onClose }) {
           if (newsRes.ok) {
             const news = await newsRes.json();
             const newsList = Array.isArray(news) ? news : (news.results || []);
-            const formattedNews = newsList.map(n => ({
-              id: n.id,
-              type: "news",
-              title: n.title || "Sin título",
-              description: n.description?.substring(0, 100) || "Sin descripción",
-              category: "Noticias",
-              date: n.publishedAt || n.published_at || n.created_at,
-              url: n.url || "#",
-            }));
-            setResults(prev => [...prev, ...formattedNews]);
+            const formattedNews = newsList
+              .filter(n => matchesKeywords(n, query))
+              .map(n => ({
+                id: n.id,
+                type: "news",
+                title: n.title || "Sin título",
+                description: n.description?.substring(0, 100) || "Sin descripción",
+                category: "Noticias",
+                date: n.publishedAt || n.published_at || n.created_at,
+                url: n.url || "#",
+              }));
+            allResults = [...allResults, ...formattedNews];
           }
         } catch (err) {
           console.error("Error en búsqueda de noticias:", err);
@@ -93,25 +126,213 @@ export default function AdvancedSearch({ onClose }) {
           if (symptomsRes.ok) {
             const symptoms = await symptomsRes.json();
             const symptomList = Array.isArray(symptoms) ? symptoms : (symptoms.results || []);
-            const formattedSymptoms = symptomList.map(s => ({
-              id: s.id,
-              type: "symptom",
-              title: s.name || "Sin nombre",
-              description: s.description?.substring(0, 100) || "Sin descripción",
-              category: s.category || "Síntomas",
-              date: s.created_at || new Date().toISOString(),
-              url: "#",
-            }));
-            setResults(prev => [...prev, ...formattedSymptoms]);
+            const formattedSymptoms = symptomList
+              .filter(s => matchesKeywords(s, query))
+              .map(s => ({
+                id: s.id,
+                type: "symptom",
+                title: s.name || "Sin nombre",
+                description: s.description?.substring(0, 100) || "Sin descripción",
+                category: s.category || "Síntomas",
+                date: s.created_at || new Date().toISOString(),
+                url: "#",
+              }));
+            allResults = [...allResults, ...formattedSymptoms];
           }
         } catch (err) {
           console.error("Error en búsqueda de síntomas:", err);
         }
       }
+
+      // Si no hay resultados exactos, buscar en páginas estáticas relacionadas
+      if (allResults.length === 0 && query.trim().length > 2) {
+        const staticResults = getStaticSearchResults(query);
+        allResults = staticResults;
+      }
+
+      setResults(allResults);
     } catch (error) {
       console.error("Error general en búsqueda:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Búsqueda en contenido estático (Guías, Derechos, Salud Mental, etc)
+  const getStaticSearchResults = (query) => {
+    const staticData = [
+      {
+        id: "mental-depression",
+        type: "article",
+        title: "Depresión y Esclerosis Múltiple",
+        description: "Cómo la EM afecta la salud mental y cómo gestionar la depresión",
+        category: "Salud Mental",
+        section: "mental",
+        tags: ["depresión", "ansiedad", "salud mental", "emocional", "tristeza", "melancolía"]
+      },
+      {
+        id: "fatiga-depression",
+        type: "article",
+        title: "Fatiga Mental y Depresión",
+        description: "La relación entre la fatiga de la EM y los síntomas depresivos",
+        category: "Síntomas",
+        section: "mental",
+        tags: ["depresión", "fatiga", "cansancio", "agotamiento", "energía", "extenuación"]
+      },
+      {
+        id: "psychological-support",
+        type: "article",
+        title: "Apoyo Psicológico para la EM",
+        description: "Recursos y terapias disponibles para la salud emocional",
+        category: "Apoyo Psicológico",
+        section: "mental",
+        tags: ["depresión", "psicológico", "terapia", "apoyo mental", "psiquiatra", "psicólogo", "consejería"]
+      },
+      {
+        id: "rights-depression",
+        type: "article",
+        title: "Derechos Laborales con Depresión y EM",
+        description: "Tus derechos si tienes depresión asociada a la esclerosis múltiple",
+        category: "Derechos",
+        section: "rights",
+        tags: ["depresión", "derechos", "incapacidad", "laboral", "trabajo", "baja"]
+      },
+      {
+        id: "coping-strategies",
+        type: "article",
+        title: "Estrategias de Afrontamiento",
+        description: "Técnicas prácticas para manejar síntomas emocionales y cognitivos",
+        category: "Consejos Prácticos",
+        section: "mental",
+        tags: ["depresión", "ansiedad", "estrés", "mindfulness", "meditación", "técnicas", "coping"]
+      },
+      {
+        id: "pain-management",
+        type: "article",
+        title: "Gestión del Dolor y Síntomas",
+        description: "Cómo manejar el dolor crónico y otros síntomas de la EM",
+        category: "Síntomas",
+        section: "guides",
+        tags: ["dolor", "crónico", "malestar", "ardor", "entumecimiento", "parestesias", "espasmos"]
+      },
+      {
+        id: "cognitive-symptoms",
+        type: "article",
+        title: "Problemas Cognitivos en la EM",
+        description: "Memoria, concentración y neblina mental: síntomas cognitivos de la EM",
+        category: "Síntomas",
+        section: "mental",
+        tags: ["cognitivo", "memoria", "concentración", "confusión", "neblina mental", "brain fog", "olvido"]
+      },
+      {
+        id: "exercise-movement",
+        type: "article",
+        title: "Movimiento y Ejercicio con EM",
+        description: "Ejercicios seguros y beneficiosos para personas con esclerosis múltiple",
+        category: "Movimiento y Ejercicio",
+        section: "guides",
+        tags: ["ejercicio", "movimiento", "actividad", "físico", "deporte", "movilidad", "parálisis"]
+      },
+      {
+        id: "nutrition",
+        type: "article",
+        title: "Nutrición y Alimentación en la EM",
+        description: "Dieta recomendada para personas con esclerosis múltiple",
+        category: "Guías Médicas",
+        section: "guides",
+        tags: ["nutrición", "dieta", "alimentación", "vitaminas", "minerales", "comida", "antioxidantes"]
+      },
+      {
+        id: "sexuality",
+        type: "article",
+        title: "Sexualidad y Relaciones Íntimas",
+        description: "Cómo la EM afecta la vida sexual y cómo sobrellevarlo",
+        category: "Calidad de Vida",
+        section: "guides",
+        tags: ["sexualidad", "relaciones", "íntima", "disfunción", "libido", "intimidad"]
+      },
+      {
+        id: "employment",
+        type: "article",
+        title: "Empleo y Esclerosis Múltiple",
+        description: "Derechos laborales, adaptaciones y cómo comunicar tu diagnóstico en el trabajo",
+        category: "Derechos",
+        section: "rights",
+        tags: ["empleo", "trabajo", "laboral", "derechos", "adaptaciones", "incapacidad", "empresa"]
+      },
+      {
+        id: "disability-benefits",
+        type: "article",
+        title: "Prestaciones por Discapacidad",
+        description: "Información sobre pensiones, ayudas económicas y beneficios sociales",
+        category: "Derechos",
+        section: "rights",
+        tags: ["discapacidad", "pensión", "prestación", "ayuda", "económico", "beneficio", "subsidio"]
+      },
+      {
+        id: "vision-problems",
+        type: "article",
+        title: "Problemas de Visión en la EM",
+        description: "Neuritis óptica, visión borrosa y otros problemas visuales",
+        category: "Síntomas",
+        section: "guides",
+        tags: ["visión", "ojo", "vista", "ceguera", "borroso", "neuritis óptica", "diplopia"]
+      },
+      {
+        id: "bladder-bowel",
+        type: "article",
+        title: "Problemas de Vejiga e Intestinos",
+        description: "Incontinencia, retención y otros problemas urinarios en la EM",
+        category: "Síntomas",
+        section: "guides",
+        tags: ["vejiga", "incontinencia", "intestinal", "micción", "orina", "constipación"]
+      },
+      {
+        id: "treatment-options",
+        type: "article",
+        title: "Opciones de Tratamiento",
+        description: "Terapias modificadoras de la enfermedad y tratamientos sintomáticos",
+        category: "Tratamientos",
+        section: "guides",
+        tags: ["tratamiento", "medicamento", "terapia", "fármaco", "inmunodisruptor", "DMT"]
+      }
+    ];
+
+    return staticData.filter(item => 
+      item.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
+      item.title.toLowerCase().includes(query.toLowerCase()) ||
+      item.description.toLowerCase().includes(query.toLowerCase())
+    );
+  };
+
+  // Función para manejar clicks en resultados
+  const handleResultClick = (result) => {
+    onClose(); // Cerrar el buscador
+    
+    // Navegar según el tipo de resultado
+    if (result.type === "article" && result.section) {
+      switch (result.section) {
+        case "mental":
+          if (setShowMentalHealth) setShowMentalHealth(true);
+          break;
+        case "rights":
+          if (setShowRights) setShowRights(true);
+          break;
+        case "guides":
+          if (setShowGuides) setShowGuides(true);
+          break;
+        case "forum":
+          if (setShowForum) {
+            setShowForum(true);
+            if (setSectionToNavigate) setSectionToNavigate(result.id);
+          }
+          break;
+        default:
+          break;
+      }
+    } else if (result.type === "post" && setShowForum) {
+      setShowForum(true);
+      if (setSectionToNavigate) setSectionToNavigate(result.id);
     }
   };
 
@@ -123,7 +344,7 @@ export default function AdvancedSearch({ onClose }) {
       setResults([]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, searchType, category, sortBy]);
+  }, [query, searchType]);
 
   const getIcon = (type) => {
     switch (type) {
@@ -149,7 +370,7 @@ export default function AdvancedSearch({ onClose }) {
       case "symptom":
         return "Síntoma";
       case "article":
-        return "Artículo";
+        return "Artículo/Guía";
       default:
         return "Resultado";
     }
@@ -265,7 +486,8 @@ export default function AdvancedSearch({ onClose }) {
 
           {!loading && query.length > 2 && results.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-slate-400">No se encontraron resultados para "{query}"</p>
+              <p className="text-slate-400 mb-4">No se encontraron resultados exactos para "{query}"</p>
+              <p className="text-slate-500 text-sm">Intenta con diferentes palabras clave o explora nuestras secciones de Guías y Recursos</p>
             </div>
           )}
 
@@ -278,10 +500,10 @@ export default function AdvancedSearch({ onClose }) {
           {results.length > 0 && (
             <div className="space-y-3 max-h-96 overflow-y-auto">
               {results.map((result, idx) => (
-                <a
+                <button
                   key={`${result.type}-${result.id}-${idx}`}
-                  href={result.url}
-                  className="block p-4 rounded-lg bg-empulseAccent/10 hover:bg-empulseAccent/20 border border-empulseAccent/20 hover:border-empulseAccent/40 transition-all group"
+                  onClick={() => handleResultClick(result)}
+                  className="w-full text-left p-4 rounded-lg bg-empulseAccent/10 hover:bg-empulseAccent/20 border border-empulseAccent/20 hover:border-empulseAccent/40 transition-all group cursor-pointer"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-2xl mt-1">{getIcon(result.type)}</span>
@@ -298,7 +520,7 @@ export default function AdvancedSearch({ onClose }) {
                       <div className="text-xs text-slate-500 mt-2">{result.category}</div>
                     </div>
                   </div>
-                </a>
+                </button>
               ))}
             </div>
           )}

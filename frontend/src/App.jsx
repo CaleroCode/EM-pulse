@@ -743,7 +743,7 @@ function App() {
           />
         ) : (
           <>
-            <Hero />
+            <Hero setShowAdvancedSearch={setShowAdvancedSearch} />
 
             <section className="border-t border-empulseAccent/40 bg-empulseBg/90">
               <div className="max-w-7xl mx-auto px-4 py-10">
@@ -902,6 +902,12 @@ function App() {
       {showAdvancedSearch && (
         <AdvancedSearch 
           onClose={() => setShowAdvancedSearch(false)}
+          setShowMentalHealth={setShowMentalHealth}
+          setShowRights={setShowRights}
+          setShowGuides={setShowGuides}
+          setShowForum={setShowForum}
+          sectionToNavigate={sectionToNavigate}
+          setSectionToNavigate={setSectionToNavigate}
         />
       )}
     </div>

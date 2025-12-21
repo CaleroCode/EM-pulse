@@ -1,11 +1,9 @@
 import React from 'react';
-import AdvancedSearch from './AdvancedSearch';
 
-export default function Hero() {
+export default function Hero({ setShowAdvancedSearch }) {
   const [deferredPrompt, setDeferredPrompt] = React.useState(null);
   const [showInstallPrompt, setShowInstallPrompt] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
-  const [showAdvancedSearch, setShowAdvancedSearch] = React.useState(false);
 
   React.useEffect(() => {
     const handler = (e) => {
@@ -91,11 +89,7 @@ export default function Hero() {
         </div>
         
         {/* Modal de Búsqueda Avanzada */}
-        {showAdvancedSearch && (
-          <AdvancedSearch 
-            onClose={() => setShowAdvancedSearch(false)}
-          />
-        )}
+        {/* Movido al App.jsx para acceso al estado global */}
         
         <div className="flex flex-col items-center gap-3">
         </div>
