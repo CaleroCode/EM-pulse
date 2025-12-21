@@ -7,7 +7,6 @@ export default function AdvancedSearch({
   setShowRights,
   setShowGuides,
   setShowForum,
-  sectionToNavigate,
   setSectionToNavigate
 }) {
   const [query, setQuery] = useState("");
@@ -41,14 +40,6 @@ export default function AdvancedSearch({
     { id: "date", name: "Más Reciente" },
     { id: "popular", name: "Más Popular" },
   ];
-
-  // Función para buscar coincidencias parciales
-  const searchInText = (text, query) => {
-    if (!text) return false;
-    const lowerText = text.toLowerCase();
-    const lowerQuery = query.toLowerCase();
-    return lowerText.includes(lowerQuery);
-  };
 
   // Función para buscar en array de palabras clave
   const matchesKeywords = (item, query) => {
