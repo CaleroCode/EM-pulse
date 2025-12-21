@@ -168,15 +168,14 @@ export default function IndexPage({ onEnter }) {
 
       {/* Modal de Vídeo */}
       {showVideoModal && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 md:p-0" onClick={() => setShowVideoModal(false)}>
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-0 md:p-4" onClick={() => setShowVideoModal(false)}>
           <div 
-            className="rounded-lg overflow-hidden shadow-2xl max-w-2xl w-full border border-empulseAccent/30 md:max-h-[90vh] md:aspect-video"
+            className="rounded-none md:rounded-lg overflow-hidden shadow-2xl w-full md:w-full md:max-w-2xl md:border md:border-empulseAccent/30 flex flex-col"
             onClick={(e) => e.stopPropagation()}
             style={{
               background: 'linear-gradient(135deg, rgba(8, 69, 99, 0.95) 0%, rgba(10, 122, 153, 0.90) 100%)',
-              // En smartphone: pantalla completa orientada
-              maxHeight: window.innerWidth < 768 ? '100vh' : 'auto',
-              maxWidth: window.innerWidth < 768 ? '100vw' : 'auto',
+              height: window.innerWidth < 768 ? '100vh' : 'auto',
+              maxHeight: window.innerWidth < 768 ? '100vh' : '90vh',
             }}
           >
             {/* Header */}
@@ -193,20 +192,21 @@ export default function IndexPage({ onEnter }) {
               </button>
             </div>
 
-            {/* Botón cerrar en mobile */}
+            {/* Botón cerrar en mobile - esquina superior derecha */}
             <button
               onClick={() => {
                 setShowVideoModal(false);
                 setVideoLoading(true);
               }}
-              className="md:hidden absolute top-4 right-4 z-50 text-slate-300 hover:text-empulsePrimary transition-colors text-2xl leading-none font-bold bg-black/50 rounded-full w-10 h-10 flex items-center justify-center"
+              className="md:hidden absolute top-2 right-2 z-50 text-white text-3xl leading-none font-bold bg-black/70 rounded-full w-12 h-12 flex items-center justify-center hover:bg-black/90 transition-colors"
             >
               ×
             </button>
 
             {/* Video Container */}
-            <div className="aspect-video bg-black flex items-center justify-center relative" style={{
-              height: window.innerWidth < 768 ? '100vh' : 'auto',
+            <div className="flex-1 bg-black flex items-center justify-center relative w-full" style={{
+              aspectRatio: window.innerWidth < 768 ? 'auto' : '16 / 9',
+              minHeight: window.innerWidth < 768 ? '65vh' : 'auto',
             }}>
               {videoLoading && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 z-10">
@@ -225,7 +225,7 @@ export default function IndexPage({ onEnter }) {
               )}
               <video
                 src="https://res.cloudinary.com/dq6xfrycp/video/upload/v1766333920/empulse_video_pbgg3s.mp4"
-                controls={!videoLoading}
+                controls
                 autoPlay={false}
                 preload="metadata"
                 className="w-full h-full"
@@ -236,6 +236,9 @@ export default function IndexPage({ onEnter }) {
                 Tu navegador no soporta la etiqueta de vídeo.
               </video>
             </div>
+
+            {/* Espacio para controles en mobile */}
+            <div className="md:hidden h-16 bg-black/50 border-t border-empulseAccent/30"></div>
           </div>
         </div>
       )}
