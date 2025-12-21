@@ -208,9 +208,10 @@ export default function IndexPage({ onEnter }) {
                 </div>
               )}
               <video
-                src="/src/video/empulse_video.mp4"
+                src="https://res.cloudinary.com/dq6xfrycp/video/upload/v1766333920/empulse_video_pbgg3s.mp4"
                 controls={!videoLoading}
                 autoPlay={false}
+                preload="metadata"
                 className="w-full h-full"
                 onCanPlayThrough={() => setVideoLoading(false)}
                 onLoadedMetadata={() => setVideoLoading(false)}
