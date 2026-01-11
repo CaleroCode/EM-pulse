@@ -1,4 +1,4 @@
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 from django.urls import path
 from django.http import JsonResponse
 from .views import NewsViewSet
@@ -8,7 +8,7 @@ from .chat_views import chat_em_pulse, ollama_health_check
 def test_view(request):
     return JsonResponse({'status': 'ok', 'message': 'Communications app is working'})
 
-router = DefaultRouter()
+router = SimpleRouter()
 router.register(r"news", NewsViewSet, basename="news")
 
 urlpatterns = [

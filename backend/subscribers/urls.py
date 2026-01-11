@@ -1,7 +1,7 @@
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 from .views import SubscriberViewSet, AuthViewSet
 
-router = DefaultRouter()
+router = SimpleRouter()
 router.register(r"auth", AuthViewSet, basename="auth")
 router.register(r"subscribers", SubscriberViewSet, basename="subscriber")
 

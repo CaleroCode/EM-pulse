@@ -145,6 +145,32 @@ const symptomExplanations = {
       '✓ Entiende que estos problemas afectan la salud y la dignidad.'
     ],
     quotes: '"Mi sistema digestivo es impredecible. Nunca sé qué esperar cada día."'
+  },
+  'espasticidad': {
+    title: 'Comprendiendo la Espasticidad en la EM',
+    caregiverNote: 'La espasticidad causa rigidez muscular involuntaria que es dolorosa y limitante.',
+    explanation: 'La espasticidad es una tensión muscular involuntaria que causa rigidez, contracciones incontrolables y dolor. Es como si los músculos estuvieran permanentemente "cerrados". Esto afecta la movilidad, causa dolor crónico y hace que tareas simples sean agotadoras.',
+    howToSupport: [
+      '✓ Entiende que no es una "tirantez" que pueda relajarse con voluntad.',
+      '✓ Ayuda con estiramientos suaves y movimientos que alivian la rigidez.',
+      '✓ Apoya el acceso a terapias físicas, masajes o medicamentos.',
+      '✓ Reconoce que el dolor causado por espasticidad es real y debilitante.',
+      '✓ Sé paciente si los movimientos son más lentos o limitados.'
+    ],
+    quotes: '"Mis músculos están permanentemente tensos. Es como si estuvieran bajo control de otra persona."'
+  },
+  'coordinación': {
+    title: 'Comprendiendo los Problemas de Coordinación en la EM',
+    caregiverNote: 'Los problemas de coordinación hacen que movimientos simples se conviertan en un desafío.',
+    explanation: 'Los problemas de coordinación significan que el cuerpo no responde de manera coordinada. La persona puede experimentar temblores, movimientos imprecisos, pérdida del equilibrio o falta de sincronización entre extremidades. Esto afecta especialmente tareas que antes eran automáticas como caminar, escribir, comer o sostener objetos.',
+    howToSupport: [
+      '✓ Ofrece ayuda discreta sin hacer que se sienta incapaz.',
+      '✓ Entiende que la torpeza no es culpa suya, es síntoma.',
+      '✓ Adapta el entorno para prevenir accidentes: elimina obstáculos.',
+      '✓ Sé paciente con el tiempo que tarda en hacer actividades.',
+      '✓ Celebra los logros, incluso pequeños ajustes en movimientos.'
+    ],
+    quotes: '"No puedo controlar mis manos como antes. Necesito concentrarme en movimientos que solían ser automáticos."'
   }
 };
 

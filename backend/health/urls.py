@@ -1,7 +1,7 @@
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 from .views import SymptomViewSet
 
-router = DefaultRouter()
+router = SimpleRouter()
 router.register(r"symptoms", SymptomViewSet, basename="symptom")
 
 urlpatterns = router.urls

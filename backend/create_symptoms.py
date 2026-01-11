@@ -54,9 +54,9 @@ symptoms_data = [
         "category": "Motriz"
     },
     {
-        "name": "Disfunción urinaria",
-        "description": "Problemas con el control de la vejiga o urgencia para orinar.",
-        "category": "Fisiológico"
+        "name": "Ansiedad",
+        "description": "Sentimientos de preocupación y nerviosismo que pueden interferir en la vida diaria.",
+        "category": "Psicológico"
     }
 ]
 
