@@ -10,6 +10,7 @@ export default function ProfilePage({
   setEditingProfileName,
   profileName,
   setProfileName,
+  handleUpdateProfileName,
   profilePreferences,
   handlePreferencesChange,
   handleLogout,
@@ -46,7 +47,7 @@ export default function ProfilePage({
               <label className="absolute bottom-2 right-2 bg-empulsePrimary rounded-full p-2 cursor-pointer hover:bg-empulseMid transition">
                 <input
                   type="file"
-                  accept="image/*"
+                  accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,image/svg+xml"
                   onChange={handleProfileImageChange}
                   className="hidden"
                 />
@@ -67,9 +68,12 @@ export default function ProfilePage({
                   className="rounded-lg bg-empulseBg border border-empulseAccent/40 px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-empulsePrimary"
                 />
                 <Button
-                  onClick={() => {
+                  onClick={async () => {
                     if (profileName.trim()) {
-                      setEditingProfileName(false);
+                      const success = await handleUpdateProfileName(profileName);
+                      if (success) {
+                        setEditingProfileName(false);
+                      }
                     }
                   }}
                   size="md"

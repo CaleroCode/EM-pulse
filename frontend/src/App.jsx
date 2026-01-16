@@ -419,12 +419,97 @@ function App() {
   const handleProfileImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Validar que sea una imagen y no un PDF
+      const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
+      const isPDF = file.type === 'application/pdf';
+      
+      if (isPDF) {
+        alert('❌ No se puede usar un PDF como imagen de perfil. Por favor, selecciona un archivo de imagen (JPG, PNG, GIF, WebP, etc.)');
+        return;
+      }
+      
+      if (!validImageTypes.includes(file.type)) {
+        alert('⚠️ Formato de archivo no válido. Por favor, selecciona una imagen válida (JPG, PNG, GIF, WebP, etc.)');
+        return;
+      }
+      
       const reader = new FileReader();
       reader.onloadend = () => {
         setProfileImage(reader.result);
         localStorage.setItem("profile_image", reader.result);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUpdateProfileName = async (newName) => {
+    if (!user || !token) {
+      alert('⚠️ Debes iniciar sesión para actualizar tu perfil.');
+      return false;
+    }
+
+    if (!newName.trim()) {
+      alert('⚠️ El nombre no puede estar vacío.');
+      return false;
+    }
+
+    try {
+      // Buscar el suscriptor por email
+      const response = await fetch(`${API_BASE_URL}/api/subscribers/?email=${user.email}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("No se encontró el perfil del usuario.");
+      }
+
+      const subscribers = await response.json();
+      if (!subscribers || subscribers.length === 0) {
+        // Si no existe como suscriptor, crearlo
+        await fetch(`${API_BASE_URL}/api/subscribers/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.email,
+            name: newName,
+            preferences: profilePreferences,
+          }),
+        });
+      } else {
+        // Si existe, actualizar el nombre
+        const subscriberId = subscribers[0].id;
+        const updateResponse = await fetch(`${API_BASE_URL}/api/subscribers/${subscriberId}/`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: newName,
+          }),
+        });
+
+        if (!updateResponse.ok) {
+          throw new Error("No se pudo actualizar el nombre.");
+        }
+      }
+
+      // Actualizar el estado local
+      setUser({
+        ...user,
+        name: newName,
+      });
+      setProfileName(newName);
+      alert('✅ Nombre actualizado correctamente.');
+      return true;
+    } catch (err) {
+      console.error("Error actualizando nombre:", err);
+      alert('❌ Error al actualizar el nombre. Intenta de nuevo.');
+      return false;
     }
   };
 
@@ -818,6 +903,7 @@ function App() {
             setEditingProfileName={setEditingProfileName}
             profileName={profileName}
             setProfileName={setProfileName}
+            handleUpdateProfileName={handleUpdateProfileName}
             profilePreferences={profilePreferences}
             handlePreferencesChange={handlePreferencesChange}
             handleLogout={handleLogout}
@@ -854,6 +940,7 @@ function App() {
         setEditingProfileName={setEditingProfileName}
         profileName={profileName}
         setProfileName={setProfileName}
+        handleUpdateProfileName={handleUpdateProfileName}
         profilePreferences={profilePreferences}
         handlePreferencesChange={handlePreferencesChange}
         handleLogout={handleLogout}
