@@ -129,7 +129,7 @@ export default function AccessibilityPage({ onClose }) {
         >
           {/* Header */}
           <div
-            className={`sticky top-0 flex items-center justify-between p-6 border-b bg-empulseAccent/10 border-empulseAccent/30`}
+            className={`flex items-center justify-between p-6 border-b bg-empulseAccent/10 border-empulseAccent/30`}
           >
             <div className="flex items-center gap-3">
               <Accessibility
