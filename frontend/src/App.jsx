@@ -25,6 +25,7 @@ import TusDerechos from "./pages/TusDerechos";
 import GuiasYRecursos from "./pages/GuiasYRecursos";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
+import CookiePolicy from "./pages/CookiePolicy";
 import GDPRNotice from "./pages/GDPRNotice";
 import Forum from "./pages/Forum";
 import AccessibilityPage from "./pages/AccessibilityPage";
@@ -167,6 +168,11 @@ function App() {
   // Estado: Términos de Servicio
   // ======================
   const [showTerms, setShowTerms] = useState(false);
+
+  // ======================
+  // Estado: Política de Cookies
+  // ======================
+  const [showCookies, setShowCookies] = useState(false);
 
   // ======================
   // Estado: Chat EM-PULSE
@@ -607,6 +613,7 @@ function App() {
     setShowAllNews(false);
     setShowPrivacy(false);
     setShowTerms(false);
+    setShowCookies(false);
     setShowChat(false);
     setShowAccessibility(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -887,6 +894,7 @@ function App() {
       <Footer 
         onPrivacyClick={() => setShowPrivacy(true)}
         onTermsClick={() => setShowTerms(true)}
+        onCookiesClick={() => setShowCookies(true)}
       />
         </>
       )}
@@ -971,6 +979,10 @@ function App() {
 
       {showTerms && (
         <TermsOfService onClose={() => setShowTerms(false)} />
+      )}
+
+      {showCookies && (
+        <CookiePolicy onClose={() => setShowCookies(false)} />
       )}
 
       <GDPRNotice 

@@ -1,6 +1,6 @@
 import { MapPin, Mail, Phone, Shield, FileText, Eye } from "lucide-react";
 
-export default function Footer({ onPrivacyClick, onTermsClick }) {
+export default function Footer({ onPrivacyClick, onTermsClick, onCookiesClick }) {
   return (
     <footer className="border-t border-empulseAccent/40 bg-dark-bg">
       <div className="max-w-6xl mx-auto px-4 py-12">
@@ -59,8 +59,8 @@ export default function Footer({ onPrivacyClick, onTermsClick }) {
                 Términos de Servicio
               </button>
               <a
-                href="#"
-                className="flex gap-2 text-slate-400 hover:text-empulsePrimary transition w-full"
+                onClick={onCookiesClick}
+                className="flex gap-2 text-slate-400 hover:text-empulsePrimary transition w-full cursor-pointer"
               >
                 <Shield className="w-4 h-4" />
                 Política de Cookies
