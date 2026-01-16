@@ -6,6 +6,11 @@ export default function IndexPage({ onEnter }) {
   const [isEntering, setIsEntering] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [videoLoading, setVideoLoading] = useState(true);
+  const isLinux = useState(() => {
+    // Detectar si el usuario está en Linux en la inicialización
+    const userAgent = navigator.userAgent.toLowerCase();
+    return /linux/.test(userAgent);
+  })[0];
 
   const handleEnter = () => {
     setIsEntering(true);
@@ -91,6 +96,15 @@ export default function IndexPage({ onEnter }) {
           <p className="text-slate-400 text-xs md:text-sm">
             Aquí tienes un <strong>lugar seguro</strong> y una <strong>mano amiga</strong>.
           </p>
+          
+          {/* Aviso específico para usuarios de Linux */}
+          {isLinux && (
+            <div className="mt-6 p-4 bg-yellow-500/20 border-2 border-yellow-500/60 rounded-lg">
+              <p className="text-yellow-300 text-xs md:text-sm font-semibold">
+                ⚠️ Se ha encontrado errores de visionado para usuarios de Linux. Estamos trabajando en solucionarlos lo antes posible. Disculpen las molestias
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
